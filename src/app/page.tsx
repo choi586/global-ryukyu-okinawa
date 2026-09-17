@@ -68,7 +68,6 @@ export default async function Home() {
               </div>
             ))}
           </div>
-          <p className="source-note">공식 소개 페이지의 연구소 비전 5개 항목을 요약했습니다.</p>
         </div>
       </section>
       <section className="shell news-section">
