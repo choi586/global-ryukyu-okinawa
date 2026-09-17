@@ -10,7 +10,8 @@
     "setup": "node scripts/setup.mjs",
     "test": "playwright test",
     "test:persistence": "node scripts/test-persistence.mjs",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "migrate:supabase": "node scripts/migrate-to-supabase.mjs"
   },
   "engines": {
     "node": ">=22.13.0"
