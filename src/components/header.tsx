@@ -75,7 +75,6 @@ export function Header() {
             ) : (
               <span key={key} className="nav-disabled" aria-disabled="true">
                 {label}
-                <small>준비 중</small>
               </span>
             ),
           )}
