@@ -109,7 +109,7 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
         }
       }}
     >
-      <h1 className="carousel-institute">글로벌류큐·오키나와연구소</h1>
+      <h1 className="visually-hidden">글로벌류큐·오키나와연구소</h1>
       <div className="carousel-stage" aria-live={paused ? 'polite' : 'off'}>
         {slides.map((slide, i) => (
           <article

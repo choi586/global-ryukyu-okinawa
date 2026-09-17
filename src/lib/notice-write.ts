@@ -3,7 +3,9 @@ import { randomUUID } from 'node:crypto';
 import type { Attachment, Notice } from './types';
 import { categories, type Category } from './types';
 import { deleteFile, putRecord, saveFile } from './store';
-export class InputError extends Error {}
+import { InputError, MAX_FILE_BYTES, MAX_BATCH_BYTES } from './upload-policy';
+import { uploadForm } from './upload-form';
+export { InputError } from './upload-policy';
 export function detectedType(buffer: Buffer): string | null {
   if (buffer.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])))
     return 'image/png';
@@ -14,9 +16,7 @@ export function detectedType(buffer: Buffer): string | null {
   return null;
 }
 export async function writeNotice(request: Request, previous?: Notice) {
-  if (Number(request.headers.get('content-length') || 0) > 3.5 * 1024 * 1024)
-    throw new InputError('한 번에 업로드할 수 있는 파일 총용량은 3MB입니다.');
-  const form = await request.formData();
+  const form = await uploadForm(request);
   const title = String(form.get('title') || '').trim();
   const body = String(form.get('body') || '').trim();
   const status = String(form.get('status'));
@@ -39,11 +39,12 @@ export async function writeNotice(request: Request, previous?: Notice) {
   const files = form.getAll('files').filter((v): v is File => v instanceof File && v.size > 0);
   if (files.length + attachments.length > 10)
     throw new InputError('첨부파일은 최대 10개까지 가능합니다.');
-  if (files.reduce((sum, f) => sum + f.size, 0) > 3 * 1024 * 1024)
-    throw new InputError('새 파일의 총용량은 3MB 이하여야 합니다.');
+  if (files.reduce((sum, f) => sum + f.size, 0) > MAX_BATCH_BYTES)
+    throw new InputError('한 번에 올리는 새 파일의 합계는 3MB 이하여야 합니다.');
   const prepared: { meta: Attachment; bytes: Buffer }[] = [];
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
+    if (file.size > MAX_FILE_BYTES) throw new InputError('파일 하나는 3MB 이하여야 합니다.');
     const bytes = Buffer.from(await file.arrayBuffer());
     const type = detectedType(bytes);
     if (!type) throw new InputError('JPG, PNG, WEBP 이미지와 PDF 파일만 업로드할 수 있습니다.');

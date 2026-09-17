@@ -2,9 +2,10 @@
 
 // Resize before upload, keeping PDF files and small images unchanged.
 export async function optimizeUpload(file: File): Promise<File> {
+  if (file.size > 20_000_000) throw new Error('원본 파일은 20MB 이하로 선택해주세요.');
   if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size < 200_000)
     return file;
-  if (file.size > 30 * 1024 * 1024) throw new Error('사진 원본은 30MB 이하로 선택해주세요.');
+
   const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
   try {
     const scale = Math.min(1, 1920 / Math.max(bitmap.width, bitmap.height));

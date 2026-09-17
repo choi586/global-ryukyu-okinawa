@@ -15,7 +15,7 @@ export function Footer() {
           </address>
         </div>
         <div className="footer-links">
-          <Link href="/news">공지사항</Link>
+          <a href="/news">공지사항</a>
           <Link href="/admin">관리자 로그인</Link>
         </div>
       </div>

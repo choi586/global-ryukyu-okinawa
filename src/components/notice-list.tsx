@@ -1,6 +1,14 @@
 import Link from 'next/link';
-import { dateLabel, type Notice } from '@/lib/types';
-export function NoticeList({ notices }: { notices: Notice[] }) {
+import type { NoticeSummary } from '@/lib/public-list';
+import { dateLabel } from '@/lib/types';
+export function NoticeList({
+  notices,
+}: {
+  notices: Pick<
+    NoticeSummary,
+    'id' | 'slug' | 'title' | 'pinned' | 'publishedAt' | 'attachmentCount'
+  >[];
+}) {
   if (!notices.length)
     return (
       <div className="empty-state">
@@ -20,8 +28,8 @@ export function NoticeList({ notices }: { notices: Notice[] }) {
           </span>
           <span className="notice-title">
             {notice.title}
-            {notice.attachments.length > 0 && (
-              <small className="attachment-hint">첨부 {notice.attachments.length}</small>
+            {notice.attachmentCount > 0 && (
+              <small className="attachment-hint">첨부 {notice.attachmentCount}</small>
             )}
           </span>
           <time dateTime={notice.publishedAt}>{dateLabel(notice.publishedAt)}</time>

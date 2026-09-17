@@ -24,7 +24,18 @@ try {
   for (const file of manifest.files)
     await proxy.env.MEDIA.put(file.key, await readFile('.data/cloudflare-export/r2/' + file.key), {
       httpMetadata: { contentType: file.contentType },
+      storageClass: 'Standard',
     });
+  let cursor;
+  do {
+    const listing = await proxy.env.MEDIA.list({ cursor });
+    for (const file of listing.objects)
+      await proxy.env.DB.prepare('INSERT OR IGNORE INTO media_usage VALUES (?,?)')
+        .bind(file.key, file.size)
+        .run();
+    cursor = listing.truncated ? listing.cursor : undefined;
+  } while (cursor);
+  await proxy.env.DB.prepare('INSERT OR REPLACE INTO media_policy VALUES (1,1)').run();
   console.log('Local D1/R2 prepared:', rows.length, 'records;', manifest.files.length, 'files');
 } finally {
   await proxy.dispose();

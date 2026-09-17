@@ -30,14 +30,15 @@ export type Notice = {
   sourceUrl?: string;
   sourceCategory?: string;
 };
-export function noticePath(notice: Notice) {
+export function noticePath(notice: Pick<Notice, 'category' | 'slug'>) {
   return `/${notice.category || 'news'}/${notice.slug}`;
 }
+const dateFormatter = new Intl.DateTimeFormat('ko-KR', {
+  timeZone: 'Asia/Seoul',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
 export function dateLabel(value: string) {
-  return new Intl.DateTimeFormat('ko-KR', {
-    timeZone: 'Asia/Seoul',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(new Date(value));
+  return dateFormatter.format(new Date(value));
 }

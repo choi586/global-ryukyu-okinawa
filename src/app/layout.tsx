@@ -15,7 +15,10 @@ export const metadata: Metadata = {
   },
   description: '경희대학교 글로벌류큐·오키나와연구소의 공지사항과 연구 소식을 전합니다.',
   robots: { index: false, follow: false },
-  icons: { icon: '/images/institute-logo.png' },
+  icons: {
+    icon: { url: '/images/institute-mark.png', type: 'image/png' },
+    apple: '/images/institute-mark.png',
+  },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

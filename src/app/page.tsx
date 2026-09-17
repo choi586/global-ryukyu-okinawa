@@ -1,14 +1,19 @@
 import Link from 'next/link';
 import { HeroCarousel } from '@/components/hero-carousel';
 import { publicSlides } from '@/lib/carousel';
-import { publicNotices } from '@/lib/store';
+import { publicPage } from '@/lib/store';
 import { NoticeList } from '@/components/notice-list';
 import { institute } from '@/data/institute';
 import { ContentCards } from '@/components/content-cards';
 export const dynamic = 'force-dynamic';
 export default async function Home() {
-  const [all, slides] = await Promise.all([publicNotices(), publicSlides()]);
-  const notices = all.filter((n) => (n.category || 'news') === 'news').slice(0, 4);
+  const [news, activities, publications, slides] = await Promise.all([
+    publicPage('news', 1, 4),
+    publicPage('activities', 1, 3),
+    publicPage('publications', 1, 3),
+    publicSlides(),
+  ]);
+  const notices = news.notices;
   return (
     <>
       <HeroCarousel initialSlides={slides} />
@@ -49,9 +54,9 @@ export default async function Home() {
             <p className="english-section-title">News</p>
             <h2>공지사항</h2>
           </div>
-          <Link href="/news" className="text-link">
+          <a href="/news" className="text-link">
             전체 공지 보기 <span aria-hidden="true">↗</span>
-          </Link>
+          </a>
         </div>
         <NoticeList notices={notices} />
       </section>
@@ -69,7 +74,9 @@ export default async function Home() {
                 전체 보기 ↗
               </Link>
             </div>
-            <ContentCards notices={all.filter((n) => n.category === category).slice(0, 3)} />
+            <ContentCards
+              notices={(category === 'activities' ? activities : publications).notices}
+            />
           </div>
         </section>
       ))}

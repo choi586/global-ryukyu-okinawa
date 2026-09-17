@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { publicNotices } from '@/lib/store';
+import { publicPage } from '@/lib/store';
 import { categories, type Category } from '@/lib/types';
 import { ContentCards } from './content-cards';
 
@@ -10,9 +10,7 @@ export async function ContentBoard({
   category: Category;
   page?: string;
 }) {
-  const all = await publicNotices(category);
-  const pages = Math.max(1, Math.ceil(all.length / 9));
-  const page = Math.min(pages, Math.max(1, Math.floor(Number(requested) || 1)));
+  const { notices, total, page, pages } = await publicPage(category, requested, 9);
   return (
     <>
       <div className="page-banner">
@@ -27,11 +25,11 @@ export async function ContentBoard({
       <section className="shell board-section">
         <div className="board-toolbar">
           <span>
-            전체 <strong>{all.length}</strong>건
+            전체 <strong>{total}</strong>건
           </span>
           <span>게시일 최신순</span>
         </div>
-        <ContentCards notices={all.slice((page - 1) * 9, page * 9)} />
+        <ContentCards notices={notices} />
         {pages > 1 && (
           <nav className="pagination" aria-label={`${categories[category]} 페이지`}>
             {page > 1 && <Link href={`/${category}?page=${page - 1}`}>이전</Link>}

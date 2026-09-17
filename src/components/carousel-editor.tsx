@@ -165,7 +165,10 @@ export function CarouselEditor({ initial }: { initial: Carousel }) {
                     }}
                   />
                 </label>
-                <p className="field-help">JPG · PNG · WEBP / 자동 최적화 후 한 장 최대 3MB</p>
+                <p className="field-help">
+                  JPG · PNG · WEBP / 자동 최적화 / 최적화 후 한 장 최대 3MB · 한 번에 합계 15MB /
+                  전체 저장 한도 5GB
+                </p>
                 <label>
                   사진 표시 방식
                   <select

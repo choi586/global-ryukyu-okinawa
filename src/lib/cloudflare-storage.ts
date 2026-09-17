@@ -11,7 +11,7 @@ export interface Bindings {
     put(
       key: string,
       value: Uint8Array,
-      options: { httpMetadata: { contentType: string } },
+      options: { httpMetadata: { contentType: string }; storageClass: 'Standard' },
     ): Promise<unknown>;
     get(key: string): Promise<{ arrayBuffer(): Promise<ArrayBuffer> } | null>;
     delete(key: string): Promise<void>;

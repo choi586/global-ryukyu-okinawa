@@ -2,6 +2,8 @@ import 'server-only';
 import { randomUUID } from 'node:crypto';
 import { getRecord, saveFile, deleteFile, replaceVersionedRecord } from './store';
 import { detectedType, InputError } from './notice-write';
+import { MAX_FILE_BYTES, MAX_CAROUSEL_BATCH_BYTES } from './upload-policy';
+import { uploadForm } from './upload-form';
 import type { Carousel, Slide } from './carousel-types';
 export async function getCarousel(): Promise<Carousel> {
   return (await getRecord<Carousel>('carousel', 'main')) || { revision: 0, slides: [] };
@@ -26,9 +28,7 @@ function safeHref(value: unknown) {
 }
 export class ConflictError extends Error {}
 export async function writeCarousel(request: Request) {
-  if (Number(request.headers.get('content-length') || 0) > 17 * 1024 * 1024)
-    throw new InputError('한 번에 올리는 사진 용량을 줄여주세요.');
-  const form = await request.formData();
+  const form = await uploadForm(request, MAX_CAROUSEL_BATCH_BYTES);
   let input: { revision: number; slides: Record<string, unknown>[] };
   try {
     input = JSON.parse(String(form.get('config') || ''));
@@ -66,7 +66,7 @@ export async function writeCarousel(request: Request) {
     const upload = form.get(`image-${id}`);
     let image = old?.image;
     if (upload instanceof File && upload.size) {
-      if (upload.size > 3 * 1024 * 1024)
+      if (upload.size > MAX_FILE_BYTES)
         throw new InputError('사진 한 장은 최적화 후 3MB 이하여야 합니다.');
       const bytes = Buffer.from(await upload.arrayBuffer());
       const type = detectedType(bytes);
@@ -93,8 +93,8 @@ export async function writeCarousel(request: Request) {
       image: { ...image, alt },
     });
   }
-  if (prepared.reduce((sum, f) => sum + f.bytes.length, 0) > 15 * 1024 * 1024)
-    throw new InputError('새 사진의 합계는 15MB 이하여야 합니다.');
+  if (prepared.reduce((sum, f) => sum + f.bytes.length, 0) > MAX_CAROUSEL_BATCH_BYTES)
+    throw new InputError('한 번에 올리는 새 사진의 합계는 15MB 이하여야 합니다.');
   const saved: string[] = [];
   const result = { revision: previous.revision + 1, slides };
   try {

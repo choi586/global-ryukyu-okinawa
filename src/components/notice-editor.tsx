@@ -88,8 +88,8 @@ export function NoticeEditor({ notice }: { notice?: Notice }) {
           <section className="editor-panel stack-form">
             <h2>이미지 및 첨부파일</h2>
             <p className="field-help">
-              JPG · PNG · WEBP · PDF / 사진 자동 최적화 / 최적화 후 새 파일 합계 3MB 이하 / 글당
-              최대 10개
+              JPG · PNG · WEBP · PDF / 사진 자동 최적화 / 최적화 후 새 파일 합계 3MB 이하 / 전체
+              저장 한도 5GB / 글당 최대 10개
             </p>
             {retained.length > 0 && (
               <ul className="existing-files">

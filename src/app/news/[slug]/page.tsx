@@ -1,13 +1,12 @@
+import { cache } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { publicNotices } from '@/lib/store';
+import { publicNoticeBySlug } from '@/lib/store';
 import { dateLabel, categories, noticePath } from '@/lib/types';
 export const dynamic = 'force-dynamic';
 type Props = { params: Promise<{ slug: string }> };
-async function find(slug: string) {
-  return (await publicNotices()).find((n) => n.slug === slug);
-}
+const find = cache(publicNoticeBySlug);
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const n = await find((await params).slug);
   return {

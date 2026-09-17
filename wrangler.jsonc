@@ -8,6 +8,7 @@
     "directory": "dist/client",
     "not_found_handling": "none",
     "binding": "ASSETS",
+    "html_handling": "none",
   },
   "vars": {
     "STORAGE_DRIVER": "cloudflare",

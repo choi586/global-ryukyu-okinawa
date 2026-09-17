@@ -22,7 +22,6 @@ export default function About() {
       </div>
       <section className="shell institute-about">
         <div className="about-heading">
-          <p className="english-section-title">Our Institute</p>
           <h2>{institute.mission}</h2>
           <p>{institute.name}</p>
         </div>

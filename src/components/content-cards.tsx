@@ -1,12 +1,13 @@
 import Link from 'next/link';
-import { dateLabel, noticePath, type Notice } from '@/lib/types';
+import type { NoticeSummary } from '@/lib/public-list';
+import { dateLabel, noticePath } from '@/lib/types';
 
-export function ContentCards({ notices }: { notices: Notice[] }) {
+export function ContentCards({ notices }: { notices: NoticeSummary[] }) {
   if (!notices.length) return <p className="empty-state">등록된 자료가 없습니다.</p>;
   return (
     <div className="content-grid">
       {notices.map((notice) => {
-        const picture = notice.attachments.find((file) => file.type.startsWith('image/'));
+        const picture = notice.picture;
         return (
           <Link className="content-card" href={noticePath(notice)} key={notice.id}>
             <div className="content-card-media">

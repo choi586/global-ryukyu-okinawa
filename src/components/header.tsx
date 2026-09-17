@@ -27,12 +27,7 @@ export function Header() {
   }, [open]);
   return (
     <header className="site-header">
-      <div className="topline">
-        <div className="shell">
-          <span>KYUNG HEE UNIVERSITY</span>
-          <span>글로벌류큐·오키나와연구소</span>
-        </div>
-      </div>
+      <div className="topline" aria-hidden="true" />
       <div className="shell header-inner">
         <Link
           href="/"
@@ -63,7 +58,11 @@ export function Header() {
           aria-label="주 메뉴"
         >
           {items.map(([label, key]) =>
-            ['about', 'people', 'news', 'activities', 'publications'].includes(key) ? (
+            key === 'news' ? (
+              <a key={key} href="/news" aria-current={pathname === '/news' ? 'page' : undefined}>
+                {label}
+              </a>
+            ) : ['about', 'people', 'activities', 'publications'].includes(key) ? (
               <Link
                 key={key}
                 href={`/${key}`}

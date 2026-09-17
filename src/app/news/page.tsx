@@ -1,14 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { publicNotices } from '@/lib/store';
-import { NoticeList } from '@/components/notice-list';
-export const dynamic = 'force-dynamic';
+import { NewsBoard } from '@/components/news-board';
+export const dynamic = 'force-static';
 export const metadata: Metadata = { title: '공지사항' };
-export default async function News({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
-  const all = await publicNotices('news');
-  const pages = Math.max(1, Math.ceil(all.length / 10));
-  const requested = Number((await searchParams).page) || 1;
-  const page = Math.min(pages, Math.max(1, Math.floor(requested)));
+export default function News() {
   return (
     <>
       <div className="page-banner">
@@ -22,22 +17,7 @@ export default async function News({ searchParams }: { searchParams: Promise<{ p
         </div>
       </div>
       <section className="shell board-section">
-        <div className="board-toolbar">
-          <span>
-            전체 <strong>{all.length}</strong>건
-          </span>
-          <span>최신순 · 중요 공지 우선</span>
-        </div>
-        <NoticeList notices={all.slice((page - 1) * 10, page * 10)} />
-        {pages > 1 && (
-          <nav className="pagination" aria-label="공지사항 페이지">
-            {page > 1 && <Link href={`/news?page=${page - 1}`}>이전</Link>}
-            <span aria-live="polite">
-              {page} / {pages}
-            </span>
-            {page < pages && <Link href={`/news?page=${page + 1}`}>다음</Link>}
-          </nav>
-        )}
+        <NewsBoard />
       </section>
     </>
   );

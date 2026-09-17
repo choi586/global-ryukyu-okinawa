@@ -66,7 +66,7 @@ pnpm exec wrangler deploy --config dist/server/wrangler.json
 
 최초 배포에서는 `--secrets-file .data/production-secrets.json`으로 관리자 아이디와 비밀번호 해시를 설정합니다. 이후 일반 배포는 기존 비밀 값을 유지합니다. `APP_URL`은 실제 접속 주소와 일치해야 합니다. `.env.local`은 로컬 실행 전용이며 Worker 빌드는 이를 읽지 않습니다. `.dev.vars`는 로컬 Workers 검증 전용입니다.
 
-로컬 Workers 검증은 `pnpm export:cloudflare`, `node scripts/seed-cloudflare-local.mjs`, `pnpm start:vinext` 순서로 실행할 수 있습니다. 초기 온라인 이전용 파일은 `.data/cloudflare-export/`에 생성됩니다. `scripts/upload-cloudflare-media.mjs`는 파일 해시를 확인하며 업로드 완료 기록으로 재개할 수 있습니다. 내보내기는 로그인 세션과 비밀번호를 포함하지 않습니다. 이미 운영 중인 D1에 전체 SQL을 다시 넣지 말고 변경 내용을 비교해야 합니다.
+로컬 Workers 검증은 `pnpm export:cloudflare`, `node scripts/seed-cloudflare-local.mjs`, `pnpm start:vinext` 순서로 실행할 수 있습니다. 초기 온라인 이전용 파일은 `.data/cloudflare-export/`에 생성됩니다. 직접 R2로 올리던 이전용 업로드 스크립트는 비활성화했습니다. 모든 온라인 파일 추가는 관리자 화면을 이용합니다. 내보내기는 로그인 세션과 비밀번호를 포함하지 않습니다. 이미 운영 중인 D1에 전체 SQL을 다시 넣지 말고 변경 내용을 비교해야 합니다.
 
 R2는 직접 공개하지 않으며 Workers가 글과 캐러셀의 공개 상태를 확인한 후 파일을 제공합니다.
 
@@ -86,3 +86,23 @@ pnpm test:persistence
 게시물·로그인 세션: `.data/institute.sqlite` · 첨부파일: `.data/uploads/`
 
 SQLite 백업 API 또는 서버 정지 후 `.data` 전체 복사로 백업합니다. 원본 자료·로그인 정보·환경변수는 GitHub가 백업하지 않습니다. 현재 로컬 모드는 한 서버 인스턴스 전용입니다.
+
+## 저장소 운영 제한
+
+- R2는 Standard만 사용하며, 모든 홈페이지 업로드에 `storageClass: Standard`를 명시합니다.
+- 관리자 로그인과 동일 출처 확인을 통과한 요청만 파일을 추가할 수 있습니다.
+- 실제 파일 헤더로 JPG, PNG, WEBP, PDF를 구분합니다. 캐러셀은 이미지만 허용합니다.
+- 기존 제한 유지: 업로드 파일당 3MiB, 공지 새 파일 합계 3MiB, 캐러셀 새 사진 합계 15MiB. 선택하는 원본은 20MB 이하이며 이미지는 업로드 전 최적화합니다.
+- 전체 미디어 한도는 5,000,000,000바이트(5GB)입니다. 기존 R2 파일, 미리보기, 사용되지 않는 잔여 파일도 포함합니다.
+- D1 `media_usage`에 저장 공간을 원자적으로 예약한 후 업로드합니다. 동시 요청도 한도를 공유합니다. R2 삭제 성공 후에만 공간을 돌려주며, 결과가 불확실한 업로드는 예약을 유지해 용량을 적게 계산하지 않습니다.
+- 초기 R2 전체 목록 등록과 `media_policy` 초기화가 완료되지 않으면 업로드를 거부합니다. 데이터 이전이나 직접 대시보드/S3 업로드는 이 앱의 제한을 우회하므로 사용하지 않습니다. 외부에서 파일을 바꾼 경우 업로드를 중지하고 저장량을 다시 대조해야 합니다.
+- 자동 업로드, 예약 백업, R2 SQL, Data Catalog, Infrequent Access 전환은 사용하지 않습니다. 로컬 검증용 자료 생성은 명시적으로 실행할 때만 로컬에서 이루어집니다.
+- Workers는 Free 유지 정책입니다. 배포 과정은 유료 구독을 생성하거나 변경하지 않습니다. 계정 결제 플랜은 Cloudflare 대시보드에서 별도 관리하며 코드 설정만으로 잠글 수 없습니다.
+
+## 공지 목록 CPU 최적화
+
+`/news`, `/about`, `/people`의 HTML 및 RSC는 빌드 시 로컬 Workers에서 미리 생성합니다. 공지 본문 데이터는 정적 파일에 포함하지 않으며, `/api/public/news`에서 공개된 뉴스 10개의 목록 필드만 조회합니다. 정적 화면과 목록 API는 React SSR 모듈을 불러오지 않는 진입점을 사용합니다. 목록 데이터는 캐시하지 않아 관리자 공개 상태 변경을 바로 반영합니다. 페이지 골격은 정적 파일 ETag로 재검증합니다.
+
+`pnpm build:vinext`의 마지막 단계인 `scripts/prepare-static-pages.mjs`는 포트 8799를 잠시 사용합니다. Cloudflare 원격 데이터에는 접근하거나 업로드하지 않습니다. 실제 배포 설정은 `dist/server/wrangler.json`을 사용해야 합니다. 사진·관리자 경로는 공개 정적 페이지 캐시에 포함하지 않습니다.
+
+현재 확인된 운영 Worker 이름은 `global-ryukyu-okinawa`, 계정 하위 도메인은 `ryukyu-okinawa`입니다. 사용자가 요청한 `khu.okinawa.workers.dev`를 위해 새 Worker를 만들거나 계정 하위 도메인을 자동 변경하지 않습니다. 기존 Worker의 이름 변경 가능 여부와 계정 하위 도메인 변경은 대시보드에서 확인한 후 `wrangler.jsonc`의 name/APP_URL을 실제 값과 함께 맞춰야 합니다. D1/R2 바인딩의 이름과 ID는 유지합니다.
