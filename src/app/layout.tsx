@@ -12,7 +12,7 @@ import '@fontsource/merriweather/latin-400.css';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://global-ryukyu-okinawa.ryukyu-okinawa.workers.dev'),
+  metadataBase: new URL('https://khu.ryukyu-okinawa.workers.dev'),
 
   title: {
     default: '글로벌류큐·오키나와연구소 | 경희대학교',
