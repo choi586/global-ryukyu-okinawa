@@ -1,46 +1,17 @@
 import Link from 'next/link';
+import { HeroCarousel } from '@/components/hero-carousel';
+import { publicSlides } from '@/lib/carousel';
 import { publicNotices } from '@/lib/store';
 import { NoticeList } from '@/components/notice-list';
 import { institute } from '@/data/institute';
 import { ContentCards } from '@/components/content-cards';
 export const dynamic = 'force-dynamic';
 export default async function Home() {
-  const all = await publicNotices();
+  const [all, slides] = await Promise.all([publicNotices(), publicSlides()]);
   const notices = all.filter((n) => (n.category || 'news') === 'news').slice(0, 4);
   return (
     <>
-      <section className="hero">
-        <div className="shell hero-inner">
-          <div className="hero-kicker">
-            <span className="line" /> KYUNG HEE UNIVERSITY
-          </div>
-          <div className="hero-layout">
-            <div>
-              <h1>
-                글로벌류큐·
-                <br />
-                오키나와연구소
-              </h1>
-              <p className="hero-description">
-                Global Institute for
-                <br />
-                Ryukyu and Okinawa Studies
-              </p>
-              <Link className="button light" href="/news">
-                공지사항 <span aria-hidden="true">↗</span>
-              </Link>
-            </div>
-            <div className="hero-type" aria-hidden="true">
-              <span>Ryukyu</span>
-              <span className="outline-type">&amp; Okinawa</span>
-            </div>
-          </div>
-          <div className="hero-bottom">
-            <span>GLOBAL INSTITUTE FOR RYUKYU AND OKINAWA STUDIES</span>
-            <span>경희대학교</span>
-          </div>
-        </div>
-      </section>
+      <HeroCarousel initialSlides={slides} />
       <section className="shell intro-section">
         <div>
           <p className="english-section-title">About</p>

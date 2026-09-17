@@ -1999,3 +1999,349 @@ body {
     height: 280px;
   }
 }
+
+/* Main carousel */
+.hero-carousel {
+  position: relative;
+  background: #20151a;
+  color: #fff;
+  overflow: hidden;
+}
+.carousel-institute {
+  position: absolute;
+  z-index: 3;
+  top: 34px;
+  left: max(7vw, calc((100vw - 1240px) / 2));
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.carousel-stage {
+  position: relative;
+  height: 610px;
+}
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.75s ease,
+    visibility 0.75s;
+}
+.carousel-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+.carousel-photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 76%;
+  height: 100%;
+  background: #181116;
+}
+.carousel-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.fit-contain .carousel-photo img {
+  object-fit: contain;
+}
+.carousel-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(35, 13, 22, 0.98) 0%,
+      rgba(35, 13, 22, 0.85) 25%,
+      rgba(35, 13, 22, 0.35) 61%,
+      rgba(0, 0, 0, 0.07)
+    ),
+    linear-gradient(0deg, rgba(15, 8, 12, 0.65), transparent 48%);
+}
+.carousel-copy {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+.carousel-kicker {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #ead7d9;
+  margin-bottom: 24px;
+}
+.carousel-copy h2 {
+  font-size: clamp(28px, 3.2vw, 48px);
+  font-weight: 500;
+  line-height: 1.38;
+  letter-spacing: -0.045em;
+  max-width: 620px;
+  text-wrap: balance;
+  word-break: keep-all;
+  margin: 0 0 20px;
+}
+.carousel-description {
+  max-width: 530px;
+  font-size: 16px;
+  line-height: 1.9;
+  color: #f0e5e8;
+  margin: 0 0 28px;
+  word-break: keep-all;
+}
+.carousel-copy .button {
+  min-height: 44px;
+  background: transparent;
+  border: 1px solid #ffffff80;
+  color: #fff;
+}
+.carousel-controls {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  z-index: 4;
+}
+.carousel-controls button {
+  color: #fff;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+.carousel-arrows {
+  display: flex;
+  gap: 3px;
+}
+.carousel-arrows button {
+  font-size: 24px;
+  border: 1px solid #ffffff60;
+}
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.carousel-dots button {
+  font-size: 20px;
+  min-width: 30px;
+}
+.carousel-count {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #e1d4d8;
+}
+.carousel-play {
+  font-size: 19px;
+}
+.carousel-controls button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}
+.admin-nav {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.carousel-editor-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  background: #fff;
+  border: 1px solid #dedede;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.carousel-editor-toolbar p {
+  margin: 8px 0 0;
+}
+.carousel-editor-fields {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.carousel-edit-card {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.carousel-edit-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+.carousel-edit-top strong {
+  overflow-wrap: anywhere;
+}
+.carousel-order {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.carousel-edit-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: 32px;
+}
+.carousel-image-preview {
+  width: 100%;
+  aspect-ratio: 16/10;
+  background: #f2f0ef;
+  display: grid;
+  place-items: center;
+  color: #777;
+  padding: 10px;
+}
+.carousel-image-preview img {
+  max-width: 100%;
+  height: 100%;
+  max-height: 250px;
+  object-fit: contain;
+}
+.carousel-confirm {
+  border: 0;
+  padding: 30px;
+  max-width: min(480px, 90vw);
+}
+.carousel-confirm::backdrop {
+  background: #0008;
+}
+@media (max-width: 800px) {
+  .carousel-institute {
+    top: 20px;
+    left: 24px;
+    font-size: 13px;
+  }
+  .carousel-stage {
+    height: 740px;
+  }
+  .carousel-photo {
+    top: 0;
+    width: 100%;
+    height: 360px;
+  }
+  .carousel-shade {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 5, 8, 0.4),
+      transparent 16%,
+      rgba(32, 21, 26, 0.15) 34%,
+      #20151a 49%
+    );
+  }
+  .carousel-copy {
+    padding-top: 370px;
+    padding-bottom: 75px;
+    justify-content: flex-start;
+  }
+  .carousel-kicker {
+    font-size: 8px;
+    letter-spacing: 1px;
+    margin: 0 0 13px;
+  }
+  .carousel-copy h2 {
+    font-size: 28px;
+    max-width: 100%;
+    margin-bottom: 12px;
+  }
+  .carousel-description {
+    font-size: 14px;
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+  .carousel-copy .button {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  .carousel-controls {
+    bottom: 18px;
+    gap: 12px;
+  }
+  .carousel-edit-grid {
+    grid-template-columns: 1fr;
+  }
+  .carousel-edit-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .carousel-editor-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+  .admin-bar .shell {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .admin-nav {
+    gap: 14px;
+    font-size: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carousel-slide {
+    transition: none;
+  }
+}
+/* Reserve the tallest slide so long administrator-written copy never overlaps controls. */
+.carousel-stage {
+  display: grid;
+  height: auto;
+  min-height: 610px;
+}
+.carousel-slide {
+  position: relative;
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+.carousel-copy {
+  min-height: 610px;
+}
+.fit-contain .carousel-photo {
+  width: 58%;
+}
+.fit-contain .carousel-copy h2,
+.fit-contain .carousel-description {
+  max-width: 43%;
+}
+@media (max-width: 800px) {
+  .carousel-stage {
+    height: auto;
+    min-height: 740px;
+  }
+  .carousel-copy {
+    min-height: 740px;
+    padding-bottom: 100px;
+  }
+  .fit-contain .carousel-photo {
+    width: 100%;
+  }
+  .fit-contain .carousel-copy h2,
+  .fit-contain .carousel-description {
+    max-width: 100%;
+  }
+}

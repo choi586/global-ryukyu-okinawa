@@ -4,7 +4,7 @@ import type { Attachment, Notice } from './types';
 import { categories, type Category } from './types';
 import { deleteFile, putRecord, saveFile } from './store';
 export class InputError extends Error {}
-function detectedType(buffer: Buffer): string | null {
+export function detectedType(buffer: Buffer): string | null {
   if (buffer.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])))
     return 'image/png';
   if (buffer[0] === 255 && buffer[1] === 216 && buffer[2] === 255) return 'image/jpeg';

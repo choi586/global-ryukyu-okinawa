@@ -7,23 +7,34 @@ import path from 'node:path';
 const data = path.resolve(process.env.DATA_DIR || '.data');
 const output = path.join(data, 'cloudflare-export');
 const db = new DatabaseSync(path.join(data, 'institute.sqlite'), { readOnly: true });
-const rows = db.prepare("SELECT id,data FROM records WHERE namespace='notices' ORDER BY id").all();
+const rows = db
+  .prepare(
+    "SELECT namespace,id,data FROM records WHERE namespace IN ('notices','carousel') ORDER BY namespace,id",
+  )
+  .all();
 await mkdir(path.join(output, 'r2'), { recursive: true });
 const quote = (value) => `'${String(value).replaceAll("'", "''")}'`;
 const sql = [await readFile(new URL('../cloudflare/schema.sql', import.meta.url), 'utf8')];
-const manifest = { posts: rows.length, files: [] };
+const manifest = {
+  posts: rows.filter((r) => r.namespace === 'notices').length,
+  carouselSlides: 0,
+  files: [],
+};
 const seen = new Set();
 for (const row of rows) {
   const post = JSON.parse(row.data);
   // Plain INSERT fails on a duplicate: never overwrite online edits during an import.
   sql.push(
-    `INSERT INTO records(namespace,id,data) VALUES ('notices',${quote(row.id)},${quote(row.data)});`,
+    `INSERT INTO records(namespace,id,data) VALUES (${quote(row.namespace)},${quote(row.id)},${quote(row.data)});`,
   );
-  for (const attachment of post.attachments) {
+  const attachments =
+    row.namespace === 'carousel' ? post.slides.map((s) => s.image) : post.attachments;
+  if (row.namespace === 'carousel') manifest.carouselSlides += post.slides.length;
+  for (const attachment of attachments) {
     const files = [
-      { ...attachment, parentId: post.id },
+      { ...attachment, parentId: row.namespace + ':' + row.id },
       ...(attachment.thumbnail
-        ? [{ ...attachment.thumbnail, type: 'image/webp', parentId: post.id }]
+        ? [{ ...attachment.thumbnail, type: 'image/webp', parentId: row.namespace + ':' + row.id }]
         : []),
     ];
     for (const file of files) {
@@ -50,6 +61,6 @@ await writeFile(path.join(output, 'manifest.json'), JSON.stringify(manifest, nul
   mode: 0o600,
 });
 console.log(
-  `Cloudflare 이전 자료: 게시글 ${rows.length}건, 파일 ${manifest.files.length}개. 로그인 세션과 비밀번호는 제외했습니다.`,
+  `Cloudflare 이전 자료: 게시글 ${manifest.posts}건, 캐러셀 ${manifest.carouselSlides}장, 파일 ${manifest.files.length}개. 로그인 세션과 비밀번호는 제외했습니다.`,
 );
 console.log(output);

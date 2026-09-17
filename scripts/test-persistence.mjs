@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { randomBytes, scryptSync } from 'node:crypto';
+import { randomBytes, randomUUID, scryptSync } from 'node:crypto';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -67,8 +67,45 @@ try {
   const match = html.match(/\/api\/files\/[a-f0-9-]+\/[a-f0-9-]+/);
   assert.ok(match);
   const before = await (await fetch(origin + match[0])).text();
+  const slideId = randomUUID();
+  const image = Buffer.from(
+    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jY1sAAAAASUVORK5CYII=',
+    'base64',
+  );
+  const carouselForm = new FormData();
+  carouselForm.set(
+    'config',
+    JSON.stringify({
+      revision: 0,
+      slides: [
+        {
+          id: slideId,
+          title: 'Persistent carousel',
+          description: 'Saved photo',
+          href: '',
+          alt: 'Photo',
+          published: true,
+          fit: 'contain',
+        },
+      ],
+    }),
+  );
+  carouselForm.set('image-' + slideId, new Blob([image], { type: 'image/png' }), 'photo.png');
+  const savedCarousel = await fetch(origin + '/api/carousel', {
+    method: 'PUT',
+    headers: { Origin: origin, Cookie: cookie },
+    body: carouselForm,
+  });
+  assert.equal(savedCarousel.status, 200);
+  const savedSlide = (await savedCarousel.json()).slides[0];
   await stop();
   await start();
+  const publishedSlides = (await (await fetch(origin + '/api/carousel')).json()).slides;
+  assert.equal(publishedSlides[0].title, 'Persistent carousel');
+  const loadedImage = Buffer.from(
+    await (await fetch(origin + '/api/carousel/' + savedSlide.image.id)).arrayBuffer(),
+  );
+  assert.deepEqual(loadedImage, image);
   const page = await fetch(origin + '/news/' + id);
   assert.equal(page.status, 200);
   assert.ok((await page.text()).includes('Still here after restarting'));
@@ -78,7 +115,9 @@ try {
     redirect: 'manual',
   });
   assert.equal(dashboard.status, 200);
-  console.log('PASS: notice, attachment, and administrator session survive server restart.');
+  console.log(
+    'PASS: notice, attachment, carousel settings/photo, and administrator session survive server restart.',
+  );
 } finally {
   await stop();
   rmSync(directory, { recursive: true, force: true });

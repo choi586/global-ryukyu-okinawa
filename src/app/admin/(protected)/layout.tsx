@@ -13,7 +13,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <Link href="/admin">
             연구소 관리자 <span>/ 공지사항</span>
           </Link>
-          <Logout />
+          <nav className="admin-nav" aria-label="관리 메뉴">
+            <Link href="/admin">게시물 관리</Link>
+            <Link href="/admin/carousel">메인 캐러셀 관리</Link>
+            <Logout />
+          </nav>
         </div>
       </div>
       <div className="shell admin-content">{children}</div>
