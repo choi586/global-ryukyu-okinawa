@@ -10,3 +10,6 @@ dist/
 *.tsbuildinfo
 .DS_Store
 coverage/
+.data/
+playwright-report/
+test-results/
