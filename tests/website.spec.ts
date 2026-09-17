@@ -17,7 +17,9 @@ test('responsive navigation, disabled menus and empty notices', async ({ page })
       await page.keyboard.press('Escape');
       await expect(page.getByRole('button', { name: '메뉴' })).toBeFocused();
     }
-    expect(await page.locator('nav a[href="/about"]').count()).toBe(0);
+    expect(await page.locator('nav a[href="/about"]').count()).toBe(1);
+    expect(await page.locator('nav a[href="/people"]').count()).toBe(1);
+    expect(await page.locator('nav a[href="/research"]').count()).toBe(0);
   }
   await page.goto('/news');
   await expect(page.getByText('등록된 공지사항이 없습니다.')).toBeVisible();
@@ -64,13 +66,11 @@ test('administrator workflow, draft privacy, upload access, update, delete and l
   await page
     .getByLabel('본문', { exact: false })
     .fill('첫 번째 문단입니다.\n\n두 번째 문단입니다. <script>alert(1)</script>');
-  await page
-    .locator('input[type=file]')
-    .setInputFiles({
-      name: 'test.pdf',
-      mimeType: 'application/pdf',
-      buffer: Buffer.from('%PDF-1.4\nTest document\n%%EOF'),
-    });
+  await page.locator('input[type=file]').setInputFiles({
+    name: 'test.pdf',
+    mimeType: 'application/pdf',
+    buffer: Buffer.from('%PDF-1.4\nTest document\n%%EOF'),
+  });
   await page.getByRole('button', { name: '저장하기' }).click();
   await expect(page.getByRole('status')).toContainText('저장했습니다');
   await page.getByRole('link', { name: '검증용 공지 — 초안' }).click();

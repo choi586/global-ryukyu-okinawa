@@ -1,6 +1,6 @@
 # 글로벌류큐·오키나와연구소 홈페이지
 
-로컬 테스트용 Next.js 홈페이지입니다. 메인, 공지·소식(NEWS), 학술활동(ACTIVITIES), 연구·출판(PUBLICATIONS), 관리자 기능과 메인 사진 캐러셀을 제공합니다. 나머지 메뉴는 준비 중입니다.
+Cloudflare에 배포하는 Next.js 홈페이지입니다. 연구소 소개, 연구진 소개(연구책임자), 메인, 공지·소식(NEWS), 학술활동(ACTIVITIES), 연구·출판(PUBLICATIONS), 관리자 기능과 메인 사진 캐러셀을 제공합니다. 나머지 메뉴는 준비 중입니다.
 
 ## 실행
 
@@ -48,23 +48,27 @@ python3 scripts/import-tistory.py --apply  # DB 백업 후 로컬 반영
 
 이미 이전한 글은 관리자 수정 내용을 덮어쓰지 않습니다. 새 수집이 필요하면 해당 `.data/tistory/<번호>.html` 캐시와 prepared.json을 별도로 보관한 뒤 새로 수집합니다. 게시글·파일·원문 백업은 Git에 포함되지 않습니다.
 
-## Cloudflare: 추후 연결
+## Cloudflare 운영
 
-사용자 결정에 따라 Vercel·Supabase 연결 작업은 중단했습니다. Cloudflare 리소스는 아직 생성하거나 배포하지 않았습니다.
+홈페이지: https://global-ryukyu-okinawa.ryukyu-okinawa.workers.dev
+관리자: https://global-ryukyu-okinawa.ryukyu-okinawa.workers.dev/admin
 
-- Workers: 홈페이지와 서버 기능
-- D1: 공지·소식, 학술활동, 연구성과, 관리자 세션
-- R2: 사진, 포스터, PDF 및 미리보기
+- Workers: 홈페이지와 서버 기능 (vinext 빌드)
+- D1 `global-ryukyu-okinawa`: 게시물, 캐러셀 정보, 관리자 세션
+- 비공개 R2 `global-ryukyu-okinawa-media`: 사진, 포스터, PDF
 
-현재 실행 저장소는 로컬 SQLite와 파일입니다. D1/R2 저장 어댑터는 구현했으며 `STORAGE_DRIVER=cloudflare`에서 D1 `DB`, R2 `MEDIA` 바인딩을 사용합니다. 캐러셀 제목·문구·링크·순서·공개 상태는 D1 `records`의 `carousel/main`에 저장하고 사진은 R2에 저장합니다. 실제 연결 시 Workers용 프레임워크 빌드 설정 및 클라우드 통합 검증이 아직 필요합니다. 로컬 SQLite 모드를 그대로 Workers에 배포하면 안 됩니다.
+온라인 관리자 로그인 정보는 `.data/ONLINE-ADMIN-LOGIN.txt`에만 보관합니다. 온라인 운영 데이터는 D1/R2에 저장되며 로컬 SQLite와 자동 동기화하지 않습니다. 배포 후 게시물과 사진 수정은 온라인 관리자에서 진행합니다. 코드 배포는 운영 데이터를 덮어쓰지 않습니다.
 
 ```sh
-pnpm export:cloudflare
+pnpm build:vinext
+pnpm exec wrangler deploy --config dist/server/wrangler.json
 ```
 
-위 명령은 `.data/cloudflare-export/`에 게시글·캐러셀 D1용 SQL, R2 파일, 크기와 SHA-256을 포함한 목록을 만듭니다. 네트워크 작업은 하지 않으며 로그인 세션과 비밀번호는 내보내지 않습니다. `cloudflare/schema.sql`은 추후 D1 초기화용입니다. SQL은 중복 ID가 있으면 실패하여 기존 온라인 글을 덮어쓰지 않습니다. 운영 데이터가 생긴 후 재이전은 별도 비교가 필요합니다.
+최초 배포에서는 `--secrets-file .data/production-secrets.json`으로 관리자 아이디와 비밀번호 해시를 설정합니다. 이후 일반 배포는 기존 비밀 값을 유지합니다. `APP_URL`은 실제 접속 주소와 일치해야 합니다. `.env.local`은 로컬 실행 전용이며 Worker 빌드는 이를 읽지 않습니다. `.dev.vars`는 로컬 Workers 검증 전용입니다.
 
-연결 시 R2는 비공개 버킷으로 두고 Workers가 게시 상태를 확인한 후 파일을 제공합니다. `APP_URL`·관리자 해시는 서버 설정으로만 전달하며 Git에 넣지 않습니다. 배포 후 로그인·글 등록·수정·삭제, 초안 및 미리보기 접근 차단, 재배포 후 데이터 보존을 검증합니다.
+로컬 Workers 검증은 `pnpm export:cloudflare`, `node scripts/seed-cloudflare-local.mjs`, `pnpm start:vinext` 순서로 실행할 수 있습니다. 초기 온라인 이전용 파일은 `.data/cloudflare-export/`에 생성됩니다. `scripts/upload-cloudflare-media.mjs`는 파일 해시를 확인하며 업로드 완료 기록으로 재개할 수 있습니다. 내보내기는 로그인 세션과 비밀번호를 포함하지 않습니다. 이미 운영 중인 D1에 전체 SQL을 다시 넣지 말고 변경 내용을 비교해야 합니다.
+
+R2는 직접 공개하지 않으며 Workers가 글과 캐러셀의 공개 상태를 확인한 후 파일을 제공합니다.
 
 ## 검증
 

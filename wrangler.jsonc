@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "global-ryukyu-okinawa",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "vinext/server/fetch-handler",
+  "assets": {
+    "directory": "dist/client",
+    "not_found_handling": "none",
+    "binding": "ASSETS",
+  },
+  "vars": {
+    "STORAGE_DRIVER": "cloudflare",
+    "APP_URL": "https://global-ryukyu-okinawa.ryukyu-okinawa.workers.dev",
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "global-ryukyu-okinawa",
+      "database_id": "93aa30c7-901b-4d11-b379-2e5cf38f2cfb",
+    },
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "global-ryukyu-okinawa-media",
+    },
+  ],
+  "account_id": "406d28b27c2398f3ef1f36aed7ba0714",
+}

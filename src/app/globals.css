@@ -2345,3 +2345,134 @@ body {
     max-width: 100%;
   }
 }
+.institute-about {
+  display: grid;
+  grid-template-columns: 1fr 1.7fr;
+  gap: 70px;
+  padding-top: 72px;
+  padding-bottom: 80px;
+}
+.about-heading h2 {
+  font-size: 30px;
+  line-height: 1.5;
+  color: #990e17;
+  word-break: keep-all;
+}
+.about-heading > p:last-child {
+  color: #666;
+  margin-top: 24px;
+}
+.about-prose p {
+  font-size: 16px;
+  line-height: 2;
+  word-break: keep-all;
+  margin-bottom: 24px;
+}
+.about-visions {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.about-visions li {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 30px;
+  padding: 26px 0;
+  border-top: 1px solid #ddd;
+  align-items: start;
+}
+.about-visions li > span {
+  color: #990e17;
+  font-family: Merriweather, serif;
+  font-size: 28px;
+}
+.about-visions p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.9;
+  word-break: keep-all;
+}
+.people-section {
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+.principal-profile {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  padding: 46px;
+  border-top: 3px solid #990e17;
+  background: #f6f4f1;
+}
+.principal-profile h2 {
+  font-size: 40px;
+  margin: 16px 0;
+}
+.principal-profile dl {
+  margin: 0;
+}
+.principal-profile dl > div {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid #ddd;
+}
+.principal-profile dt {
+  font-weight: 600;
+}
+.principal-profile dd {
+  margin: 0;
+  line-height: 1.8;
+}
+.principal-work {
+  margin-top: 70px;
+}
+.principal-work details {
+  border-top: 1px solid #ccc;
+  padding: 24px 0;
+}
+.principal-work summary {
+  font-size: 22px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.principal-work summary span {
+  font-size: 13px;
+  color: #777;
+  margin-left: 15px;
+}
+.principal-work ul {
+  padding-left: 22px;
+  margin-top: 28px;
+}
+.principal-work li {
+  line-height: 1.9;
+  margin-bottom: 15px;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 800px) {
+  .institute-about,
+  .principal-profile {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .institute-about {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .principal-profile {
+    padding: 24px;
+  }
+  .principal-profile dl > div {
+    grid-template-columns: 75px 1fr;
+    gap: 12px;
+  }
+  .about-visions li {
+    grid-template-columns: 45px 1fr;
+    gap: 18px;
+  }
+  .about-visions p {
+    font-size: 16px;
+  }
+}

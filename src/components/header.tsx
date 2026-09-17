@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 const items = [
   ['연구소 소개', 'about'],
-  ['연구진', 'people'],
+  ['연구진 소개', 'people'],
   ['연구사업', 'research'],
   ['학술활동', 'activities'],
   ['연구성과', 'publications'],
@@ -63,7 +63,7 @@ export function Header() {
           aria-label="주 메뉴"
         >
           {items.map(([label, key]) =>
-            ['news', 'activities', 'publications'].includes(key) ? (
+            ['about', 'people', 'news', 'activities', 'publications'].includes(key) ? (
               <Link
                 key={key}
                 href={`/${key}`}
