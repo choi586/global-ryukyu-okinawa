@@ -7,9 +7,8 @@ export function Footer() {
         <div>
           <p className="eyebrow">{institute.englishName}</p>
           <strong>글로벌류큐·오키나와연구소</strong>
-          <p>경희대학교</p>
           <address className="footer-contact">
-            <p>경기 용인시 기흥구 덕영대로 1732 외국어대학관 335호</p>
+            <p>경기 용인시 기흥구 덕영대로 1732 경희대학교 외국어대학관 335호</p>
             <p>
               E-MAIL. <a href="mailto:okinawa@khu.ac.kr">okinawa@khu.ac.kr</a>
             </p>
@@ -24,7 +23,6 @@ export function Footer() {
         <span>
           © {new Date().getFullYear()} {institute.englishName}.
         </span>
-        <span>홈페이지 테스트 운영 중</span>
       </div>
     </footer>
   );

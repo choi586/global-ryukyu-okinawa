@@ -44,7 +44,7 @@ export default function People() {
             { title: '논문', items: lead.papers },
             { title: '저역서', items: lead.books },
           ].map((group) => (
-            <details key={group.title} open={group.title === '논문'}>
+            <details key={group.title} open>
               <summary>
                 {group.title}
                 <span>{group.items.length}건</span>
