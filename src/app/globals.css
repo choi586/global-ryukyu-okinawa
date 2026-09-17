@@ -1893,3 +1893,109 @@ body {
     font-size: 0.75rem;
   }
 }
+
+/* Institute archive */
+.home-content-section {
+  padding: 72px 0;
+}
+.home-content-section.activities {
+  background: #f5f5f3;
+}
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 36px 28px;
+}
+.content-card {
+  color: inherit;
+  text-decoration: none;
+  min-width: 0;
+  background: white;
+  border-bottom: 1px solid #d9d9d9;
+}
+.content-card-media {
+  height: 260px;
+  overflow: hidden;
+  background: #efeeeb;
+}
+.content-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.25s;
+}
+.content-card:hover .content-card-media img {
+  transform: scale(1.025);
+}
+.content-card-copy {
+  padding: 24px 20px 26px;
+}
+.content-card-date {
+  color: #777;
+  font-size: 13px;
+  margin: 0 0 12px;
+}
+.content-card h3 {
+  font-size: 19px;
+  line-height: 1.6;
+  margin: 0 0 14px;
+  overflow-wrap: anywhere;
+}
+.content-card-description {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.content-card-more {
+  display: block;
+  margin-top: 22px;
+  color: #990e17;
+  font-size: 13px;
+}
+.publication-cover {
+  height: 100%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #75212a;
+  border: 12px solid #eee9e1;
+  background: #f9f6ef;
+}
+.publication-cover span {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+.publication-cover strong {
+  font-family: Merriweather, Georgia, serif;
+  font-size: 22px;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+.article-event-date {
+  margin-top: 20px;
+  color: #990e17;
+}
+.notice-image img {
+  height: auto;
+}
+@media (max-width: 850px) {
+  .content-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+  .home-content-section {
+    padding: 48px 0;
+  }
+  .content-card-media {
+    height: 280px;
+  }
+}

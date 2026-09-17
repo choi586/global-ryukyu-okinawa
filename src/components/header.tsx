@@ -6,7 +6,7 @@ const items = [
   ['연구소 소개', 'about'],
   ['연구진', 'people'],
   ['연구사업', 'research'],
-  ['학술행사', 'events'],
+  ['학술활동', 'activities'],
   ['연구성과', 'publications'],
   ['공지사항', 'news'],
   ['아카이브', 'archive'],
@@ -63,11 +63,11 @@ export function Header() {
           aria-label="주 메뉴"
         >
           {items.map(([label, key]) =>
-            key === 'news' ? (
+            ['news', 'activities', 'publications'].includes(key) ? (
               <Link
                 key={key}
-                href="/news"
-                aria-current={pathname.startsWith('/news') ? 'page' : undefined}
+                href={`/${key}`}
+                aria-current={pathname.startsWith(`/${key}`) ? 'page' : undefined}
                 onClick={() => setOpen(false)}
               >
                 {label}

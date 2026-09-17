@@ -13,3 +13,9 @@ coverage/
 .data/
 playwright-report/
 test-results/
+
+.wrangler/
+supabase/.temp/
+
+__pycache__/
+*.pyc

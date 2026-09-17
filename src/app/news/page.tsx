@@ -5,7 +5,7 @@ import { NoticeList } from '@/components/notice-list';
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = { title: '공지사항' };
 export default async function News({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
-  const all = await publicNotices();
+  const all = await publicNotices('news');
   const pages = Math.max(1, Math.ceil(all.length / 10));
   const requested = Number((await searchParams).page) || 1;
   const page = Math.min(pages, Math.max(1, Math.floor(requested)));

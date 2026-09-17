@@ -27,6 +27,11 @@ export async function DELETE(request: Request, { params }: Context) {
   const notice = await getRecord<Notice>('notices', (await params).id);
   if (!notice) return Response.json({ error: '글을 찾을 수 없습니다.' }, { status: 404 });
   await removeRecord('notices', notice.id);
-  await Promise.allSettled(notice.attachments.map((a) => deleteFile(a.id)));
+  await Promise.allSettled(
+    notice.attachments.flatMap((a) => [
+      deleteFile(a.id),
+      ...(a.thumbnail ? [deleteFile(a.thumbnail.id)] : []),
+    ]),
+  );
   return Response.json({ ok: true });
 }

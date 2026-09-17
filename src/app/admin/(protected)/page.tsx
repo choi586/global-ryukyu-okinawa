@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { requireAdmin } from '@/lib/auth';
 import { allNotices } from '@/lib/store';
-import { dateLabel } from '@/lib/types';
+import { dateLabel, categories } from '@/lib/types';
 export default async function Admin({
   searchParams,
 }: {
@@ -76,7 +76,8 @@ export default async function Admin({
                     {n.title}
                   </Link>
                   <small className="admin-date">
-                    {dateLabel(n.updatedAt)} 수정 · 첨부 {n.attachments.length}개
+                    {categories[n.category || 'news']} · {dateLabel(n.updatedAt)} 수정 · 첨부{' '}
+                    {n.attachments.length}개
                   </small>
                 </div>
                 <Link className="small-button" href={`/admin/notices/${n.id}/edit`}>

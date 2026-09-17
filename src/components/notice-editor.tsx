@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Notice } from '@/lib/types';
+import { optimizeUpload } from '@/lib/optimize-upload';
 export function NoticeEditor({ notice }: { notice?: Notice }) {
   const router = useRouter();
   const [error, setError] = useState('');
@@ -37,6 +38,11 @@ export function NoticeEditor({ notice }: { notice?: Notice }) {
           setError('');
           const form = new FormData(event.currentTarget);
           try {
+            const selected = form
+              .getAll('files')
+              .filter((value): value is File => value instanceof File && value.size > 0);
+            form.delete('files');
+            for (const file of selected) form.append('files', await optimizeUpload(file));
             const response = await fetch(notice ? `/api/notices/${notice.id}` : '/api/notices', {
               method: notice ? 'PUT' : 'POST',
               body: form,
@@ -82,7 +88,8 @@ export function NoticeEditor({ notice }: { notice?: Notice }) {
           <section className="editor-panel stack-form">
             <h2>이미지 및 첨부파일</h2>
             <p className="field-help">
-              JPG · PNG · WEBP · PDF / 새 파일 합계 3MB 이하 / 글당 최대 10개
+              JPG · PNG · WEBP · PDF / 사진 자동 최적화 / 최적화 후 새 파일 합계 3MB 이하 / 글당
+              최대 10개
             </p>
             {retained.length > 0 && (
               <ul className="existing-files">
@@ -139,6 +146,18 @@ export function NoticeEditor({ notice }: { notice?: Notice }) {
           <section className="editor-panel stack-form">
             <h2>게시 설정</h2>
             <label>
+              게시 영역
+              <select name="category" defaultValue={notice?.category || 'news'}>
+                <option value="news">NEWS · 공지·소식</option>
+                <option value="activities">ACTIVITIES · 학술활동</option>
+                <option value="publications">PUBLICATIONS · 연구·출판</option>
+              </select>
+            </label>
+            <label>
+              행사일·발행일 (선택)
+              <input type="date" name="eventDate" defaultValue={notice?.eventDate || ''} />
+            </label>
+            <label>
               공개 상태
               <select name="status" defaultValue={notice?.status || 'draft'}>
                 <option value="draft">초안 — 관리자만 열람</option>
@@ -149,9 +168,7 @@ export function NoticeEditor({ notice }: { notice?: Notice }) {
               <input name="pinned" type="checkbox" value="true" defaultChecked={notice?.pinned} />
               중요 공지로 상단 고정
             </label>
-            <p className="field-help">
-              공개 상태로 저장하면 메인화면과 공지사항에 바로 반영됩니다.
-            </p>
+            <p className="field-help">공개 상태로 저장하면 선택한 영역에 반영됩니다.</p>
             <button className="button full-width" type="submit" disabled={busy}>
               {busy ? '처리 중…' : '저장하기'}
             </button>

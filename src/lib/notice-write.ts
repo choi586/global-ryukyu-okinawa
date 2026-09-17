@@ -1,6 +1,7 @@
 import 'server-only';
 import { randomUUID } from 'node:crypto';
 import type { Attachment, Notice } from './types';
+import { categories, type Category } from './types';
 import { deleteFile, putRecord, saveFile } from './store';
 export class InputError extends Error {}
 function detectedType(buffer: Buffer): string | null {
@@ -19,6 +20,16 @@ export async function writeNotice(request: Request, previous?: Notice) {
   const title = String(form.get('title') || '').trim();
   const body = String(form.get('body') || '').trim();
   const status = String(form.get('status'));
+  const category = String(form.get('category') || previous?.category || 'news');
+  if (!Object.hasOwn(categories, category)) throw new InputError('게시 영역을 선택해주세요.');
+  const eventDate = String(form.get('eventDate') ?? previous?.eventDate ?? '').trim();
+  if (
+    eventDate &&
+    (!/^\d{4}-\d{2}-\d{2}$/.test(eventDate) ||
+      Number.isNaN(Date.parse(eventDate)) ||
+      new Date(eventDate).toISOString().slice(0, 10) !== eventDate)
+  )
+    throw new InputError('올바른 행사일·발행일을 입력해주세요.');
   if (!title || title.length > 200) throw new InputError('제목을 1~200자로 입력해주세요.');
   if (!body || body.length > 50000) throw new InputError('본문을 1~50,000자로 입력해주세요.');
   if (status !== 'draft' && status !== 'published')
@@ -63,6 +74,11 @@ export async function writeNotice(request: Request, previous?: Notice) {
     createdAt: previous?.createdAt || now,
     updatedAt: now,
     attachments: [...attachments, ...prepared.map((p) => p.meta)],
+    category: category as Category,
+    eventDate: eventDate || null,
+    ...(previous?.sourceUrl
+      ? { sourceUrl: previous.sourceUrl, sourceCategory: previous.sourceCategory }
+      : {}),
   };
   if (previous?.status === 'draft' && status === 'published') notice.publishedAt = now;
   const saved: string[] = [];
@@ -78,7 +94,9 @@ export async function writeNotice(request: Request, previous?: Notice) {
   }
   // The record is authoritative: detached files immediately stop being accessible.
   await Promise.allSettled(
-    (previous?.attachments || []).filter((a) => !retained.has(a.id)).map((a) => deleteFile(a.id)),
+    (previous?.attachments || [])
+      .filter((a) => !retained.has(a.id))
+      .flatMap((a) => [deleteFile(a.id), ...(a.thumbnail ? [deleteFile(a.thumbnail.id)] : [])]),
   );
   return notice;
 }

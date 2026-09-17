@@ -12,12 +12,13 @@ export async function GET(
   const file = notice.attachments.find((f) => f.id === fileId);
   if (!file) return new Response('Not found', { status: 404 });
   try {
-    const bytes = await loadFile(file.id);
+    const thumbnail = new URL(request.url).searchParams.has('thumbnail') && file.thumbnail;
+    const bytes = await loadFile(thumbnail ? thumbnail.id : file.id);
     const download =
       new URL(request.url).searchParams.has('download') || !file.type.startsWith('image/');
     return new Response(new Uint8Array(bytes), {
       headers: {
-        'Content-Type': file.type,
+        'Content-Type': thumbnail ? 'image/webp' : file.type,
         'Content-Length': String(bytes.length),
         'Cache-Control': 'private, no-store',
         'X-Content-Type-Options': 'nosniff',
