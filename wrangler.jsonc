@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "global-ryukyu-okinawa",
+  "name": "khu",
   "compatibility_date": "2026-09-01",
   "compatibility_flags": ["nodejs_compat"],
   "main": "vinext/server/fetch-handler",
@@ -12,7 +12,7 @@
   },
   "vars": {
     "STORAGE_DRIVER": "cloudflare",
-    "APP_URL": "https://global-ryukyu-okinawa.ryukyu-okinawa.workers.dev",
+    "APP_URL": "https://khu.ryukyu-okinawa.workers.dev",
   },
   "d1_databases": [
     {
