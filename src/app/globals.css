@@ -2476,3 +2476,12 @@ body {
     font-size: 16px;
   }
 }
+
+.footer-contact {
+  font-style: normal;
+  line-height: 1.8;
+}
+.footer-contact a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
