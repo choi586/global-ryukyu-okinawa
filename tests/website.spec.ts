@@ -29,9 +29,6 @@ test('responsive navigation, disabled menus and empty notices', async ({ page })
   await expect(page.getByRole('heading', { name: '연구소 비전' })).toBeVisible();
   await expect(page.locator('.vision-card')).toHaveCount(5);
   await expect(page.getByText('섬을 넘어,')).toHaveCount(0);
-  expect(await page.locator('.source-link').getAttribute('href')).toBe(
-    'https://ccs.khu.ac.kr/laboratory/okinawa',
-  );
   expect(errors).toEqual([]);
 });
 

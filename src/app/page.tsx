@@ -47,9 +47,6 @@ export default async function Home() {
         <div className="intro-copy">
           <blockquote>“{institute.mission}”</blockquote>
           <p>{institute.introduction}</p>
-          <a className="source-link" href={institute.sourceUrl} target="_blank" rel="noreferrer">
-            출처 · 경희대학교 비교문화연구소 내 연구소 소개 ↗
-          </a>
         </div>
       </section>
       <section className="research-section">
