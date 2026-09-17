@@ -12,7 +12,7 @@ import '@fontsource/merriweather/latin-400.css';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://khu.ryukyu-okinawa.workers.dev'),
+  metadataBase: new URL('https://global-ryukyu-okinawa.ryukyu-okinawa.workers.dev'),
 
   title: {
     default: '글로벌류큐·오키나와연구소 | 경희대학교',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: '글로벌류큐·오키나와연구소 | 경희대학교',
     description:
       '경희대학교 글로벌류큐·오키나와연구소의 공지사항과 연구 소식을 전합니다.',
-    url: 'https://khu.ryukyu-okinawa.workers.dev',
+    url: 'https://global-ryukyu-okinawa.ryukyu-okinawa.workers.dev',
     siteName: '글로벌류큐·오키나와연구소',
     images: [
       {
