@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { UtilityBar } from './utility-bar';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 const items = [
@@ -27,7 +28,7 @@ export function Header() {
   }, [open]);
   return (
     <header className="site-header">
-      <div className="topline" aria-hidden="true" />
+      <UtilityBar />
       <div className="shell header-inner">
         <Link
           href="/"
