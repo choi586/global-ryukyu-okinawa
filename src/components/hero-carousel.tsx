@@ -135,9 +135,6 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
             <div className="carousel-shade" />
             <div className="shell carousel-copy">
               <p className="carousel-kicker">KYUNG HEE UNIVERSITY · GLOBAL RYUKYU &amp; OKINAWA</p>
-              {locale === 'ja' && (
-                <p className="carousel-description">韓国語の原文で掲載しています。</p>
-              )}
               <h2 lang="ko">{slide.title}</h2>
               <p className="carousel-description" lang="ko">
                 {slide.description}

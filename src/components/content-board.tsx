@@ -36,7 +36,6 @@ export async function ContentBoard({
           </span>
           <span>{t('게시일 최신순')}</span>
         </div>
-        {locale === 'ja' && <p className="eyebrow">記事は韓国語の原文で掲載しています。</p>}
         <ContentCards notices={notices} />
         {pages > 1 && (
           <nav className="pagination" aria-label={`${t(categories[category])} 페이지`}>

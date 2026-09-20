@@ -48,7 +48,6 @@ export default async function Detail({ params, locale = 'ko' }: Props) {
           </p>
         )}
       </header>
-      {locale === 'ja' && <p className="eyebrow">この記事は韓国語の原文で掲載しています。</p>}
       <div className="article-body" lang="ko">
         {notice.body}
       </div>

@@ -38,9 +38,6 @@ export default function People({ locale = 'ko' }: { locale?: Locale } = {}) {
           </dl>
         </div>
         <div className="principal-work">
-          {locale === 'ja' && (
-            <p className="eyebrow">論文・著書・訳書の書誌情報は原文で掲載しています。</p>
-          )}
           <div className="section-heading">
             <div>
               <p className="english-section-title">Selected Works</p>

@@ -62,7 +62,6 @@ export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) 
             <span aria-hidden="true">↗</span>
           </a>
         </div>
-        {locale === 'ja' && <p className="eyebrow">記事は韓国語の原文で掲載しています。</p>}
         <NoticeList notices={notices} />
       </section>
       {(['activities', 'publications'] as const).map((category) => (

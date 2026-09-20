@@ -55,7 +55,6 @@ export function NewsBoard() {
         </span>
         <span>{t('최신순 · 중요 공지 우선')}</span>
       </div>
-      {locale === 'ja' && <p className="eyebrow">記事は韓国語の原文で掲載しています。</p>}
       <NoticeList notices={result.notices} />
       {result.pages > 1 && (
         <nav className="pagination" aria-label={t('공지사항 페이지')}>
