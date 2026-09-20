@@ -50,8 +50,8 @@ python3 scripts/import-tistory.py --apply  # DB 백업 후 로컬 반영
 
 ## Cloudflare 운영
 
-홈페이지: https://global-ryukyu-okinawa.ryukyu-okinawa.workers.dev
-관리자: https://global-ryukyu-okinawa.ryukyu-okinawa.workers.dev/admin
+홈페이지: https://khu.ryukyu-okinawa.workers.dev
+관리자: https://khu.ryukyu-okinawa.workers.dev/admin
 
 - Workers: 홈페이지와 서버 기능 (vinext 빌드)
 - D1 `global-ryukyu-okinawa`: 게시물, 캐러셀 정보, 관리자 세션
@@ -61,7 +61,7 @@ python3 scripts/import-tistory.py --apply  # DB 백업 후 로컬 반영
 
 ```sh
 pnpm build:vinext
-pnpm exec wrangler deploy --config dist/server/wrangler.json
+pnpm deploy:vinext
 ```
 
 최초 배포에서는 `--secrets-file .data/production-secrets.json`으로 관리자 아이디와 비밀번호 해시를 설정합니다. 이후 일반 배포는 기존 비밀 값을 유지합니다. `APP_URL`은 실제 접속 주소와 일치해야 합니다. `.env.local`은 로컬 실행 전용이며 Worker 빌드는 이를 읽지 않습니다. `.dev.vars`는 로컬 Workers 검증 전용입니다.
@@ -105,4 +105,4 @@ SQLite 백업 API 또는 서버 정지 후 `.data` 전체 복사로 백업합니
 
 `pnpm build:vinext`의 마지막 단계인 `scripts/prepare-static-pages.mjs`는 포트 8799를 잠시 사용합니다. Cloudflare 원격 데이터에는 접근하거나 업로드하지 않습니다. 실제 배포 설정은 `dist/server/wrangler.json`을 사용해야 합니다. 사진·관리자 경로는 공개 정적 페이지 캐시에 포함하지 않습니다.
 
-현재 확인된 운영 Worker 이름은 `global-ryukyu-okinawa`, 계정 하위 도메인은 `ryukyu-okinawa`입니다. 사용자가 요청한 `khu.okinawa.workers.dev`를 위해 새 Worker를 만들거나 계정 하위 도메인을 자동 변경하지 않습니다. 기존 Worker의 이름 변경 가능 여부와 계정 하위 도메인 변경은 대시보드에서 확인한 후 `wrangler.jsonc`의 name/APP_URL을 실제 값과 함께 맞춰야 합니다. D1/R2 바인딩의 이름과 ID는 유지합니다.
+운영 Worker 이름은 `khu`, 계정 하위 도메인은 `ryukyu-okinawa`입니다. 주소는 `https://khu.ryukyu-okinawa.workers.dev`입니다. 기존 Worker ID를 유지한 이름 변경이며 새 Worker를 생성하지 않았습니다. 계정 하위 도메인, D1/R2 바인딩 이름과 ID, 운영 데이터는 유지했습니다.
