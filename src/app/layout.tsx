@@ -1,3 +1,6 @@
+import { requestLocale } from '@/i18n/server';
+import { translate } from '@/i18n/config';
+import { LanguageProvider } from '@/i18n/provider';
 import type { Metadata } from 'next';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
@@ -11,7 +14,7 @@ import '@fontsource/merriweather/latin-400.css';
 
 import './globals.css';
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   metadataBase: new URL('https://khu.ryukyu-okinawa.workers.dev'),
 
   title: {
@@ -19,14 +22,12 @@ export const metadata: Metadata = {
     template: '%s | 글로벌류큐·오키나와연구소',
   },
 
-  description:
-    '경희대학교 글로벌류큐·오키나와연구소의 공지사항과 연구 소식을 전합니다.',
+  description: '경희대학교 글로벌류큐·오키나와연구소의 공지사항과 연구 소식을 전합니다.',
 
   openGraph: {
     title: '글로벌류큐·오키나와연구소 | 경희대학교',
-    description:
-      '경희대학교 글로벌류큐·오키나와연구소의 공지사항과 연구 소식을 전합니다.',
-    url: 'https://global-ryukyu-okinawa.ryukyu-okinawa.workers.dev',
+    description: '경희대학교 글로벌류큐·오키나와연구소의 공지사항과 연구 소식을 전합니다.',
+    url: 'https://khu.ryukyu-okinawa.workers.dev',
     siteName: '글로벌류큐·오키나와연구소',
     images: [
       {
@@ -43,8 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: '글로벌류큐·오키나와연구소 | 경희대학교',
-    description:
-      '경희대학교 글로벌류큐·오키나와연구소의 공지사항과 연구 소식을 전합니다.',
+    description: '경희대학교 글로벌류큐·오키나와연구소의 공지사항과 연구 소식을 전합니다.',
     images: ['/images/og-image.png'],
   },
 
@@ -62,23 +62,43 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await requestLocale();
+  if (locale === 'ko') return baseMetadata;
+  const title = 'グローバル琉球・沖縄研究所 | 慶熙大学校';
+  const description =
+    '慶熙大学校グローバル琉球・沖縄研究所のお知らせと研究に関する最新情報をお届けします。';
+  return {
+    ...baseMetadata,
+    title: { default: title, template: '%s | グローバル琉球・沖縄研究所' },
+    description,
+    openGraph: {
+      ...baseMetadata.openGraph,
+      title,
+      description,
+      siteName: 'グローバル琉球・沖縄研究所',
+      locale: 'ja_JP',
+      url: '/ja',
+    },
+    twitter: { ...baseMetadata.twitter, title, description },
+  };
+}
+export default async function Layout({ children }: { children: React.ReactNode }) {
+  const locale = await requestLocale();
   return (
-    <html lang="ko">
+    <html lang={locale}>
       <body>
-        <a className="skip-link" href="#main">
-          본문 바로가기
-        </a>
+        <LanguageProvider locale={locale}>
+          <a className="skip-link" href="#main">
+            {translate(locale, '본문 바로가기')}
+          </a>
 
-        <Header />
+          <Header />
 
-        <main id="main">{children}</main>
+          <main id="main">{children}</main>
 
-        <Footer />
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

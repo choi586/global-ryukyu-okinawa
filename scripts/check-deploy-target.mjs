@@ -17,7 +17,16 @@ for (const file of ['wrangler.jsonc', 'dist/server/wrangler.json']) {
   assert.equal(config.r2_buckets[0].binding, 'MEDIA');
   assert.equal(config.r2_buckets[0].bucket_name, 'global-ryukyu-okinawa-media');
 }
-for (const file of ['dist/server/framework.js', 'dist/server/public-list.js', 'dist/client/news.html', 'dist/client/news.rsc']) {
+for (const file of [
+  'dist/server/framework.js',
+  'dist/server/public-list.js',
+  'dist/client/news.html',
+  'dist/client/news.rsc',
+  'dist/client/ja/news.html',
+  'dist/client/ja/news.rsc',
+  'dist/client/ja/about.html',
+  'dist/client/ja/people.html',
+]) {
   assert.ok(existsSync(file), `Missing optimized build: ${file}. Run pnpm build:vinext first.`);
 }
 console.log('Deployment target verified: khu → existing D1 + existing R2.');

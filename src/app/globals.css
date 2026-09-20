@@ -2569,3 +2569,13 @@ body {
   .topline .shell.utility-inner, .university-link, .language-control select { min-height: 40px; }
   .topline .language-chevron { top: 9px; }
 }
+
+/* Japanese has no spaces between words; retain the layout with natural wrapping. */
+html[lang='ja'] main { word-break: normal; overflow-wrap: anywhere; }
+html[lang='ja'] .institute-about > *,
+html[lang='ja'] .intro-section > * { min-width: 0; }
+html[lang='ja'] .about-heading h2,
+html[lang='ja'] .about-prose p,
+html[lang='ja'] .about-visions p,
+html[lang='ja'] .intro-copy,
+html[lang='ja'] .vision-card { word-break: normal; }

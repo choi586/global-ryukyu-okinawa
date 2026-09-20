@@ -1,7 +1,7 @@
 // Render only public, data-independent pages using the real local Workers runtime.
 // This never uploads files or writes to remote D1/R2.
 import { spawn } from 'node:child_process';
-import { readFile, writeFile, rename } from 'node:fs/promises';
+import { readFile, writeFile, rename, mkdir } from 'node:fs/promises';
 import ts from 'typescript';
 const base = 'http://127.0.0.1:8799';
 try {
@@ -43,7 +43,8 @@ try {
     await new Promise((r) => setTimeout(r, 100));
   }
   if (!ready) throw Error('Local static renderer did not start: ' + output);
-  for (const route of ['news', 'about', 'people']) {
+  await mkdir('dist/client/ja', { recursive: true });
+  for (const route of ['news', 'about', 'people', 'ja/news', 'ja/about', 'ja/people']) {
     for (const rsc of [false, true]) {
       const r = await fetch(base + '/' + route, { headers: rsc ? { RSC: '1' } : {} });
       if (!r.ok) throw Error(`Prerender ${route}: ${r.status}`);

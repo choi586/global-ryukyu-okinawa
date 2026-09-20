@@ -1,4 +1,5 @@
-import Link from 'next/link';
+import { translate, type Locale } from '@/i18n/config';
+import Link from '@/components/localized-link';
 import { publicPage } from '@/lib/store';
 import { categories, type Category } from '@/lib/types';
 import { ContentCards } from './content-cards';
@@ -6,37 +7,44 @@ import { ContentCards } from './content-cards';
 export async function ContentBoard({
   category,
   page: requested,
+  locale = 'ko',
 }: {
   category: Category;
+  locale?: Locale;
   page?: string;
 }) {
+  const t = (text: string) => translate(locale, text);
+
   const { notices, total, page, pages } = await publicPage(category, requested, 9);
   return (
     <>
       <div className="page-banner">
         <div className="shell">
           <p className="breadcrumb">
-            <Link href="/">홈</Link> / {categories[category]}
+            <Link href="/">{t('홈')}</Link> / {t(categories[category])}
           </p>
           <p className="eyebrow">{category.toUpperCase()}</p>
-          <h1>{categories[category]}</h1>
+          <h1>{t(categories[category])}</h1>
         </div>
       </div>
       <section className="shell board-section">
         <div className="board-toolbar">
           <span>
-            전체 <strong>{total}</strong>건
+            {t('전체 ')}
+            <strong>{total}</strong>
+            {t('건')}
           </span>
-          <span>게시일 최신순</span>
+          <span>{t('게시일 최신순')}</span>
         </div>
+        {locale === 'ja' && <p className="eyebrow">記事は韓国語の原文で掲載しています。</p>}
         <ContentCards notices={notices} />
         {pages > 1 && (
-          <nav className="pagination" aria-label={`${categories[category]} 페이지`}>
-            {page > 1 && <Link href={`/${category}?page=${page - 1}`}>이전</Link>}
+          <nav className="pagination" aria-label={`${t(categories[category])} 페이지`}>
+            {page > 1 && <Link href={`/${category}?page=${page - 1}`}>{t('이전')}</Link>}
             <span>
               {page} / {pages}
             </span>
-            {page < pages && <Link href={`/${category}?page=${page + 1}`}>다음</Link>}
+            {page < pages && <Link href={`/${category}?page=${page + 1}`}>{t('다음')}</Link>}
           </nav>
         )}
       </section>

@@ -1,9 +1,13 @@
 'use client';
-import Link from 'next/link';
+import { useLanguage } from '@/i18n/provider';
+
+import Link from '@/components/localized-link';
 import { useEffect, useRef, useState } from 'react';
 import type { Slide } from '@/lib/carousel-types';
 
 export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
+  const { locale, t } = useLanguage();
+
   const [slides, setSlides] = useState(initialSlides);
   const [index, setIndex] = useState(0);
   const [hover, setHover] = useState(false);
@@ -73,13 +77,13 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
         <div className="shell hero-inner">
           <p className="hero-kicker">KYUNG HEE UNIVERSITY</p>
           <h1>
-            글로벌류큐·
+            {t('글로벌류큐·')}
             <br />
-            오키나와연구소
+            {t('오키나와연구소')}
           </h1>
           <p className="hero-description">Global Institute for Ryukyu and Okinawa Studies</p>
           <Link className="button light" href="/news">
-            공지사항 ↗
+            {t('공지사항 ↗')}
           </Link>
         </div>
       </section>
@@ -88,8 +92,8 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
     <section
       className="hero-carousel"
       data-autoplay={paused ? 'paused' : 'playing'}
-      aria-roledescription="캐러셀"
-      aria-label="연구소 주요 소식"
+      aria-roledescription={t('캐러셀')}
+      aria-label={t('연구소 주요 소식')}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onFocusCapture={(event) => {
@@ -109,7 +113,7 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
         }
       }}
     >
-      <h1 className="visually-hidden">글로벌류큐·오키나와연구소</h1>
+      <h1 className="visually-hidden">{t('글로벌류큐·오키나와연구소')}</h1>
       <div className="carousel-stage" aria-live={paused ? 'polite' : 'off'}>
         {slides.map((slide, i) => (
           <article
@@ -117,7 +121,7 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
             className={`carousel-slide ${i === current ? 'is-active' : ''} fit-${slide.fit}`}
             aria-hidden={i !== current}
             inert={i !== current}
-            aria-roledescription="슬라이드"
+            aria-roledescription={t('슬라이드')}
             aria-label={`${i + 1} / ${slides.length}`}
           >
             <div className="carousel-photo">
@@ -131,11 +135,17 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
             <div className="carousel-shade" />
             <div className="shell carousel-copy">
               <p className="carousel-kicker">KYUNG HEE UNIVERSITY · GLOBAL RYUKYU &amp; OKINAWA</p>
-              <h2>{slide.title}</h2>
-              <p className="carousel-description">{slide.description}</p>
+              {locale === 'ja' && (
+                <p className="carousel-description">韓国語の原文で掲載しています。</p>
+              )}
+              <h2 lang="ko">{slide.title}</h2>
+              <p className="carousel-description" lang="ko">
+                {slide.description}
+              </p>
               {slide.href && (
                 <Link className="button light" href={slide.href}>
-                  자세히 보기 <span aria-hidden="true">↗</span>
+                  {t('자세히 보기 ')}
+                  <span aria-hidden="true">↗</span>
                 </Link>
               )}
             </div>
@@ -146,7 +156,7 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
         <div className="carousel-arrows">
           <button
             type="button"
-            aria-label="이전 사진"
+            aria-label={t('이전 사진')}
             onClick={() => move(current - 1)}
             disabled={slides.length < 2}
           >
@@ -154,19 +164,19 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
           </button>
           <button
             type="button"
-            aria-label="다음 사진"
+            aria-label={t('다음 사진')}
             onClick={() => move(current + 1)}
             disabled={slides.length < 2}
           >
             〉
           </button>
         </div>
-        <div className="carousel-dots" aria-label="사진 선택">
+        <div className="carousel-dots" aria-label={t('사진 선택')}>
           {slides.map((s, i) => (
             <button
               type="button"
               key={s.id}
-              aria-label={`${i + 1}번 사진 보기`}
+              aria-label={locale === 'ja' ? `${i + 1}枚目の写真を見る` : `${i + 1}번 사진 보기`}
               aria-current={i === current ? 'true' : undefined}
               onClick={() => move(i)}
             >
@@ -181,7 +191,7 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
           <button
             className="carousel-play"
             type="button"
-            aria-label={stopped ? '자동재생 시작' : '자동재생 정지'}
+            aria-label={stopped ? t('자동재생 시작') : t('자동재생 정지')}
             onClick={() => setStopped(!stopped)}
           >
             {stopped ? '▶' : 'Ⅱ'}

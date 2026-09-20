@@ -1,9 +1,14 @@
-import Link from 'next/link';
+'use client';
+import { useLanguage } from '@/i18n/provider';
+
+import Link from '@/components/localized-link';
 import type { NoticeSummary } from '@/lib/public-list';
 import { dateLabel, noticePath } from '@/lib/types';
 
 export function ContentCards({ notices }: { notices: NoticeSummary[] }) {
-  if (!notices.length) return <p className="empty-state">등록된 자료가 없습니다.</p>;
+  const { locale, t } = useLanguage();
+
+  if (!notices.length) return <p className="empty-state">{t('등록된 자료가 없습니다.')}</p>;
   return (
     <div className="content-grid">
       {notices.map((notice) => {
@@ -38,21 +43,21 @@ export function ContentCards({ notices }: { notices: NoticeSummary[] }) {
               <p className="content-card-date">
                 {notice.eventDate
                   ? notice.category === 'publications'
-                    ? '발행일 '
-                    : '행사일 '
-                  : '게시일 '}
+                    ? t('발행일 ')
+                    : t('행사일 ')
+                  : t('게시일 ')}
                 <time dateTime={notice.eventDate || notice.publishedAt}>
-                  {dateLabel(notice.eventDate || notice.publishedAt)}
+                  {dateLabel(notice.eventDate || notice.publishedAt, locale)}
                 </time>
               </p>
-              <h3>{notice.title}</h3>
-              <p className="content-card-description">
+              <h3 lang="ko">{notice.title}</h3>
+              <p className="content-card-description" lang="ko">
                 {notice.body
                   .split(/\n+/)
                   .filter((line) => line.trim() && !/^https?:\/\//.test(line.trim()))
                   .join(' ')}
               </p>
-              <span className="content-card-more">자세히 보기 ↗</span>
+              <span className="content-card-more">{t('자세히 보기 ↗')}</span>
             </div>
           </Link>
         );

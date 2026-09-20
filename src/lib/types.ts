@@ -39,6 +39,12 @@ const dateFormatter = new Intl.DateTimeFormat('ko-KR', {
   month: '2-digit',
   day: '2-digit',
 });
-export function dateLabel(value: string) {
-  return dateFormatter.format(new Date(value));
+const japaneseDateFormatter = new Intl.DateTimeFormat('ja-JP', {
+  timeZone: 'Asia/Seoul',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+export function dateLabel(value: string, locale: 'ko' | 'ja' = 'ko') {
+  return (locale === 'ja' ? japaneseDateFormatter : dateFormatter).format(new Date(value));
 }

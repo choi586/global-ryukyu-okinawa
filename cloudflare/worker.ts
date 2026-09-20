@@ -4,7 +4,9 @@ export default {
   async fetch(request: Request, env: Bindings, context: unknown) {
     const url = new URL(request.url);
     if (
-      ['/news', '/about', '/people'].includes(url.pathname) &&
+      ['/news', '/about', '/people', '/ja/news', '/ja/about', '/ja/people'].includes(
+        url.pathname,
+      ) &&
       ['GET', 'HEAD'].includes(request.method)
     ) {
       const asset = new URL(request.url);

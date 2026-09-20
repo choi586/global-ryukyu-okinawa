@@ -1,5 +1,8 @@
 'use client';
-import Link from 'next/link';
+import { useLanguage } from '@/i18n/provider';
+import { localePath } from '@/i18n/config';
+
+import Link from '@/components/localized-link';
 import { UtilityBar } from './utility-bar';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -13,7 +16,9 @@ const items = [
   ['아카이브', 'archive'],
 ];
 export function Header() {
-  const pathname = usePathname();
+  const { locale, t } = useLanguage();
+
+  const pathname = usePathname().replace(/^\/ja(?=\/|$)/, '') || '/';
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -33,7 +38,7 @@ export function Header() {
         <Link
           href="/"
           className="brand"
-          aria-label="글로벌류큐·오키나와연구소 홈"
+          aria-label={t('글로벌류큐·오키나와연구소 홈')}
           onClick={() => setOpen(false)}
         >
           <img
@@ -41,7 +46,9 @@ export function Header() {
             src="/images/institute-logo.png"
             width={2144}
             height={865}
-            alt="글로벌류큐·오키나와연구소 · Kyung Hee University · Global Institute for Ryukyu and Okinawa Studies"
+            alt={t(
+              '글로벌류큐·오키나와연구소 · Kyung Hee University · Global Institute for Ryukyu and Okinawa Studies',
+            )}
           />
         </Link>
         <button
@@ -51,17 +58,21 @@ export function Header() {
           aria-controls="primary-nav"
           onClick={() => setOpen(!open)}
         >
-          {open ? '닫기 ✕' : '메뉴 ☰'}
+          {open ? t('닫기 ✕') : t('메뉴 ☰')}
         </button>
         <nav
           id="primary-nav"
           className={open ? 'primary-nav open' : 'primary-nav'}
-          aria-label="주 메뉴"
+          aria-label={t('주 메뉴')}
         >
           {items.map(([label, key]) =>
             key === 'news' ? (
-              <a key={key} href="/news" aria-current={pathname === '/news' ? 'page' : undefined}>
-                {label}
+              <a
+                key={key}
+                href={localePath('/news', locale)}
+                aria-current={pathname === '/news' ? 'page' : undefined}
+              >
+                {t(label)}
               </a>
             ) : ['about', 'people', 'activities', 'publications'].includes(key) ? (
               <Link
@@ -70,11 +81,11 @@ export function Header() {
                 aria-current={pathname.startsWith(`/${key}`) ? 'page' : undefined}
                 onClick={() => setOpen(false)}
               >
-                {label}
+                {t(label)}
               </Link>
             ) : (
               <span key={key} className="nav-disabled" aria-disabled="true">
-                {label}
+                {t(label)}
               </span>
             ),
           )}

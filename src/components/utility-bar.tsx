@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useLanguage } from '@/i18n/provider';
+import { localePath } from '@/i18n/config';
 
 // Connect each language to its real page when translated pages are available.
 const languages: { code: string; label: string; href: string | null }[] = [
@@ -9,7 +11,8 @@ const languages: { code: string; label: string; href: string | null }[] = [
   { code: 'en', label: 'English', href: null },
 ];
 
-export function UtilityBar({ currentLanguage = 'ko' }: { currentLanguage?: string }) {
+export function UtilityBar() {
+  const { locale: currentLanguage, t } = useLanguage();
   const [message, setMessage] = useState('');
 
   return (
@@ -20,22 +23,33 @@ export function UtilityBar({ currentLanguage = 'ko' }: { currentLanguage?: strin
           href="https://www.khu.ac.kr/kor/user/main/view.do"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="경희대학교 공식 홈페이지 (새 탭)"
+          aria-label={t('경희대학교 공식 홈페이지 (새 탭)')}
         >
-          경희대학교 <span aria-hidden="true">↗</span>
+          {t('경희대학교')} <span aria-hidden="true">↗</span>
         </a>
         <div className="language-control">
           <select
-            aria-label="언어 선택 / Language"
+            aria-label={currentLanguage === 'ja' ? '言語選択 / Language' : '언어 선택 / Language'}
             value={currentLanguage}
             onChange={(event) => {
               const language = languages.find((item) => item.code === event.target.value);
               if (!language || language.code === currentLanguage) {
                 setMessage('');
+              } else if (language.code === 'ko' || language.code === 'ja') {
+                window.location.assign(
+                  localePath(
+                    window.location.pathname + window.location.search + window.location.hash,
+                    language.code,
+                  ),
+                );
               } else if (language.href) {
                 window.location.assign(language.href);
               } else {
-                setMessage(`${language.label} 페이지는 준비 중입니다. 현재 한국어로 제공됩니다.`);
+                setMessage(
+                  currentLanguage === 'ja'
+                    ? '英語ページは準備中です。'
+                    : 'English 페이지는 준비 중입니다. 현재 한국어로 제공됩니다.',
+                );
               }
             }}
             onBlur={() => setMessage('')}
@@ -46,8 +60,10 @@ export function UtilityBar({ currentLanguage = 'ko' }: { currentLanguage?: strin
               </option>
             ))}
           </select>
-          <span className="language-chevron" aria-hidden="true">⌄</span>
-          <div role="status" className={message ? 'language-notice' : 'visually-hidden'}>
+          <span className="language-chevron" aria-hidden="true">
+            ⌄
+          </span>
+          <div role={message ? 'status' : undefined} aria-live="polite" className={message ? 'language-notice' : 'visually-hidden'}>
             {message}
           </div>
         </div>
