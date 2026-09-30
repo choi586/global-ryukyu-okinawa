@@ -16,7 +16,9 @@
     "build:vinext": "CLOUDFLARE_LOAD_DEV_VARS_FROM_DOT_ENV=false vinext build && node scripts/prepare-static-pages.mjs",
     "start:vinext": "wrangler dev --config dist/server/wrangler.json",
     "deploy:vinext": "pnpm check:deploy && wrangler deploy --config dist/server/wrangler.json",
-    "check:deploy": "node scripts/check-deploy-target.mjs"
+    "check:deploy": "node scripts/check-deploy-target.mjs",
+    "deploy:pages": "node scripts/deploy-pages.mjs",
+    "test:pages": "node --test pages/proxy.test.mjs"
   },
   "engines": {
     "node": ">=22.13.0"

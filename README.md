@@ -106,3 +106,7 @@ SQLite 백업 API 또는 서버 정지 후 `.data` 전체 복사로 백업합니
 `pnpm build:vinext`의 마지막 단계인 `scripts/prepare-static-pages.mjs`는 포트 8799를 잠시 사용합니다. Cloudflare 원격 데이터에는 접근하거나 업로드하지 않습니다. 실제 배포 설정은 `dist/server/wrangler.json`을 사용해야 합니다. 사진·관리자 경로는 공개 정적 페이지 캐시에 포함하지 않습니다.
 
 운영 Worker 이름은 `khu`, 계정 하위 도메인은 `ryukyu-okinawa`입니다. 주소는 `https://khu.ryukyu-okinawa.workers.dev`입니다. 기존 Worker ID를 유지한 이름 변경이며 새 Worker를 생성하지 않았습니다. 계정 하위 도메인, D1/R2 바인딩 이름과 ID, 운영 데이터는 유지했습니다.
+
+### 학교 도메인 연결용 Pages
+
+`https://khu-okinawa.pages.dev`는 서비스 바인딩으로 기존 `khu` Worker에 연결됩니다. 홈페이지 데이터와 파일은 기존 D1/R2를 그대로 사용합니다. 일반 홈페이지 수정은 기존 Worker만 배포하면 양쪽에 반영됩니다. Pages 연결 프로그램 자체를 수정했을 때만 `pnpm test:pages` 후 `pnpm deploy:pages`를 실행합니다. 학교 주소 연결 절차는 [docs/PAGES.md](docs/PAGES.md)를 참고하세요.
