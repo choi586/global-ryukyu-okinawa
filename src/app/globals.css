@@ -2604,3 +2604,19 @@ html[lang='ja'] .intro-copy,
 html[lang='ja'] .principal-project h3,
 html[lang='ja'] .principal-project .project-description,
 html[lang='ja'] .vision-card { word-break: normal; }
+
+.project-page { padding-top: 60px; padding-bottom: 80px; }
+.project-overview { border-top: 3px solid #990e17; padding: clamp(24px, 4vw, 46px); background: #f6f4f1; }
+.project-overview h2 { font-size: clamp(26px, 3.3vw, 40px); line-height: 1.5; margin: 20px 0; }
+.project-page p { line-height: 1.9; }
+.project-page h2, .project-page h3, .project-page p { word-break: keep-all; overflow-wrap: anywhere; }
+.project-duration { color: #990e17; font-weight: 600; }
+.project-block { margin-top: 64px; }
+.project-block > h3 { font-size: 22px; line-height: 1.6; }
+.project-partners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; list-style: none; padding: 0; margin: 0; }
+.project-partners li { padding: 28px; border: 1px solid #ddd; }
+.project-partners h3 { font-size: 20px; line-height: 1.6; margin: 0 0 12px; }
+.project-partners p { margin: 0; color: #555; }
+.project-partners .project-partner-home { border-color: #990e17; background: #f6f4f1; }
+html[lang='ja'] .project-page h2, html[lang='ja'] .project-page h3, html[lang='ja'] .project-page p { word-break: normal; }
+@media (max-width: 800px) { .project-partners { grid-template-columns: 1fr; } .project-page { padding-top: 40px; } }

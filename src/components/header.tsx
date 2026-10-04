@@ -74,7 +74,7 @@ export function Header() {
               >
                 {t(label)}
               </a>
-            ) : ['about', 'people', 'activities', 'publications'].includes(key) ? (
+            ) : ['about', 'people', 'research', 'activities', 'publications'].includes(key) ? (
               <Link
                 key={key}
                 href={`/${key}`}

@@ -20,6 +20,10 @@ for (const file of ['wrangler.jsonc', 'dist/server/wrangler.json']) {
 for (const file of [
   'dist/server/framework.js',
   'dist/server/public-list.js',
+  'dist/client/research.html',
+  'dist/client/research.rsc',
+  'dist/client/ja/research.html',
+  'dist/client/ja/research.rsc',
   'dist/client/news.html',
   'dist/client/news.rsc',
   'dist/client/ja/news.html',

@@ -44,7 +44,16 @@ try {
   }
   if (!ready) throw Error('Local static renderer did not start: ' + output);
   await mkdir('dist/client/ja', { recursive: true });
-  for (const route of ['news', 'about', 'people', 'ja/news', 'ja/about', 'ja/people']) {
+  for (const route of [
+    'news',
+    'about',
+    'people',
+    'research',
+    'ja/news',
+    'ja/about',
+    'ja/people',
+    'ja/research',
+  ]) {
     for (const rsc of [false, true]) {
       const r = await fetch(base + '/' + route, { headers: rsc ? { RSC: '1' } : {} });
       if (!r.ok) throw Error(`Prerender ${route}: ${r.status}`);
