@@ -33,6 +33,81 @@ export default function Research({ locale = 'ko' }: { locale?: Locale } = {}) {
             )}
           </p>
         </section>
+        <section className="project-block" aria-labelledby="methods-heading">
+          <div className="section-heading">
+            <h2 id="methods-heading">{t('연구 방법과 검증 체계')}</h2>
+          </div>
+          <p>
+            {t('컨소시엄은 요인 규명부터 현장 검증과 정책 적용까지 연결하는 연구를 추진합니다.')}
+          </p>
+          <ol className="project-methods">
+            <li>
+              <span className="project-method-number" aria-hidden="true">
+                01
+              </span>
+              <div>
+                <h3>{t('요인 규명')}</h3>
+                <p>
+                  {t(
+                    '심리·신경생물·사회·문화·보건 요인을 함께 탐색해 사회적 고립의 위험요인과 보호요인, 발생·지속 기제를 규명합니다.',
+                  )}
+                </p>
+              </div>
+            </li>
+            <li>
+              <span className="project-method-number" aria-hidden="true">
+                02
+              </span>
+              <div>
+                <h3>{t('측정·데이터 구축')}</h3>
+                <p>
+                  {t(
+                    '다면적 측정·평가 체계와 공동 데이터베이스를 구축하고, 한·일 비교연구를 통해 척도를 검증합니다.',
+                  )}
+                </p>
+              </div>
+            </li>
+            <li>
+              <span className="project-method-number" aria-hidden="true">
+                03
+              </span>
+              <div>
+                <h3>{t('통합 분석')}</h3>
+                <p>
+                  {t(
+                    '행정·패널 데이터로 질병부담과 건강불평등을 분석하고, 한·일 종단연구로 시간에 따른 고립의 유지 기제와 회복 과정을 추적합니다. 역사·문화적 서사 분석을 연결해 고립을 다층적으로 해석합니다.',
+                  )}
+                </p>
+              </div>
+            </li>
+            <li>
+              <span className="project-method-number" aria-hidden="true">
+                04
+              </span>
+              <div>
+                <h3>{t('현장 검증')}</h3>
+                <p>
+                  {t(
+                    '협력기관에서 예방·개입 프로그램을 시범 적용하고, 효과성·실행 가능성·수용성을 검증해 모델을 정교화합니다.',
+                  )}
+                </p>
+              </div>
+            </li>
+            <li>
+              <span className="project-method-number" aria-hidden="true">
+                05
+              </span>
+              <div>
+                <h3>{t('정책 적용')}</h3>
+                <p>
+                  {t(
+                    '검증 결과를 프로그램·매뉴얼·실무자 교육자료와 정책 제언으로 연결하고, 지역사회 서비스와 제도 설계를 지원합니다.',
+                  )}
+                </p>
+              </div>
+            </li>
+          </ol>
+        </section>
         <section className="project-block" aria-labelledby="partners-heading">
           <div className="section-heading">
             <h2 id="partners-heading">{t('참여기관과 역할')}</h2>
@@ -68,6 +143,40 @@ export default function Research({ locale = 'ko' }: { locale?: Locale } = {}) {
               '연구소는 제주·대만·오키나와를 중심으로 전쟁과 질병, 국가폭력, 이주와 배제가 남긴 고립 경험을 연구합니다. 구술사와 심층면접, 희귀 사료 및 문학·미디어 분석에 텍스트마이닝과 공간 시각화 등 디지털 인문학 방법을 결합해 사회적 연결망이 단절되는 과정과 회복의 가능성을 살핍니다.',
             )}
           </p>
+          <div className="project-analysis">
+            <h3>{t('데이터로 확장하는 인문·지역연구')}</h3>
+            <p>
+              {t(
+                '연구소는 구술·문헌 자료의 맥락을 해석하는 질적 연구에 계산적 분석과 공간 분석을 결합할 계획입니다.',
+              )}
+            </p>
+            <ul className="project-partners">
+              <li>
+                <h4>{t('구술·문헌 데이터셋')}</h4>
+                <p>
+                  {t(
+                    '구술 생애사와 희귀 문헌, 문학·미디어 자료를 수집·정비하고, ‘고립·단절·폭력·연결’ 키워드와 의미망을 활용해 다국어 메타데이터를 구축합니다.',
+                  )}
+                </p>
+              </li>
+              <li>
+                <h4>{t('텍스트마이닝·감성 분석')}</h4>
+                <p>
+                  {t(
+                    'BERT 기반 토픽 모델링과 감성 분석을 활용해 고립 담론의 주제와 정서적 양상을 분석합니다.',
+                  )}
+                </p>
+              </li>
+              <li>
+                <h4>{t('공간 분석·시각화')}</h4>
+                <p>
+                  {t(
+                    'QGIS를 활용한 고립의 공간 지도화를 추진해 연구 결과를 공간적 관점에서 시각화합니다.',
+                  )}
+                </p>
+              </li>
+            </ul>
+          </div>
         </section>
         <section className="project-block" aria-labelledby="project-impact-heading">
           <div className="section-heading">
