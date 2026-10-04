@@ -2425,6 +2425,34 @@ body {
   margin: 0;
   line-height: 1.8;
 }
+.principal-project {
+  margin-top: 70px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #ddd;
+}
+.principal-project .project-program {
+  font-weight: 600;
+  line-height: 1.8;
+  margin-bottom: 6px;
+}
+.principal-project .project-role {
+  color: #666;
+  margin-top: 0;
+  line-height: 1.8;
+}
+.principal-project h3 {
+  font-size: clamp(20px, 2.5vw, 26px);
+  line-height: 1.6;
+  margin: 24px 0 16px;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.principal-project .project-description {
+  margin: 0;
+  line-height: 1.9;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
 .principal-work {
   margin-top: 70px;
 }
@@ -2578,4 +2606,6 @@ html[lang='ja'] .about-heading h2,
 html[lang='ja'] .about-prose p,
 html[lang='ja'] .about-visions p,
 html[lang='ja'] .intro-copy,
+html[lang='ja'] .principal-project h3,
+html[lang='ja'] .principal-project .project-description,
 html[lang='ja'] .vision-card { word-break: normal; }

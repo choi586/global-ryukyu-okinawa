@@ -37,6 +37,24 @@ export default function People({ locale = 'ko' }: { locale?: Locale } = {}) {
             </div>
           </dl>
         </div>
+        <section className="principal-project" aria-labelledby="research-project-heading">
+          <div className="section-heading">
+            <div>
+              <p className="english-section-title">Research Project</p>
+              <h2 id="research-project-heading">{t('주요 연구사업')}</h2>
+            </div>
+          </div>
+          <p className="project-program">{t('한국연구재단 글로벌인문사회 융합연구지원사업')}</p>
+          <p className="project-role">{t('세부과제 3 연구책임자 · 손지연')}</p>
+          <h3>
+            {t('동아시아 지역연구 관점에서 본 사회적 고립의 사회문화적 서사와 의미구조 분석')}
+          </h3>
+          <p className="project-description">
+            {t(
+              '경희대학교 글로벌류큐·오키나와연구소는 이번 컨소시엄에서 동아시아 고립 서사와 의미구조 분석을 이끕니다. 전쟁과 질병, 국가폭력이 남긴 제주·대만·오키나와의 역사적 상흔을 구술사와 문헌·문화 자료를 통해 살피고, ‘한국형 사회적 처방 툴킷’ 개발과 정책 제언을 통해 단절된 사회적 연결망의 회복에 기여하고자 합니다.',
+            )}
+          </p>
+        </section>
         <div className="principal-work">
           <div className="section-heading">
             <div>
