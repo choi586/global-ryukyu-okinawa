@@ -2435,11 +2435,6 @@ body {
   line-height: 1.8;
   margin-bottom: 6px;
 }
-.principal-project .project-role {
-  color: #666;
-  margin-top: 0;
-  line-height: 1.8;
-}
 .principal-project h3 {
   font-size: clamp(20px, 2.5vw, 26px);
   line-height: 1.6;

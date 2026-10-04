@@ -45,7 +45,6 @@ export default function People({ locale = 'ko' }: { locale?: Locale } = {}) {
             </div>
           </div>
           <p className="project-program">{t('한국연구재단 글로벌인문사회 융합연구지원사업')}</p>
-          <p className="project-role">{t('세부과제 3 연구책임자 · 손지연')}</p>
           <h3>
             {t('동아시아 지역연구 관점에서 본 사회적 고립의 사회문화적 서사와 의미구조 분석')}
           </h3>
