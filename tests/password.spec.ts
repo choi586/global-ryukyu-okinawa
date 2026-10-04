@@ -1,0 +1,35 @@
+import { test, expect } from '@playwright/test';
+const origin = 'http://localhost:3100';
+const oldPassword = 'test-only-password';
+const newPassword = 'updated-test-password-123';
+test('password change verifies current password and invalidates all sessions', async ({ page, browser }) => {
+  const other = await browser.newContext({ baseURL: origin });
+  const guest = await browser.newContext({ baseURL: origin });
+  const login = (request: typeof page.request, password: string) => request.post('/api/auth/login', { headers: { Origin: origin }, data: { username: 'test-admin', password } });
+  expect((await guest.request.post('/api/auth/password', { headers: { Origin: origin }, data: {} })).status()).toBe(403);
+  expect((await login(page.request, oldPassword)).status()).toBe(200);
+  expect((await login(other.request, oldPassword)).status()).toBe(200);
+  expect((await page.request.post('/api/auth/password', { headers: { Origin: 'https://evil.invalid' }, data: {} })).status()).toBe(403);
+  expect((await page.request.post('/api/auth/password', { headers: { Origin: origin }, data: { currentPassword: oldPassword, newPassword: 'short', confirmation: 'short' } })).status()).toBe(400);
+  expect((await page.request.post('/api/auth/password', { headers: { Origin: origin }, data: { currentPassword: oldPassword, newPassword, confirmation: 'mismatch' } })).status()).toBe(400);
+  await page.goto('/admin/password');
+  await page.getByLabel('현재 비밀번호', { exact: true }).fill('wrong');
+  await page.getByLabel('새 비밀번호', { exact: true }).fill(newPassword);
+  await page.getByLabel('새 비밀번호 확인', { exact: true }).fill(newPassword);
+  await page.getByRole('button', { name: '비밀번호 변경하기' }).click();
+  await expect(page.locator('.form-error')).toContainText('현재 비밀번호');
+  await page.getByLabel('현재 비밀번호', { exact: true }).fill(oldPassword);
+  await page.getByRole('button', { name: '비밀번호 변경하기' }).click();
+  await expect(page.getByRole('status')).toContainText('비밀번호를 변경했습니다');
+  expect((await other.request.get('/api/carousel?admin=1')).status()).toBe(403);
+  expect((await page.request.get('/api/carousel?admin=1')).status()).toBe(403);
+  expect((await login(guest.request, oldPassword)).status()).toBe(401);
+  expect((await login(guest.request, newPassword)).status()).toBe(200);
+  // Restore only the disposable local fixture so subsequent regression tests keep their credentials.
+  expect((await guest.request.post('/api/auth/password', { headers: { Origin: origin }, data: { currentPassword: newPassword, newPassword: oldPassword, confirmation: oldPassword } })).status()).toBe(200);
+  expect((await login(page.request, oldPassword)).status()).toBe(200);
+  await page.goto('/admin/password');
+  await page.setViewportSize({ width: 390, height: 900 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+  await other.close(); await guest.close();
+});

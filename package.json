@@ -18,7 +18,7 @@
     "deploy:vinext": "pnpm check:deploy && wrangler deploy --config dist/server/wrangler.json",
     "check:deploy": "node scripts/check-deploy-target.mjs",
     "deploy:pages": "node scripts/deploy-pages.mjs",
-    "test:pages": "node --test pages/proxy.test.mjs"
+    "test:pages": "node --test cloudflare-pages/proxy.test.mjs"
   },
   "engines": {
     "node": ">=22.13.0"

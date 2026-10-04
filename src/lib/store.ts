@@ -111,11 +111,11 @@ export async function publicNotices(category?: Category) {
     (n) => n.status === 'published' && (!category || (n.category || 'news') === category),
   );
 }
-export async function consumeLoginAttempt() {
-  const bucket = String(Math.floor(Date.now() / 900000));
+export async function consumeLoginAttempt(scope: 'login' | 'password-change' = 'login') {
+  const bucket = scope + ':' + String(Math.floor(Date.now() / 900000));
   const cloud = await cloudflareBindings();
   if (cloud) {
-    await cloud.DB.prepare('DELETE FROM login_limits WHERE id<>?').bind(bucket).run();
+    await cloud.DB.prepare('DELETE FROM login_limits WHERE id LIKE ? AND id<>?').bind(scope + ':%', bucket).run();
     const row = await cloud.DB.prepare(
       'INSERT INTO login_limits VALUES (?,1) ON CONFLICT(id) DO UPDATE SET count=count+1 RETURNING count',
     )
@@ -124,7 +124,7 @@ export async function consumeLoginAttempt() {
     return Number(row?.count || 0);
   }
   const sql = await db();
-  sql.prepare('DELETE FROM login_limits WHERE id<>?').run(bucket);
+  sql.prepare('DELETE FROM login_limits WHERE id LIKE ? AND id<>?').run(scope + ':%', bucket);
   return Number(
     (
       sql

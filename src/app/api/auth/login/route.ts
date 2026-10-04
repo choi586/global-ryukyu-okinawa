@@ -1,4 +1,4 @@
-import { configured, createSession, sameOrigin, validPassword } from '@/lib/auth';
+import { configured, createSession, sameOrigin, verifiedPasswordHash } from '@/lib/auth';
 import { consumeLoginAttempt } from '@/lib/store';
 export async function POST(request: Request) {
   if (!sameOrigin(request))
@@ -14,13 +14,11 @@ export async function POST(request: Request) {
         { status: 429 },
       );
     const { username, password } = await request.json();
-    if (
-      typeof username !== 'string' ||
-      typeof password !== 'string' ||
-      !validPassword(username, password)
-    )
+    const verifiedHash = typeof username === 'string' && typeof password === 'string'
+      ? await verifiedPasswordHash(username, password) : null;
+    if (!verifiedHash)
       return Response.json({ error: '아이디 또는 비밀번호를 확인해주세요.' }, { status: 401 });
-    await createSession();
+    await createSession(verifiedHash);
     return Response.json({ ok: true });
   } catch {
     return Response.json(

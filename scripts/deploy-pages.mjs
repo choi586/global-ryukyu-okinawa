@@ -4,7 +4,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import assert from 'node:assert/strict';
 const root = process.cwd();
-const config = JSON.parse(await readFile('pages/wrangler.jsonc', 'utf8'));
+const config = JSON.parse(await readFile('cloudflare-pages/wrangler.jsonc', 'utf8'));
 assert.equal(config.name, 'khu-okinawa');
 assert.equal(config.services?.[0]?.service, 'khu');
 assert.equal(config.d1_databases, undefined);
@@ -12,7 +12,7 @@ assert.equal(config.r2_buckets, undefined);
 // Isolate Pages CLI from vinext's generated Worker deployment redirect config.
 const stage = await mkdtemp(path.join(tmpdir(), 'institute-pages-'));
 try {
-  await cp('pages', stage, { recursive: true });
+  await cp('cloudflare-pages', stage, { recursive: true });
   const result = spawnSync(process.execPath, [
     path.join(root, 'node_modules/wrangler/bin/wrangler.js'), 'pages', 'deploy', 'public',
     '--project-name', 'khu-okinawa', '--branch', 'main',

@@ -16,6 +16,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <nav className="admin-nav" aria-label="관리 메뉴">
             <Link href="/admin">게시물 관리</Link>
             <Link href="/admin/carousel">메인 캐러셀 관리</Link>
+            <Link href="/admin/password">비밀번호 변경</Link>
             <Logout />
           </nav>
         </div>
