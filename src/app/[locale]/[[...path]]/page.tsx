@@ -4,6 +4,7 @@ import Home from '@/views/home';
 import About from '@/views/about';
 import People from '@/views/people';
 import Research from '@/views/research';
+import Launch from '@/views/launch';
 import News from '@/views/news';
 import Detail, { generateMetadata as detailMetadata } from '@/views/detail';
 import { ContentBoard } from '@/components/content-board';
@@ -18,6 +19,7 @@ const titles: Record<string, string> = {
   about: '研究所紹介',
   people: '研究者紹介',
   research: '研究事業',
+  launch: 'コンソーシアム発足式',
   news: 'お知らせ',
   activities: '学術活動',
   publications: '研究・出版',
@@ -64,6 +66,7 @@ export default async function JapanesePage({ params, searchParams }: Props) {
   if (path.length === 1) {
     if (path[0] === 'about') return <About locale="ja" />;
     if (path[0] === 'people') return <People locale="ja" />;
+    if (path[0] === 'launch') return <Launch locale="ja" />;
     if (path[0] === 'research') return <Research locale="ja" />;
     if (path[0] === 'news') return <News locale="ja" />;
     if (path[0] === 'activities' || path[0] === 'publications')

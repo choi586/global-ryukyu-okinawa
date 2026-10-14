@@ -1,4 +1,5 @@
 import { countPublicSql, newsListSql, pageNumber } from '../src/lib/public-list';
+import type { Greetings } from '../src/lib/greeting-types';
 import type { Bindings } from '../src/lib/cloudflare-storage';
 export default {
   async fetch(request: Request, env: Bindings, context: unknown) {
@@ -9,6 +10,8 @@ export default {
         '/about',
         '/people',
         '/research',
+        '/launch',
+        '/ja/launch',
         '/ja/research',
         '/ja/news',
         '/ja/about',
@@ -34,6 +37,42 @@ export default {
         "frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'",
       );
       return new Response(response.body, { status: response.status, headers });
+    }
+    // Public launch data avoids loading the application SSR bundle.
+    if (
+      ((url.pathname === '/api/greetings' && !url.searchParams.has('admin')) ||
+        /^\/api\/greetings\/[0-9a-f-]{36}$/.test(url.pathname)) &&
+      request.method === 'GET'
+    ) {
+      const row = await env.DB.prepare(
+        "SELECT data FROM records WHERE namespace='greetings' AND id='launch'",
+      ).first<{ data: string }>();
+      const data: Greetings = row ? JSON.parse(row.data) : { revision: 0, items: [] };
+      const items = data.items.filter((i) => i.published);
+      if (url.pathname === '/api/greetings')
+        return Response.json(
+          { poster: data.poster, items },
+          { headers: { 'Cache-Control': 'no-store' } },
+        );
+      const id = url.pathname.split('/').pop();
+      const file = [data.poster, ...items.flatMap((i) => [i.document, i.preview])].find(
+        (f) => f?.id === id,
+      );
+      if (file) {
+        const object = await env.MEDIA.get(file.id);
+        if (!object) return new Response('Not found', { status: 404 });
+        const bytes = await object.arrayBuffer();
+        return new Response(bytes, {
+          headers: {
+            'Content-Type': file.type,
+            'Content-Length': String(bytes.byteLength),
+            'Content-Disposition': `${url.searchParams.has('download') ? 'attachment' : 'inline'}; filename="greeting.${file.type === 'application/pdf' ? 'pdf' : 'image'}"; filename*=UTF-8''${encodeURIComponent(file.name)}`,
+            'Cache-Control': 'private, no-store',
+            'X-Content-Type-Options': 'nosniff',
+          },
+        });
+      }
+      // Unpublished files still require the existing administrator session check.
     }
     if (url.pathname === '/api/public/news' && request.method === 'GET') {
       const total = (await env.DB.prepare(countPublicSql).bind('news').first<{ total: number }>())!

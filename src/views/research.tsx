@@ -16,6 +16,13 @@ export default function Research({ locale = 'ko' }: { locale?: Locale } = {}) {
         </div>
       </div>
       <div className="shell project-page">
+        <p className="launch-research-link">
+          <Link href="/launch">
+            {locale === 'ja'
+              ? 'コンソーシアム発足式 · お祝いのメッセージ →'
+              : '컨소시엄 출범식 · 축하 메시지 보기 →'}
+          </Link>
+        </p>
         <section className="project-overview" aria-labelledby="project-title">
           <p className="eyebrow">{t('2026 한국연구재단 글로벌인문사회융합연구지원사업')}</p>
           <h2 id="project-title">

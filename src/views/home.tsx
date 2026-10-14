@@ -20,6 +20,13 @@ export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) 
   return (
     <>
       <HeroCarousel initialSlides={slides} />
+      <div className="shell launch-home-link">
+        <Link href="/launch">
+          <span>{locale === 'ja' ? 'コンソーシアム発足式' : '컨소시엄 출범식'}</span>
+          <strong>{locale === 'ja' ? 'お祝いのメッセージを見る →' : '축하 메시지 보기 →'}</strong>
+          <span>2026. 10. 16.</span>
+        </Link>
+      </div>
       <section className="shell intro-section">
         <div>
           <p className="english-section-title">About</p>

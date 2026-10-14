@@ -49,6 +49,8 @@ try {
     'about',
     'people',
     'research',
+    'launch',
+    'ja/launch',
     'ja/news',
     'ja/about',
     'ja/people',
