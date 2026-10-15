@@ -2122,14 +2122,6 @@ body {
   min-width: 44px;
   min-height: 44px;
 }
-.carousel-arrows {
-  display: flex;
-  gap: 3px;
-}
-.carousel-arrows button {
-  font-size: 24px;
-  border: 1px solid #ffffff60;
-}
 .carousel-dots {
   display: flex;
   align-items: center;

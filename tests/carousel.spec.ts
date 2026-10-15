@@ -157,7 +157,7 @@ test('carousel cycles every five seconds, pauses on interaction and respects red
   await page.locator('.site-header').hover();
   await page.clock.runFor(5001);
   await expect(active).toHaveText('타이머 3');
-  await page.getByRole('button', { name: '다음 사진', exact: true }).click();
+  await page.getByRole('button', { name: '2번 사진 보기', exact: true }).click();
   await page.locator('.site-header').hover();
   await expect(active).toHaveText('타이머 1');
   await page.clock.runFor(9000);

@@ -150,24 +150,6 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
         ))}
       </div>
       <div className="shell carousel-controls">
-        <div className="carousel-arrows">
-          <button
-            type="button"
-            aria-label={t('이전 사진')}
-            onClick={() => move(current - 1)}
-            disabled={slides.length < 2}
-          >
-            〈
-          </button>
-          <button
-            type="button"
-            aria-label={t('다음 사진')}
-            onClick={() => move(current + 1)}
-            disabled={slides.length < 2}
-          >
-            〉
-          </button>
-        </div>
         <div className="carousel-dots" aria-label={t('사진 선택')}>
           {slides.map((s, i) => (
             <button
