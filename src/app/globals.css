@@ -2271,7 +2271,12 @@ body {
   .carousel-description {
     font-size: 14px;
     line-height: 1.75;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .carousel-copy .button {
     margin-top: 0;
@@ -2336,7 +2341,7 @@ body {
   }
   .carousel-copy {
     min-height: 0;
-    padding-bottom: 76px;
+    padding-bottom: 70px;
   }
   .fit-contain .carousel-photo {
     width: 100%;
