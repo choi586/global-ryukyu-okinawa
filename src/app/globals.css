@@ -2271,9 +2271,10 @@ body {
   .carousel-description {
     font-size: 14px;
     line-height: 1.75;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
   .carousel-copy .button {
+    margin-top: 0;
     padding: 10px 16px;
     font-size: 13px;
   }
@@ -2331,11 +2332,11 @@ body {
 @media (max-width: 800px) {
   .carousel-stage {
     height: auto;
-    min-height: 540px;
+    min-height: 0;
   }
   .carousel-copy {
-    min-height: 540px;
-    padding-bottom: 80px;
+    min-height: 0;
+    padding-bottom: 76px;
   }
   .fit-contain .carousel-photo {
     width: 100%;
