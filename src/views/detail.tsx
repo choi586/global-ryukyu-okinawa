@@ -1,3 +1,4 @@
+import { ArticleText } from '@/components/article-text';
 import { translate, type Locale } from '@/i18n/config';
 import { cache } from 'react';
 import type { Metadata } from 'next';
@@ -49,7 +50,7 @@ export default async function Detail({ params, locale = 'ko' }: Props) {
         )}
       </header>
       <div className="article-body" lang="ko">
-        {notice.body}
+        <ArticleText text={notice.body} />
       </div>
       {notice.attachments
         .filter((f) => f.type.startsWith('image/'))

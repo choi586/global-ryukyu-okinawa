@@ -80,6 +80,10 @@ export function NoticeEditor({ notice }: { notice?: Notice }) {
                 rows={15}
                 placeholder="안내할 내용을 입력하세요. 줄바꿈은 그대로 반영됩니다."
               />
+              <p className="field-help">
+                링크는 [안내 문구](주소) 형식으로 입력하세요. 예: [출범식 안내 및 축하 메시지
+                보기](/launch)
+              </p>
             </label>
             <p className="field-help">
               본문은 일반 텍스트로 저장됩니다. 이미지는 본문 아래에 표시됩니다.

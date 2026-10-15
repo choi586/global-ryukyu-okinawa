@@ -2698,3 +2698,6 @@ html[lang='ja'] .launch-intro h2 { word-break: normal; }
 .launch-banner-button:focus-visible { outline: 2px solid #eadbb5; outline-offset: 5px; }
 @media (max-width: 800px) { .launch-banner { grid-template-columns: 1fr; padding: 24px; gap: 22px; } .launch-banner-info { flex-direction: column; gap: 4px; } .launch-banner-button { justify-self: start; } }
 @media (prefers-reduced-motion: reduce) { .launch-banner-button { transition: none; } }
+
+.article-body a { color: #990e17; text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
+.article-body a:hover { color: #651018; }
