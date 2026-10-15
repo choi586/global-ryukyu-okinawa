@@ -43,9 +43,9 @@ export function Header() {
         >
           <img
             className="institute-logo"
-            src="/images/institute-logo.png"
-            width={2144}
-            height={865}
+            src="/images/institute-logo-horizontal.svg"
+            width={1145}
+            height={204}
             alt={t(
               '글로벌류큐·오키나와연구소 · Kyung Hee University · Global Institute for Ryukyu and Okinawa Studies',
             )}

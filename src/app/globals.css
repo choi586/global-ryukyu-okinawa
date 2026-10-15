@@ -1509,7 +1509,7 @@ body {
   padding-block: 10px;
 }
 .header-inner {
-  min-height: 132px;
+  min-height: 96px;
   gap: 30px;
 }
 .brand {
@@ -1745,7 +1745,7 @@ body {
 }
 @media (max-width: 1050px) {
   .header-inner {
-    min-height: 112px;
+    min-height: 88px;
     padding-block: 6px;
   }
   .brand {
@@ -1786,7 +1786,8 @@ body {
 }
 @media (max-width: 700px) {
   .header-inner {
-    min-height: 103px;
+    min-height: 84px;
+    gap: 16px;
   }
   .brand {
     width: 245px;
