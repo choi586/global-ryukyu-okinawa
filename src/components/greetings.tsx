@@ -79,9 +79,6 @@ export function GreetingsList({ locale = 'ko' }: { locale?: 'ko' | 'ja' }) {
                   >
                     {ja ? '祝辞を見る ↗' : '축사 보기 ↗'}
                   </a>
-                  <a href={'/api/greetings/' + item.document.id + '?download=1'}>
-                    {ja ? 'PDFダウンロード' : 'PDF 다운로드'}
-                  </a>
                 </div>
               </>
             ) : (
