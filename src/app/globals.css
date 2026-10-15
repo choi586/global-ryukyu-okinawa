@@ -2655,7 +2655,14 @@ html[lang='ja'] .project-page h2, html[lang='ja'] .project-page h3, html[lang='j
 .greeting-links a { text-decoration: underline; text-underline-offset: 4px; }
 .greeting-video { aspect-ratio: 16/9; background: #f6f4f1; display: grid; place-items: center; }
 .greeting-video iframe { width: 100%; height: 100%; border: 0; }
-.greeting-video button { padding: 16px 24px; cursor: pointer; }
+.greeting-video-preview { position: relative; width: 100%; height: 100%; padding: 0; border: 0; overflow: hidden; cursor: pointer; background: #151923; color: #fff; }
+.greeting-video-preview img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.greeting-video-preview img[hidden] { display: none; }
+.greeting-video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 68px; height: 48px; border-radius: 12px; background: #b21b25; font-size: 25px; transition: background-color .2s; }
+.greeting-video-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 16px 12px; background: linear-gradient(transparent, #000b); text-align: left; font-size: 14px; }
+.greeting-video-preview:hover .greeting-video-play { background: #df1727; }
+.greeting-video-preview:focus-visible { outline: 3px solid #990e17; outline-offset: -3px; }
+@media (prefers-reduced-motion: reduce) { .greeting-video-play { transition: none; } }
 .launch-home-link { margin-top: 32px; }
 .launch-research-link a { color: #990e17; }
 .launch-research-link { margin: 0 0 28px; }

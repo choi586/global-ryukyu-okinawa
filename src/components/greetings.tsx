@@ -90,14 +90,36 @@ export function GreetingsList({ locale = 'ko' }: { locale?: 'ko' | 'ja' }) {
                   {playing.includes(item.id) ? (
                     <iframe
                       title={item.name + (ja ? ' お祝いのメッセージ' : ' 영상 축사')}
-                      src={'https://www.youtube-nocookie.com/embed/' + youtubeId(item.youtube)}
-                      allow="encrypted-media; picture-in-picture; fullscreen"
+                      src={
+                        'https://www.youtube-nocookie.com/embed/' +
+                        youtubeId(item.youtube) +
+                        '?autoplay=1'
+                      }
+                      allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
                       allowFullScreen
                       referrerPolicy="strict-origin-when-cross-origin"
                     />
                   ) : (
-                    <button type="button" onClick={() => setPlaying((p) => [...p, item.id])}>
-                      {ja ? '▶ 動画を開く' : '▶ 영상 열기'}
+                    <button
+                      className="greeting-video-preview"
+                      type="button"
+                      aria-label={item.name + (ja ? ' 動画を再生' : ' 영상 재생')}
+                      onClick={() => setPlaying((p) => [...p, item.id])}
+                    >
+                      <img
+                        src={'https://i.ytimg.com/vi/' + youtubeId(item.youtube) + '/hqdefault.jpg'}
+                        alt=""
+                        loading="lazy"
+                        onError={(event) => {
+                          event.currentTarget.hidden = true;
+                        }}
+                      />
+                      <span className="greeting-video-play" aria-hidden="true">
+                        ▶
+                      </span>
+                      <span className="greeting-video-caption">
+                        {ja ? '動画を再生' : '영상 재생'}
+                      </span>
                     </button>
                   )}
                 </div>
