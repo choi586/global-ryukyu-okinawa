@@ -1,6 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { emptyGreetings, type Greetings, type Greeting } from '@/lib/greeting-types';
+import {
+  defaultLaunchBanner,
+  emptyGreetings,
+  type Greetings,
+  type Greeting,
+} from '@/lib/greeting-types';
 import { optimizeUpload } from '@/lib/optimize-upload';
 export function GreetingsEditor() {
   const [data, setData] = useState<Greetings>(emptyGreetings),
@@ -15,7 +20,7 @@ export function GreetingsEditor() {
         return r.json();
       })
       .then((d) => {
-        setData(d);
+        setData({ ...d, banner: d.banner ?? defaultLaunchBanner });
         setReady(true);
       })
       .catch((e) => setMessage(e.message));
@@ -85,6 +90,35 @@ export function GreetingsEditor() {
       {ready && (
         <form onSubmit={save}>
           <fieldset disabled={busy} className="greeting-edit-fieldset">
+            <section className="greeting-edit">
+              <h2>메인 출범식 배너</h2>
+              {(
+                [
+                  ['project', '사업명'],
+                  ['title', '행사명'],
+                  ['date', '날짜·시간'],
+                  ['venue', '장소'],
+                  ['href', '축하 메시지 링크'],
+                ] as const
+              ).map(([key, label]) => (
+                <label key={key}>
+                  {label}
+                  <input
+                    required
+                    maxLength={
+                      key === 'href' ? 500 : key === 'project' ? 240 : key === 'venue' ? 160 : 100
+                    }
+                    value={(data.banner ?? defaultLaunchBanner)[key]}
+                    onChange={(e) =>
+                      setData((d) => ({
+                        ...d,
+                        banner: { ...(d.banner ?? defaultLaunchBanner), [key]: e.target.value },
+                      }))
+                    }
+                  />
+                </label>
+              ))}
+            </section>
             <label>
               출범식 안내 이미지
               <input

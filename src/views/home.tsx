@@ -1,5 +1,6 @@
 import { translate, type Locale } from '@/i18n/config';
 import Link from '@/components/localized-link';
+import { LaunchBanner } from '@/components/launch-banner';
 import { HeroCarousel } from '@/components/hero-carousel';
 import { publicSlides } from '@/lib/carousel';
 import { publicPage } from '@/lib/store';
@@ -20,13 +21,7 @@ export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) 
   return (
     <>
       <HeroCarousel initialSlides={slides} />
-      <div className="shell launch-home-link">
-        <Link href="/launch">
-          <span>{locale === 'ja' ? 'コンソーシアム発足式' : '컨소시엄 출범식'}</span>
-          <strong>{locale === 'ja' ? 'お祝いのメッセージを見る →' : '축하 메시지 보기 →'}</strong>
-          <span>2026. 10. 16.</span>
-        </Link>
-      </div>
+      <LaunchBanner locale={locale} />
       <section className="shell intro-section">
         <div>
           <p className="english-section-title">About</p>

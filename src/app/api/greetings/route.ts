@@ -7,7 +7,9 @@ export async function GET(request: Request) {
     return Response.json({ error: '로그인이 필요합니다.' }, { status: 403 });
   const data = await getGreetings();
   return Response.json(
-    admin ? data : { poster: data.poster, items: data.items.filter((i) => i.published) },
+    admin
+      ? data
+      : { banner: data.banner, poster: data.poster, items: data.items.filter((i) => i.published) },
     { headers: { 'Cache-Control': 'no-store' } },
   );
 }

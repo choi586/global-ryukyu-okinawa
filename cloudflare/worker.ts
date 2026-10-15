@@ -51,7 +51,7 @@ export default {
       const items = data.items.filter((i) => i.published);
       if (url.pathname === '/api/greetings')
         return Response.json(
-          { poster: data.poster, items },
+          { banner: data.banner, poster: data.poster, items },
           { headers: { 'Cache-Control': 'no-store' } },
         );
       const id = url.pathname.split('/').pop();

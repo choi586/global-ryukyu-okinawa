@@ -4,7 +4,13 @@ import { getRecord, saveFile, deleteFile, replaceVersionedRecord } from './store
 import { detectedType } from './notice-write';
 import { InputError, MAX_FILE_BYTES, MAX_BATCH_BYTES } from './upload-policy';
 import { uploadForm } from './upload-form';
-import { emptyGreetings, youtubeId, type Greetings, type Greeting } from './greeting-types';
+import {
+  defaultLaunchBanner,
+  emptyGreetings,
+  youtubeId,
+  type Greetings,
+  type Greeting,
+} from './greeting-types';
 import type { Attachment } from './types';
 export class GreetingConflict extends Error {}
 export async function getGreetings(): Promise<Greetings> {
@@ -96,7 +102,17 @@ export async function writeGreetings(request: Request) {
     throw new InputError(
       '한 번에 새로 올리는 파일은 합계 3MB 이하여야 합니다. 나누어 저장해주세요.',
     );
-  const result: Greetings = { revision: previous.revision + 1, poster, items };
+  const rawBanner = input.banner ?? previous.banner ?? defaultLaunchBanner;
+  const banner = {
+    project: text(rawBanner.project, 240),
+    title: text(rawBanner.title, 100),
+    date: text(rawBanner.date, 100),
+    venue: text(rawBanner.venue, 160),
+    href: text(rawBanner.href, 500),
+  };
+  if (!/^\/(?!\/)[^\\\s]*$/.test(banner.href))
+    throw new InputError('배너 링크는 /로 시작하는 내부 주소를 입력해주세요.');
+  const result: Greetings = { revision: previous.revision + 1, poster, items, banner };
   const saved: string[] = [];
   try {
     for (const f of prepared) {

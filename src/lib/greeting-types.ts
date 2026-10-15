@@ -9,7 +9,26 @@ export type Greeting = {
   document?: Attachment;
   preview?: Attachment;
 };
-export type Greetings = { revision: number; poster?: Attachment; items: Greeting[] };
+export type LaunchBanner = {
+  project: string;
+  title: string;
+  date: string;
+  venue: string;
+  href: string;
+};
+export const defaultLaunchBanner: LaunchBanner = {
+  project: '생애주기별 사회적 고립의 이해와 사회적 연결 회복을 위한 융합연구',
+  title: '컨소시엄 출범식',
+  date: '2026. 10. 16. (금) 16:00',
+  venue: '고려대학교 SK미래관 최종현홀',
+  href: '/launch',
+};
+export type Greetings = {
+  revision: number;
+  poster?: Attachment;
+  banner?: LaunchBanner;
+  items: Greeting[];
+};
 export function youtubeId(value: string): string | null {
   try {
     const u = new URL(value);

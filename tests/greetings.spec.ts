@@ -22,5 +22,11 @@ test('greetings upload privacy validation and ordering',async({page,browser})=>{
  await page.goto('/launch');await expect(page.locator('.greeting-card')).toHaveCount(2);expect(await page.locator('iframe').count()).toBe(0);
  for(const width of [1440,390]){await page.setViewportSize({width,height:900});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();}
  await page.goto('/admin/greetings');await expect(page.getByRole('heading',{name:'출범식 축사 관리'})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();
+ data.banner={project:'테스트 사업',title:'테스트 출범식',date:'2026. 10. 16. (금) 16:00',venue:'테스트 장소',href:'https://invalid.example'};
+ expect((await write(data)).status()).toBe(400);
+ data.banner.href='/launch';r=await write(data);expect(r.status()).toBe(200);data=await r.json();
+ await page.goto('/');await expect(page.locator('.launch-banner h2')).toHaveText('테스트 출범식');
+ await expect(page.locator('.launch-banner-button')).toHaveAttribute('href','/launch');
+ for(const width of [1440,390]){await page.setViewportSize({width,height:950});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();await page.locator('.launch-banner').screenshot({path:'.data/launch-upload/banner-preview-'+width+'.png'});}
  expect((await write({...data,items:[]})).status()).toBe(200);expect((await page.request.get('/api/greetings/'+file)).status()).toBe(404);await guest.close();
 });
