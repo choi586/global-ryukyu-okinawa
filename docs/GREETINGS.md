@@ -14,3 +14,5 @@
 초기 등록 자료는 로컬 `.data/launch-upload`에 준비. 개인정보·관리자 인증자료 및 제공 PDF를 Git에 포함하지 않음.
 
 메인 배너는 HTML/CSS `LaunchBanner` 컴포넌트. 관리자 축사 관리 상단에서 사업명·행사명·날짜·시간·장소·내부 링크를 편집하며 `greetings/launch.banner`에 저장. 기존 레코드에 banner가 없으면 기존 행사 정보로 표시.
+
+PDF 업로드·교체 시 관리자 브라우저의 PDF.js로 첫 페이지를 WebP로 자동 생성. 기존 미리보기가 없는 PDF도 전체 저장 시 보완. 직접 지정한 이미지를 우선 적용. 변환 실패 시 PDF 업로드를 진행하지 않고 수동 이미지 지정 안내. Worker에서 PDF 렌더링을 실행하지 않음. 기존 3MiB 파일/합계 및 5GB 전체 제한 유지. PDF.js 실행 파일과 폰트는 빌드 시 public/vendor/pdfjs에 생성하며 외부 CDN을 사용하지 않음.

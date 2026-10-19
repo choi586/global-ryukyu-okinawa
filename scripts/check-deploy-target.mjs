@@ -18,6 +18,7 @@ for (const file of ['wrangler.jsonc', 'dist/server/wrangler.json']) {
   assert.equal(config.r2_buckets[0].bucket_name, 'global-ryukyu-okinawa-media');
 }
 for (const file of [
+  'dist/client/vendor/pdfjs/pdf.worker.min.mjs',
   'dist/server/framework.js',
   'dist/server/public-list.js',
   'dist/client/launch.html',

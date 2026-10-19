@@ -6,6 +6,7 @@ import {
   type Greetings,
   type Greeting,
 } from '@/lib/greeting-types';
+import { pdfPreview } from '@/lib/pdf-preview';
 import { optimizeUpload } from '@/lib/optimize-upload';
 export function GreetingsEditor() {
   const [data, setData] = useState<Greetings>(emptyGreetings),
@@ -60,6 +61,28 @@ export function GreetingsEditor() {
           continue;
         form.set(key, await optimizeUpload(file));
       }
+      for (const item of data.items) {
+        if (item.kind !== 'pdf' || form.has('preview-' + item.id)) continue;
+        const uploaded = form.get('document-' + item.id);
+        if (!(uploaded instanceof File) && (item.preview || !item.document)) continue;
+        setMessage(item.name + ' · PDF 미리보기를 만드는 중…');
+        let pdf: File;
+        if (uploaded instanceof File) pdf = uploaded;
+        else {
+          const response = await fetch('/api/greetings/' + item.document!.id);
+          if (!response.ok) throw new Error(item.name + ' · PDF를 불러오지 못했습니다.');
+          pdf = new File([await response.blob()], item.document!.name, { type: 'application/pdf' });
+        }
+        try {
+          form.set('preview-' + item.id, await pdfPreview(pdf));
+        } catch {
+          throw new Error(
+            item.name +
+              ' · PDF 미리보기를 만들지 못했습니다. 암호가 없는 PDF로 다시 시도하거나 미리보기 이미지를 직접 선택해주세요.',
+          );
+        }
+      }
+      setMessage('파일을 저장하는 중…');
       const r = await fetch('/api/greetings', { method: 'PUT', body: form });
       const next = await r.json();
       if (!r.ok) throw Error(next.error);
@@ -189,12 +212,15 @@ export function GreetingsEditor() {
                       />
                     </label>
                     <label>
-                      첫 페이지 미리보기 이미지 (선택)
+                      첫 페이지 미리보기 이미지 (직접 지정할 때만 선택)
                       <input
                         type="file"
                         accept="image/jpeg,image/png,image/webp"
                         onChange={(e) => select('preview-' + item.id, e.target.files?.[0])}
                       />
+                      <span className="field-help">
+                        선택하지 않으면 저장할 때 PDF 첫 페이지로 자동 생성합니다.
+                      </span>
                     </label>
                   </>
                 ) : (
