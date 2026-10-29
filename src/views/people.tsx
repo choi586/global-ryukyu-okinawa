@@ -1,7 +1,10 @@
 import { translate, type Locale } from '@/i18n/config';
 import Link from '@/components/localized-link';
 import lead from '@/data/principal-investigator.json';
-export const metadata = { title: '연구진 소개' };
+export const metadata = {
+  alternates: { canonical: '/people', languages: { ko: '/people', ja: '/ja/people' } },
+  title: '연구진 소개',
+};
 export default function People({ locale = 'ko' }: { locale?: Locale } = {}) {
   const t = (text: string) => translate(locale, text);
 

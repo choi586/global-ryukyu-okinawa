@@ -1,6 +1,9 @@
 import { translate, type Locale } from '@/i18n/config';
 import Link from '@/components/localized-link';
-export const metadata = { title: '연구사업' };
+export const metadata = {
+  alternates: { canonical: '/research', languages: { ko: '/research', ja: '/ja/research' } },
+  title: '연구사업',
+};
 export default function Research({ locale = 'ko' }: { locale?: Locale } = {}) {
   const t = (text: string) => translate(locale, text);
   return (

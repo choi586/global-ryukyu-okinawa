@@ -1,7 +1,10 @@
 import { translate, type Locale } from '@/i18n/config';
 import Link from '@/components/localized-link';
 import { institute } from '@/data/institute';
-export const metadata = { title: '연구소 소개' };
+export const metadata = {
+  alternates: { canonical: '/about', languages: { ko: '/about', ja: '/ja/about' } },
+  title: '연구소 소개',
+};
 const paragraphs = [
   '동아시아에서 오키나와가 지니고 있는 위상은 상당히 문제적입니다. 오키나와는 일본제국주의를 거치면서 ‘제국’의 일원인 동시에 ‘제국’의 억압과 차별의 당사자였고, 제2차 세계대전 이후에는 미국이라는 새로운 ‘제국’의 질서가 구체적이고 현실적인 억압과 차별로 작동한 지역이었습니다.',
   '일본제국주의는 몰락했지만 그것이 동아시아에서 식민주의의 단절을 의미하는 것은 아니었습니다. 미국이라는 ‘제국’의 등장은 새로운 식민주의의 시작이었으며, 이러한 동아시아의 문제적 상황은 오키나와라는 구체적 지역에서 극명하게 드러나기 시작했습니다.',

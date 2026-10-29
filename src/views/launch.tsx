@@ -1,7 +1,10 @@
 import Link from '@/components/localized-link';
 import { GreetingsList } from '@/components/greetings';
 import type { Locale } from '@/i18n/config';
-export const metadata = { title: '컨소시엄 출범식 · 축하 메시지' };
+export const metadata = {
+  alternates: { canonical: '/launch', languages: { ko: '/launch', ja: '/ja/launch' } },
+  title: '컨소시엄 출범식 · 축하 메시지',
+};
 export default function Launch({ locale = 'ko' }: { locale?: Locale } = {}) {
   const ja = locale === 'ja';
   return (

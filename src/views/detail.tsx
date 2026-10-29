@@ -1,5 +1,5 @@
 import { ArticleText } from '@/components/article-text';
-import { translate, type Locale } from '@/i18n/config';
+import { localePath, translate, type Locale } from '@/i18n/config';
 import { cache } from 'react';
 import type { Metadata } from 'next';
 import Link from '@/components/localized-link';
@@ -15,7 +15,14 @@ export async function generateMetadata({ params, locale = 'ko' }: Props): Promis
   return {
     title: n?.title || t('공지사항'),
     description: n?.body.slice(0, 140),
-    ...(n ? { alternates: { canonical: noticePath(n) } } : {}),
+    ...(n
+      ? {
+          alternates: {
+            canonical: localePath(noticePath(n), locale),
+            languages: { ko: noticePath(n), ja: localePath(noticePath(n), 'ja') },
+          },
+        }
+      : {}),
   };
 }
 export default async function Detail({ params, locale = 'ko' }: Props) {

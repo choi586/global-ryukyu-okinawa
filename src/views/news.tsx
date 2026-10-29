@@ -3,7 +3,10 @@ import type { Metadata } from 'next';
 import Link from '@/components/localized-link';
 import { NewsBoard } from '@/components/news-board';
 
-export const metadata: Metadata = { title: '공지사항' };
+export const metadata: Metadata = {
+  alternates: { canonical: '/news', languages: { ko: '/news', ja: '/ja/news' } },
+  title: '공지사항',
+};
 export default function News({ locale = 'ko' }: { locale?: Locale } = {}) {
   const t = (text: string) => translate(locale, text);
 

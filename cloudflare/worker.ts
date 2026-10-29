@@ -4,6 +4,96 @@ import type { Bindings } from '../src/lib/cloudflare-storage';
 export default {
   async fetch(request: Request, env: Bindings, context: unknown) {
     const url = new URL(request.url);
+    // Small discovery responses avoid loading the SSR bundle on Workers Free.
+    const origin = 'https://okinawa.khu.ac.kr';
+    const sitemapWhere =
+      "namespace='notices' AND json_extract(data,'$.status')='published' AND COALESCE(json_extract(data,'$.category'),'news') IN ('news','activities','publications')";
+    const xmlEscape = (value: string) =>
+      value.replace(
+        /[<>&"']/g,
+        (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&apos;' })[c]!,
+      );
+    const xml = (body: string) =>
+      new Response(
+        request.method === 'HEAD' ? null : '<?xml version="1.0" encoding="UTF-8"?>' + body,
+        {
+          headers: {
+            'Content-Type': 'application/xml; charset=utf-8',
+            'Cache-Control': 'public, max-age=300',
+          },
+        },
+      );
+    if (['GET', 'HEAD'].includes(request.method)) {
+      if (url.pathname === '/robots.txt')
+        return new Response(
+          request.method === 'HEAD'
+            ? null
+            : `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nSitemap: ${origin}/sitemap.xml\n`,
+          {
+            headers: {
+              'Content-Type': 'text/plain; charset=utf-8',
+              'Cache-Control': 'public, max-age=300',
+            },
+          },
+        );
+      if (url.pathname === '/sitemap.xml') {
+        const count = await env.DB.prepare(
+          `SELECT COUNT(*) AS total FROM records WHERE ${sitemapWhere}`,
+        ).first<{ total: number }>();
+        const paths = [
+          '/sitemaps/pages.xml',
+          ...Array.from(
+            { length: Math.ceil((count?.total || 0) / 200) },
+            (_, i) => `/sitemaps/posts-${i + 1}.xml`,
+          ),
+        ];
+        return xml(
+          '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
+            paths.map((path) => `<sitemap><loc>${origin}${path}</loc></sitemap>`).join('') +
+            '</sitemapindex>',
+        );
+      }
+      if (url.pathname === '/sitemaps/pages.xml') {
+        const paths = [
+          '',
+          '/about',
+          '/people',
+          '/research',
+          '/launch',
+          '/news',
+          '/activities',
+          '/publications',
+        ];
+        return xml(
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
+            paths
+              .flatMap((path) => [path || '/', '/ja' + path])
+              .map((path) => `<url><loc>${origin}${path}</loc></url>`)
+              .join('') +
+            '</urlset>',
+        );
+      }
+      const match = /^\/sitemaps\/posts-([1-9]\d{0,5})\.xml$/.exec(url.pathname);
+      if (match) {
+        const { results } = await env.DB.prepare(
+          `SELECT json_extract(data,'$.slug') AS slug, COALESCE(json_extract(data,'$.category'),'news') AS category FROM records WHERE ${sitemapWhere} ORDER BY id LIMIT 200 OFFSET ?`,
+        )
+          .bind((Number(match[1]) - 1) * 200)
+          .all<{ slug: string; category: string }>();
+        if (!results.length) return new Response('Not found', { status: 404 });
+        return xml(
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
+            results
+              .flatMap((row) => {
+                const path = `/${row.category}/${encodeURIComponent(row.slug)}`;
+                return [path, '/ja' + path];
+              })
+              .map((path) => `<url><loc>${xmlEscape(origin + path)}</loc></url>`)
+              .join('') +
+            '</urlset>',
+        );
+      }
+    }
     if (
       [
         '/news',

@@ -15,19 +15,21 @@ import '@fontsource/merriweather/latin-400.css';
 import './globals.css';
 
 const baseMetadata: Metadata = {
-  metadataBase: new URL('https://khu.ryukyu-okinawa.workers.dev'),
+  metadataBase: new URL('https://okinawa.khu.ac.kr'),
 
   title: {
-    default: '글로벌류큐·오키나와연구소 | 경희대학교',
+    default: '경희대학교 글로벌류큐·오키나와연구소 | 공식 홈페이지',
     template: '%s | 글로벌류큐·오키나와연구소',
   },
 
-  description: '경희대학교 글로벌류큐·오키나와연구소의 공지사항과 연구 소식을 전합니다.',
+  description:
+    '경희대학교 글로벌류큐·오키나와연구소 공식 홈페이지. 류큐·오키나와 및 동아시아 지역연구, 학술행사, 공동연구와 연구성과를 소개합니다.',
 
   openGraph: {
-    title: '글로벌류큐·오키나와연구소 | 경희대학교',
-    description: '경희대학교 글로벌류큐·오키나와연구소의 공지사항과 연구 소식을 전합니다.',
-    url: 'https://khu.ryukyu-okinawa.workers.dev',
+    title: '경희대학교 글로벌류큐·오키나와연구소 | 공식 홈페이지',
+    description:
+      '경희대학교 글로벌류큐·오키나와연구소 공식 홈페이지. 류큐·오키나와 및 동아시아 지역연구, 학술행사, 공동연구와 연구성과를 소개합니다.',
+    url: 'https://okinawa.khu.ac.kr',
     siteName: '글로벌류큐·오키나와연구소',
     images: [
       {
@@ -43,14 +45,15 @@ const baseMetadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    title: '글로벌류큐·오키나와연구소 | 경희대학교',
-    description: '경희대학교 글로벌류큐·오키나와연구소의 공지사항과 연구 소식을 전합니다.',
+    title: '경희대학교 글로벌류큐·오키나와연구소 | 공식 홈페이지',
+    description:
+      '경희대학교 글로벌류큐·오키나와연구소 공식 홈페이지. 류큐·오키나와 및 동아시아 지역연구, 학술행사, 공동연구와 연구성과를 소개합니다.',
     images: ['/images/og-image.png'],
   },
 
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
   },
 
   icons: {
