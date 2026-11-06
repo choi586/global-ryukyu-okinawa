@@ -14,7 +14,7 @@ export function Footer() {
           <p className="eyebrow">{institute.englishName}</p>
           <strong>{t('글로벌류큐·오키나와연구소')}</strong>
           <address className="footer-contact">
-            <p>{t('경기 용인시 기흥구 덕영대로 1732 경희대학교 외국어대학관 335호')}</p>
+            <p>{t('경기 용인시 기흥구 덕영대로 1732 경희대학교 외국어대학관 233호')}</p>
             <p>
               E-MAIL. <a href="mailto:okinawa@khu.ac.kr">okinawa@khu.ac.kr</a>
             </p>
