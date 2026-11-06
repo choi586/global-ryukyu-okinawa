@@ -50,6 +50,12 @@ export default function Launch({ locale = 'ko' }: { locale?: Locale } = {}) {
               </dd>
             </div>
           </dl>
+          <Link
+            className="button secondary"
+            href="/activities/social-connection-consortium-launch-photo-sketch"
+          >
+            {ja ? '発足式の写真を見る ↗' : '출범식 현장 사진 보기 ↗'}
+          </Link>
         </section>
         <GreetingsList locale={locale} />
       </div>
