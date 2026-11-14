@@ -18,7 +18,8 @@ const items = [
 export function Header() {
   const { locale, t } = useLanguage();
 
-  const pathname = usePathname().replace(/^\/ja(?=\/|$)/, '') || '/';
+  const rawPathname = usePathname();
+  const pathname = rawPathname.replace(/^\/ja(?=\/|$)/, '') || '/';
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -31,6 +32,8 @@ export function Header() {
     window.addEventListener('keydown', close);
     return () => window.removeEventListener('keydown', close);
   }, [open]);
+  // The consortium site at /consortium ships its own navigation.
+  if (/^\/consortium(?:\/|$)/.test(rawPathname)) return null;
   return (
     <header className="site-header">
       <UtilityBar />

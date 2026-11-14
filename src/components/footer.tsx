@@ -4,8 +4,12 @@ import { localePath } from '@/i18n/config';
 
 import Link from '@/components/localized-link';
 import { institute } from '@/data/institute';
+import { usePathname } from 'next/navigation';
 export function Footer() {
   const { locale, t } = useLanguage();
+  const pathname = usePathname();
+  // The consortium site at /consortium ships its own footer.
+  if (/^\/consortium(?:\/|$)/.test(pathname)) return null;
 
   return (
     <footer className="site-footer">
