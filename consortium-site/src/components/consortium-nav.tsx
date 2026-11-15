@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { asset } from '@/lib/base-path';
 
 const links = [
   ['소개', '#about'],
@@ -68,14 +69,14 @@ export function ConsortiumNav() {
         >
           <img
             className="cs-brand-mark cs-brand-mark-light"
-            src="/images/consortium/mark-white.png"
+            src={asset('/images/consortium/mark-white.png')}
             width={800}
             height={358}
             alt=""
           />
           <img
             className="cs-brand-mark cs-brand-mark-dark"
-            src="/images/consortium/mark-navy.png"
+            src={asset('/images/consortium/mark-navy.png')}
             width={800}
             height={358}
             alt=""

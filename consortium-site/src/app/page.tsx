@@ -1,6 +1,8 @@
+import { asset } from '@/lib/base-path';
+
 export const dynamic = 'force-static';
 
-const img = (name: string) => `/images/consortium/${name}`;
+const img = (name: string) => asset(`/images/consortium/${name}`);
 
 const keywords = [
   {

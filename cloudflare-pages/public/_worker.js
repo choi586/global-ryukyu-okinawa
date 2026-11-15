@@ -1,8 +1,44 @@
 const upstreamOrigin = 'https://khu.ryukyu-okinawa.workers.dev';
+// The consortium site is a separate static Pages project. It is built to live
+// under /consortium, so the path is forwarded unchanged.
+const consortiumOrigin = 'https://social-connectedness-consortium.pages.dev';
+const consortiumRequestHeaders = ['Accept', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since', 'If-None-Match', 'Range'];
+
+async function consortium(request, incoming) {
+  if (!['GET', 'HEAD'].includes(request.method)) {
+    return new Response('Method Not Allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
+  }
+  if (incoming.pathname === '/consortium') {
+    return Response.redirect(incoming.origin + '/consortium/' + incoming.search, 308);
+  }
+  // Only cache and content negotiation headers go upstream: institute cookies stay here.
+  const headers = new Headers();
+  for (const name of consortiumRequestHeaders) {
+    const value = request.headers.get(name);
+    if (value) headers.set(name, value);
+  }
+  const result = await fetch(consortiumOrigin + incoming.pathname + incoming.search, {
+    method: request.method,
+    headers,
+    redirect: 'manual',
+  });
+  const response = new Response(result.body, result);
+  const location = response.headers.get('Location');
+  if (location) {
+    const target = new URL(location, consortiumOrigin + incoming.pathname);
+    if (target.origin === consortiumOrigin) {
+      response.headers.set('Location', incoming.origin + target.pathname + target.search + target.hash);
+    }
+  }
+  return response;
+}
 
 export default {
   async fetch(request, env) {
     const incoming = new URL(request.url);
+    if (incoming.pathname === '/consortium' || incoming.pathname.startsWith('/consortium/')) {
+      return consortium(request, incoming);
+    }
     const unsafe = !['GET', 'HEAD', 'OPTIONS'].includes(request.method);
     const origin = request.headers.get('Origin');
     // Validate the browser origin before adapting it for the existing backend.
