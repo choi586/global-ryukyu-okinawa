@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import type { Content } from '@/content/types';
 import { asset, basePath } from '@/lib/base-path';
 
-const siteUrl = process.env.SITE_URL;
+// Link previews (KakaoTalk, Slack, …) need absolute image URLs, so default to the public host.
+const siteUrl = process.env.SITE_URL || 'https://okinawa.khu.ac.kr';
 
 // Page metadata per language; the two versions point at each other.
 export function siteMetadata(c: Content): Metadata {
