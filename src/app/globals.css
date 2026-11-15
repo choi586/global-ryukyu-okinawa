@@ -2785,3 +2785,6 @@ html[lang='ja'] .launch-intro h2 { word-break: normal; }
 .header-inner { min-height: 76px; padding-block: 10px; }
 @media(max-width:1050px) { .header-inner { min-height: 68px; padding-block: 10px; } .brand-university { margin: 0; } }
 @media(max-width:700px) { .header-inner { min-height: 64px; } .brand-wordmark { gap: 3px; } }
+
+@media(max-width:600px) { html[lang='ja'] .menu-toggle { font-size: 11px; padding: 8px; } }
+@media(max-width:360px) { html[lang='ja'] .menu-toggle { font-size: 10px; padding: 6px; } }

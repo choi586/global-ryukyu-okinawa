@@ -62,7 +62,7 @@ export function Header() {
           aria-controls="primary-nav"
           onClick={() => setOpen(!open)}
         >
-          {open ? t('닫기 ✕') : t('메뉴 ☰')}
+          {locale === 'ja' ? (open ? '閉じる' : 'メニュー') : open ? t('닫기 ✕') : t('메뉴 ☰')}
         </button>
         <nav
           id="primary-nav"
