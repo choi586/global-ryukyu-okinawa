@@ -614,8 +614,7 @@ export default function ConsortiumPage() {
         </div>
         <div className="cs-shell cs-footer-bottom">
           <p>
-            이 사이트는 한국연구재단 글로벌인문사회융합연구지원사업의 지원을 받아 수행하는 연구를
-            소개합니다.
+            이 연구는 한국연구재단 글로벌인문사회융합연구지원사업의 지원을 받아 수행하고 있습니다.
           </p>
           <p>© 2026 경희대학교 글로벌류큐·오키나와연구소</p>
         </div>
