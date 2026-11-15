@@ -1355,3 +1355,77 @@
 /* Frame the northern islands; let Taiwan continue below the fold. */
 .cs-hero-photo { object-position: right top; transform: scale(1.12); transform-origin: right top; }
 @media (max-width: 1050px) { .cs-hero-photo { object-position: 78% top; transform: scale(1.08); } }
+
+/* Hero motion (about 4.5s, once on load). The title rises first, then three
+   beats play on the photo: 섬 (three islands light up), 틈 (broken lines
+   flicker between them), 곁 (the lines are drawn solid). Taiwan shows only its
+   northern tip so it never outweighs the other two islands. Every base style
+   here is the finished frame, so nothing depends on the animation running. */
+.cs-hero-stage {
+  --cs-stage-w: max(100%, calc(100svh * 16 / 9));
+  position: absolute;
+  top: 0;
+  /* Shifted right so the islands sit in the right half and the left stays calm. */
+  right: -12%;
+  width: calc(var(--cs-stage-w) * 1.3);
+  aspect-ratio: 16 / 9;
+}
+.cs-hero-drift { position: absolute; inset: 0; transform-origin: 62% 50%; animation: cs-hero-drift 14s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.cs-hero-photo { position: absolute; inset: 0; object-position: center; transform: none; animation: cs-hero-fade 1.6s ease both; }
+.cs-hero-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.cs-hero-lines path { fill: none; stroke-linecap: round; }
+.cs-hero-gaps { opacity: 0; animation: cs-hero-gap 2.6s linear 1.9s both; }
+.cs-hero-gaps path { stroke: #a5dbe0; stroke-width: 1.3; stroke-dasharray: 0.014 0.024; stroke-linecap: butt; }
+.cs-hero-line { stroke: #d6eef2; stroke-width: 1.6; stroke-dasharray: 1; animation: cs-hero-draw 0.8s cubic-bezier(0.6, 0, 0.2, 1) both; }
+.cs-hero-glow { stroke: #a5dbe0; stroke-width: 7; opacity: 0.28; filter: blur(5px); stroke-dasharray: 1; animation: cs-hero-draw 0.8s cubic-bezier(0.6, 0, 0.2, 1) both; }
+.cs-hero-l1 { animation-delay: 3s; }
+.cs-hero-l2 { animation-delay: 3.4s; }
+.cs-hero-l3 { animation-delay: 3.8s; }
+.cs-hero-comet { stroke: #fff; stroke-width: 2.6; stroke-dasharray: 0.04 0.96; stroke-dashoffset: 1.04; opacity: 0; animation: cs-hero-comet 10s cubic-bezier(0.45, 0, 0.3, 1) 6.5s infinite; }
+.cs-hero-dot { fill: #fff; transform-box: fill-box; transform-origin: center; animation: cs-hero-pop 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+.cs-hero-ring { fill: none; stroke: #d6eef2; stroke-width: 1px; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: center; opacity: 0; animation: cs-hero-ring 3.6s ease-out infinite; }
+.cs-hero-dot.cs-hero-p1 { animation-delay: 0.8s; }
+.cs-hero-dot.cs-hero-p2 { animation-delay: 1.1s; }
+.cs-hero-dot.cs-hero-p3 { animation-delay: 1.4s; }
+.cs-hero-ring.cs-hero-p1 { animation-delay: 0.9s; }
+.cs-hero-ring.cs-hero-p2 { animation-delay: 1.2s; }
+.cs-hero-ring.cs-hero-p3 { animation-delay: 1.5s; }
+.cs-hero-map::after {
+  background:
+    linear-gradient(90deg, rgba(3, 15, 24, 0.82) 0%, rgba(3, 15, 24, 0.4) 26%, transparent 46%),
+    linear-gradient(0deg, rgba(3, 15, 24, 0.5), transparent 22%),
+    linear-gradient(180deg, rgba(3, 15, 24, 0.3), transparent 20%);
+}
+.cs-hero-body { padding-bottom: clamp(150px, 20svh, 220px); }
+.cs-hero-keys { display: flex; gap: 0.9em; margin-bottom: 1.1em; color: #a5dbe0; font-size: clamp(1rem, 1.5vw, 1.35rem); font-weight: 500; letter-spacing: 0.02em; }
+.cs-hero-keys span { display: inline-flex; align-items: center; gap: 0.9em; animation: cs-hero-key 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.cs-hero-keys span + span::before { content: ''; width: 1.6em; height: 1px; background: currentColor; opacity: 0.5; }
+.cs-hero-keys span:nth-child(1) { animation-delay: 0.8s; }
+.cs-hero-keys span:nth-child(2) { animation-delay: 1.9s; }
+.cs-hero-keys span:nth-child(3) { animation-delay: 3s; }
+.cs-hero-mask { display: block; overflow: hidden; padding-bottom: 0.08em; }
+.cs-hero-mask > span { display: block; animation: cs-hero-rise 1s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.cs-hero-mask:nth-child(1) > span { animation-delay: 0.25s; }
+.cs-hero-mask:nth-child(2) > span { animation-delay: 0.4s; }
+.cs-scroll { opacity: 0.65; animation: cs-hero-fade 1s ease 4.4s both; }
+@media (max-width: 1050px) {
+  /* Text on top, islands below; the frame starts just left of Taiwan's tip. */
+  .cs-hero { justify-content: flex-start; }
+  .cs-hero-stage { left: calc(var(--cs-stage-w) * -0.436); right: auto; width: var(--cs-stage-w); }
+  .cs-hero-photo { object-position: center; transform: none; }
+  .cs-hero-body { padding-top: 104px; padding-bottom: 0; }
+  .cs-hero-map::after { background: linear-gradient(180deg, rgba(3, 15, 24, 0.78) 0%, rgba(3, 15, 24, 0.45) 24%, transparent 42%), linear-gradient(0deg, rgba(3, 15, 24, 0.75) 0%, transparent 26%); }
+}
+@keyframes cs-hero-fade { from { opacity: 0; } }
+@keyframes cs-hero-drift { from { transform: scale(1.07); } }
+@keyframes cs-hero-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes cs-hero-pop { from { transform: scale(0); opacity: 0; } }
+@keyframes cs-hero-rise { from { transform: translateY(115%); } }
+@keyframes cs-hero-key { from { opacity: 0; transform: translateY(0.5em); } }
+@keyframes cs-hero-gap { 0% { opacity: 0; } 6% { opacity: 0.8; } 11% { opacity: 0.2; } 17% { opacity: 0.85; } 22% { opacity: 0.35; } 30%, 50% { opacity: 0.7; } 100% { opacity: 0; } }
+@keyframes cs-hero-ring { 0% { transform: scale(0.25); opacity: 0.9; } 70%, 100% { transform: scale(1); opacity: 0; } }
+@keyframes cs-hero-comet { 0% { stroke-dashoffset: 1.04; opacity: 0; } 3% { opacity: 0.9; } 38% { opacity: 0.9; } 42% { stroke-dashoffset: 0; opacity: 0; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .cs-hero-drift, .cs-hero-photo, .cs-hero-line, .cs-hero-glow, .cs-hero-gaps, .cs-hero-dot, .cs-hero-keys span, .cs-hero-mask > span, .cs-scroll { animation: none; }
+  .cs-hero-comet, .cs-hero-ring { display: none; }
+}

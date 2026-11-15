@@ -274,10 +274,42 @@ export default function ConsortiumPage() {
       {/* 1. Hero: East Asia map */}
       <section className="cs-hero" id="top" aria-labelledby="cs-hero-title">
         <div className="cs-hero-map" aria-hidden="true">
-          <img className="cs-hero-photo" src={img('hero-deep-sea.webp')} width={2048} height={1152} alt="" fetchPriority="high" />
+          <div className="cs-hero-stage">
+            <div className="cs-hero-drift">
+              <img className="cs-hero-photo" src={img('hero-deep-sea.webp')} width={2048} height={1152} alt="" fetchPriority="high" />
+              <svg className="cs-hero-lines" viewBox="0 0 2048 1152" preserveAspectRatio="none">
+                <g className="cs-hero-gaps">
+                  <path pathLength={1} d="M1396 398 Q1432 552 1323 687" />
+                  <path pathLength={1} d="M1323 687 Q1130 690 928 812" />
+                  <path pathLength={1} d="M928 812 Q1080 520 1396 398" />
+                </g>
+                <path className="cs-hero-glow cs-hero-l1" pathLength={1} d="M1396 398 Q1432 552 1323 687" />
+                <path className="cs-hero-glow cs-hero-l2" pathLength={1} d="M1323 687 Q1130 690 928 812" />
+                <path className="cs-hero-glow cs-hero-l3" pathLength={1} d="M928 812 Q1080 520 1396 398" />
+                <path className="cs-hero-line cs-hero-l1" pathLength={1} d="M1396 398 Q1432 552 1323 687" />
+                <path className="cs-hero-line cs-hero-l2" pathLength={1} d="M1323 687 Q1130 690 928 812" />
+                <path className="cs-hero-line cs-hero-l3" pathLength={1} d="M928 812 Q1080 520 1396 398" />
+                <path className="cs-hero-comet" pathLength={1} d="M1396 398 Q1432 552 1323 687 Q1130 690 928 812 Q1080 520 1396 398" />
+                <circle className="cs-hero-ring cs-hero-p1" cx="1396" cy="398" r="26" />
+                <circle className="cs-hero-ring cs-hero-p2" cx="1323" cy="687" r="26" />
+                <circle className="cs-hero-ring cs-hero-p3" cx="928" cy="812" r="26" />
+                <circle className="cs-hero-dot cs-hero-p1" cx="1396" cy="398" r="5" />
+                <circle className="cs-hero-dot cs-hero-p2" cx="1323" cy="687" r="5" />
+                <circle className="cs-hero-dot cs-hero-p3" cx="928" cy="812" r="5" />
+              </svg>
+            </div>
+          </div>
         </div>
         <div className="cs-shell cs-hero-body">
-          <h1 id="cs-hero-title">고립을 읽다,<br />곁을 잇다</h1>
+          <p className="cs-hero-keys" aria-label="섬, 틈, 곁">
+            <span>섬</span>
+            <span>틈</span>
+            <span>곁</span>
+          </p>
+          <h1 id="cs-hero-title">
+            <span className="cs-hero-mask"><span>고립을 읽다,</span></span>
+            <span className="cs-hero-mask"><span>곁을 잇다</span></span>
+          </h1>
         </div>
         <a className="cs-scroll" href="#about" aria-label="사업단 소개로 내려가기"><span />SCROLL</a>
       </section>
