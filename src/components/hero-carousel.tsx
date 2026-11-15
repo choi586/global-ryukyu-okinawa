@@ -114,7 +114,7 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
       }}
     >
       <h1 className="visually-hidden">{t('글로벌류큐·오키나와연구소')}</h1>
-      <div className="carousel-stage" aria-live={paused ? 'polite' : 'off'}>
+      <div className="shell carousel-stage" aria-live={paused ? 'polite' : 'off'}>
         {slides.map((slide, i) => (
           <article
             key={slide.id}
@@ -133,7 +133,7 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
               />
             </div>
             <div className="carousel-shade" />
-            <div className="shell carousel-copy">
+            <div className="carousel-copy">
               <h2 lang="ko">{slide.title}</h2>
               <p className="carousel-description" lang="ko">
                 {slide.description}

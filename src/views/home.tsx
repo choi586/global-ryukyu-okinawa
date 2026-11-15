@@ -4,6 +4,7 @@ import { HeroCarousel } from '@/components/hero-carousel';
 import { publicSlides } from '@/lib/carousel';
 import { publicPage } from '@/lib/store';
 import { NoticeList } from '@/components/notice-list';
+import { institute } from '@/data/institute';
 import { ContentCards } from '@/components/content-cards';
 
 export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) {
@@ -19,18 +20,17 @@ export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) 
   return (
     <div className="institute-home">
       <HeroCarousel initialSlides={slides} />
-      <section className="shell news-section">
-        <div className="section-heading">
-          <div>
-            <p className="english-section-title">News</p>
-            <h2>{t('공지사항')}</h2>
-          </div>
-          <a href={locale === 'ja' ? '/ja/news' : '/news'} className="text-link">
-            {t('전체 공지 보기 ')}
-            <span aria-hidden="true">↗</span>
-          </a>
+      <section className="shell home-about">
+        <div>
+          <h2>{t('연구소 소개')}</h2>
+          <Link href="/about" className="text-link">
+            {locale === 'ja' ? '研究所紹介を見る →' : '연구소 소개 보기 →'}
+          </Link>
         </div>
-        <NoticeList notices={notices} />
+        <div>
+          <h3>{t(institute.mission)}</h3>
+          <p>{t(institute.introduction)}</p>
+        </div>
       </section>
       {(['activities', 'publications'] as const).map((category) => (
         <section className={`home-content-section ${category}`} key={category}>
@@ -52,6 +52,19 @@ export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) 
           </div>
         </section>
       ))}
+      <section className="shell news-section">
+        <div className="section-heading">
+          <div>
+            <p className="english-section-title">News</p>
+            <h2>{t('공지사항')}</h2>
+          </div>
+          <a href={locale === 'ja' ? '/ja/news' : '/news'} className="text-link">
+            {t('전체 공지 보기 ')}
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <NoticeList notices={notices} />
+      </section>
     </div>
   );
 }
