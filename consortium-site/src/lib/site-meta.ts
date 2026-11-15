@@ -4,6 +4,8 @@ import { asset, basePath } from '@/lib/base-path';
 
 // Link previews (KakaoTalk, Slack, …) need absolute image URLs, so default to the public host.
 const siteUrl = process.env.SITE_URL || 'https://okinawa.khu.ac.kr';
+// Rename this file (not just replace it) when the preview changes: KakaoTalk caches images by URL.
+const ogImage = asset('/images/consortium/og-logo.jpg');
 
 // Page metadata per language; the two versions point at each other.
 export function siteMetadata(c: Content): Metadata {
@@ -29,7 +31,7 @@ export function siteMetadata(c: Content): Metadata {
       ...(siteUrl
         ? {
             images: [
-              { url: asset('/images/consortium/og.jpg'), width: 1200, height: 630, alt: title },
+              { url: ogImage, width: 1200, height: 630, alt: title },
             ],
           }
         : {}),
@@ -38,7 +40,7 @@ export function siteMetadata(c: Content): Metadata {
       card: 'summary_large_image',
       title,
       description,
-      ...(siteUrl ? { images: [asset('/images/consortium/og.jpg')] } : {}),
+      ...(siteUrl ? { images: [ogImage] } : {}),
     },
     icons: {
       icon: asset('/images/consortium/icon.png'),
