@@ -102,15 +102,17 @@ export function ConsortiumNav({ c }: { c: Content }) {
               {label}
             </a>
           ))}
-          <a
-            className="cs-nav-lang"
-            href={otherHref}
-            hrefLang={c.locale === 'ko' ? 'ja' : 'ko'}
-            lang={c.locale === 'ko' ? 'ja' : 'ko'}
-            aria-label={ui.otherLanguage.aria}
-          >
-            {ui.otherLanguage.label}
-          </a>
+          {process.env.NEXT_PUBLIC_CONSORTIUM_JA === '1' && (
+            <a
+              className="cs-nav-lang"
+              href={otherHref}
+              hrefLang={c.locale === 'ko' ? 'ja' : 'ko'}
+              lang={c.locale === 'ko' ? 'ja' : 'ko'}
+              aria-label={ui.otherLanguage.aria}
+            >
+              {ui.otherLanguage.label}
+            </a>
+          )}
           <a className="cs-nav-out" href={instituteHref}>
             {ui.instituteHome}
           </a>
