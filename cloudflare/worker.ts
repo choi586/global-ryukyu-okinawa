@@ -70,6 +70,8 @@ export default {
               .flatMap((path) => [path || '/', '/ja' + path])
               .map((path) => `<url><loc>${origin}${path}</loc></url>`)
               .join('') +
+            // The consortium site is a separate static project under /consortium/.
+            `<url><loc>${origin}/consortium/</loc></url>` +
             '</urlset>',
         );
       }

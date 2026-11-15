@@ -18,7 +18,11 @@ export function siteMetadata(c: Content): Metadata {
           alternates: { canonical: path, languages: { ko: `${basePath}/`, ja: `${basePath}/ja/` } },
         }
       : {}),
-    robots: { index: false, follow: false },
+    // Korean is public; Japanese stays out of search until its translation is reviewed.
+    robots:
+      c.locale === 'ko' || process.env.NEXT_PUBLIC_CONSORTIUM_JA === '1'
+        ? { index: true, follow: true }
+        : { index: false, follow: false },
     title: { absolute: title },
     description,
     openGraph: {
