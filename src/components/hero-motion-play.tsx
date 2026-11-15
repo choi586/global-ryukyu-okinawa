@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useRef, type ReactNode } from 'react';
 
-// Holds the map animation until it scrolls into view (e.g. below the text on phones).
+// Holds the hero animation until it scrolls into view (e.g. below the text on phones).
 // Without JavaScript the animation simply plays on load.
-export function HeroMapPlay({ children }: { children: ReactNode }) {
+export function HeroMotionPlay({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const node = ref.current;
@@ -24,7 +24,7 @@ export function HeroMapPlay({ children }: { children: ReactNode }) {
     return () => observer.disconnect();
   }, []);
   return (
-    <div className="hero-map-play" ref={ref}>
+    <div className="hero-motion-play" ref={ref}>
       {children}
     </div>
   );
