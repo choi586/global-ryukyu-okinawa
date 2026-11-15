@@ -95,7 +95,7 @@ export function Header() {
               </span>
             ),
           )}
-          <a className="site-switch" href="https://social-connectedness-consortium.pages.dev/">
+          <a className="site-switch" href="https://okinawa.khu.ac.kr/consortium/">
             {locale === 'ja' ? '事業団ホーム ↗' : '사업단 홈 ↗'}
           </a>
         </nav>
