@@ -1,16 +1,13 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { asset } from '@/lib/base-path';
+import { asset, basePath } from '@/lib/base-path';
+import type { Content } from '@/content/types';
 
-const links = [
-  ['소개', '#about'],
-  ['연구', '#research'],
-  ['프로그램', '#programs'],
-  ['아카이브·성과', '#archive'],
-  ['연구진', '#people'],
-];
-
-export function ConsortiumNav() {
+export function ConsortiumNav({ c }: { c: Content }) {
+  const { ui, nav: links } = c;
+  const otherHref = c.locale === 'ko' ? `${basePath}/ja/` : `${basePath}/`;
+  const instituteHref =
+    c.locale === 'ko' ? 'https://okinawa.khu.ac.kr/' : 'https://okinawa.khu.ac.kr/ja';
   const [open, setOpen] = useState(false);
   const [solid, setSolid] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
@@ -64,7 +61,7 @@ export function ConsortiumNav() {
         <a
           className="cs-brand"
           href="#top"
-          aria-label="글로벌류큐·오키나와연구소 사회적연결회복 사업 홈"
+          aria-label={ui.brandAria}
           onClick={() => setOpen(false)}
         >
           <img
@@ -82,8 +79,8 @@ export function ConsortiumNav() {
             alt=""
           />
           <span className="cs-brand-text">
-            <strong>글로벌류큐·오키나와연구소</strong>
-            <span>사회적연결회복 컨소시엄</span>
+            <strong>{ui.brandName}</strong>
+            <span>{ui.brandSub}</span>
           </span>
         </a>
         <button
@@ -93,20 +90,29 @@ export function ConsortiumNav() {
           aria-controls="cs-nav-links"
           onClick={() => setOpen(!open)}
         >
-          {open ? '닫기' : '메뉴'}
+          {open ? ui.close : ui.menu}
         </button>
         <nav
           id="cs-nav-links"
           className={'cs-nav-links' + (open ? ' is-open' : '')}
-          aria-label="사업단 메뉴"
+          aria-label={ui.navLabel}
         >
           {links.map(([label, href]) => (
             <a key={href} href={href} onClick={() => setOpen(false)}>
               {label}
             </a>
           ))}
-          <a className="cs-nav-out" href="https://okinawa.khu.ac.kr/">
-            연구소 홈 ↗
+          <a
+            className="cs-nav-lang"
+            href={otherHref}
+            hrefLang={c.locale === 'ko' ? 'ja' : 'ko'}
+            lang={c.locale === 'ko' ? 'ja' : 'ko'}
+            aria-label={ui.otherLanguage.aria}
+          >
+            {ui.otherLanguage.label}
+          </a>
+          <a className="cs-nav-out" href={instituteHref}>
+            {ui.instituteHome}
           </a>
         </nav>
       </div>

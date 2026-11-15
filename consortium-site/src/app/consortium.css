@@ -1591,3 +1591,84 @@
 @media (prefers-reduced-motion: reduce) {
   .cs-axis, .cs-details > summary::after { transition: none; }
 }
+
+/* Language switch and Japanese typography */
+.cs-nav-lang {
+  font-size: 0.86rem;
+  opacity: 0.85;
+}
+.cs-nav-lang:hover { opacity: 1; }
+html[lang='ja'] .cs {
+  font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', var(--cs-sans);
+  line-break: strict;
+  word-break: normal;
+}
+html[lang='ja'] .cs h1,
+html[lang='ja'] .cs h2,
+html[lang='ja'] .cs h3 { letter-spacing: -0.02em; }
+
+/* Film: full poster with one play button until playback starts */
+.cs-film-player { position: relative; }
+.cs-film-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.cs-film-play span {
+  display: block;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(10, 26, 42, 0.78);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.cs-film-play span::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  margin: 24px 0 0 29px;
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent #fff;
+}
+.cs-film-play:hover span { transform: scale(1.06); background: var(--cs-navy); }
+.cs-film-play:focus-visible span { outline: 2px solid var(--cs-cyan); outline-offset: 4px; }
+@media (max-width: 720px) {
+  .cs-film-play span { width: 56px; height: 56px; }
+  .cs-film-play span::after { margin: 18px 0 0 22px; border-width: 10px 0 10px 16px; }
+}
+
+/* 좁은 창(태블릿·창 절반·휴대폰): 섬 삼각형을 가운데 위로, 문구는 아래로.
+   삼각형의 가로 중심은 사진 폭의 1162/2048 지점, 세로 중심은 605/1152 지점. */
+@media (max-width: 1050px) {
+  .cs-hero { justify-content: flex-end; }
+  .cs-hero-stage {
+    --cs-k: 1.15;
+    left: calc(50% - var(--cs-stage-w) * var(--cs-k) * 0.567);
+    right: auto;
+    top: calc(var(--cs-stage-w) * var(--cs-k) * 9 / 16 * -0.13);
+    width: calc(var(--cs-stage-w) * var(--cs-k));
+  }
+  .cs-hero-drift { transform-origin: 57% 52%; }
+  .cs-hero-body { padding-top: 0; padding-bottom: clamp(96px, 14svh, 140px); }
+  .cs-hero-map::after {
+    background:
+      linear-gradient(0deg, rgba(3, 15, 24, 0.9) 0%, rgba(3, 15, 24, 0.55) 30%, transparent 52%),
+      linear-gradient(180deg, rgba(3, 15, 24, 0.55) 0%, transparent 18%);
+  }
+}
+@media (max-width: 600px) {
+  /* 휴대폰: 사진을 더 올리고, 아래 끝은 남색 배경으로 서서히 사라지게 */
+  .cs-hero-stage {
+    --cs-k: 1;
+    top: calc(var(--cs-stage-w) * 9 / 16 * -0.2);
+    -webkit-mask-image: linear-gradient(180deg, #000 68%, transparent 96%);
+    mask-image: linear-gradient(180deg, #000 68%, transparent 96%);
+  }
+}
