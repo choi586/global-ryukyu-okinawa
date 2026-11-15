@@ -53,11 +53,6 @@ export function Header() {
               {locale === 'ja' ? '慶熙大学校' : '경희대학교'}
             </span>
             <span className="brand-name">{t('글로벌류큐·오키나와연구소')}</span>
-            <span className="brand-english" lang="en">
-              Global Institute for
-              <br />
-              Ryukyu and Okinawa Studies
-            </span>
           </span>
         </Link>
         <button

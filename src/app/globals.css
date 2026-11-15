@@ -2746,11 +2746,10 @@ html[lang='ja'] .launch-intro h2 { word-break: normal; }
 }
 
 .header-inner .brand { display: flex; align-items: center; gap: 12px; width: 335px; text-decoration: none; }
-.brand-symbol { width: 64px; height: auto; flex: 0 0 auto; }
-.brand-wordmark { display: flex; flex-direction: column; min-width: 0; color: #252a2e; }
-.brand-university { font-size: 11px; font-weight: 400; margin-bottom: 4px; color: #686868; }
+.brand-symbol { width: 56px; height: auto; flex: 0 0 auto; }
+.brand-wordmark { display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; color: #981b1b; }
+.brand-university { font-size: 12px; line-height: 1.3; font-weight: 400; margin: 0; color: inherit; }
 .brand-name { font-size: 19px; line-height: 1.4; font-weight: 500; letter-spacing: -.045em; white-space: nowrap; }
-.brand-english { font-size: 10px; line-height: 1.35; color: #777; margin-top: 4px; letter-spacing: .01em; }
 @media (min-width: 1051px) and (max-width: 1250px) {
  .header-inner .brand { width: 300px; gap: 10px; }
  .brand-symbol { width: 54px; }
@@ -2762,13 +2761,11 @@ html[lang='ja'] .launch-intro h2 { word-break: normal; }
  .brand-symbol { width: 48px; }
  .brand-name { font-size: 17px; }
  .brand-university { font-size: 10px; margin-bottom: 2px; }
- .brand-english { font-size: 9px; margin-top: 3px; }
 }
 @media (max-width: 600px) {
  .header-inner .brand { width: 260px; gap: 9px; }
  .brand-symbol { width: 44px; }
  .brand-name { font-size: 15px; }
- .brand-english { font-size: 8px; }
  .header-inner { gap: 12px; }
  .menu-toggle { padding: 8px 10px; font-size: 12px; }
 }
@@ -2777,10 +2774,14 @@ html[lang='ja'] .launch-intro h2 { word-break: normal; }
  .brand-symbol { width: 34px; }
  .brand-name { font-size: 12.5px; }
  .brand-university { font-size: 9px; }
- .brand-english { font-size: 7px; }
  .menu-toggle { padding: 7px; }
 }
 .primary-nav > a::after { opacity: 0; transition: opacity .2s; }
 .primary-nav > a:hover::after, .primary-nav > a[aria-current='page']::after { opacity: 1; }
 .hero-carousel .carousel-photo img { object-position: center 30%; }
 @media(max-width:800px) { .hero-carousel .carousel-copy { padding-bottom: 52px; } .hero-carousel .carousel-photo img { object-position: center; } }
+
+/* Compact symbol and two-line Korean/Japanese wordmark. */
+.header-inner { min-height: 76px; padding-block: 10px; }
+@media(max-width:1050px) { .header-inner { min-height: 68px; padding-block: 10px; } .brand-university { margin: 0; } }
+@media(max-width:700px) { .header-inner { min-height: 64px; } .brand-wordmark { gap: 3px; } }
