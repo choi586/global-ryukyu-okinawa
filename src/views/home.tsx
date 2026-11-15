@@ -1,6 +1,5 @@
 import { translate, type Locale } from '@/i18n/config';
 import Link from '@/components/localized-link';
-import { HeroCarousel } from '@/components/hero-carousel';
 import { publicSlides } from '@/lib/carousel';
 import { publicPage } from '@/lib/store';
 import { NoticeList } from '@/components/notice-list';
@@ -19,19 +18,75 @@ export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) 
   const notices = news.notices;
   return (
     <div className="institute-home">
-      <HeroCarousel initialSlides={slides} />
-      <section className="shell home-about">
-        <div>
-          <h2>{t('연구소 소개')}</h2>
-          <Link href="/about" className="text-link">
-            {locale === 'ja' ? '研究所紹介を見る →' : '연구소 소개 보기 →'}
-          </Link>
-        </div>
-        <div>
-          <h3>{t(institute.mission)}</h3>
-          <p>{t(institute.introduction)}</p>
+      <section className="home-hero">
+        <div className="shell home-hero-inner">
+          <p className="home-hero-label">
+            Kyung Hee University · Global Institute for Ryukyu and Okinawa Studies
+          </p>
+          <h1>
+            {t('글로벌류큐·')}
+            <br />
+            {t('오키나와연구소')}
+          </h1>
+          <div className="home-hero-copy">
+            <p className="home-hero-mission">{t(institute.mission)}</p>
+            <p>{t(institute.introduction)}</p>
+            <Link href="/about" className="home-hero-link">
+              {locale === 'ja' ? '研究所紹介を見る' : '연구소 소개 보기'}
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
       </section>
+      {slides.length > 0 && (
+        <section className="shell home-highlights" aria-labelledby="home-highlights-title">
+          <div className="section-heading">
+            <div>
+              <p className="english-section-title">Highlights</p>
+              <h2 id="home-highlights-title">{t('주요 소식')}</h2>
+            </div>
+          </div>
+          <div className={`highlight-grid count-${slides.length}`}>
+            {slides.map((slide, i) => {
+              const inner = (
+                <>
+                  <div className="highlight-media">
+                    <img
+                      src={`/api/carousel/${slide.image.id}`}
+                      alt={slide.image.alt}
+                      fetchPriority={i === 0 ? 'high' : 'auto'}
+                      loading={i === 0 ? 'eager' : 'lazy'}
+                      decoding="async"
+                    />
+                  </div>
+                  <div className="highlight-copy">
+                    {slide.description && (
+                      <p className="highlight-meta" lang="ko">
+                        {slide.description}
+                      </p>
+                    )}
+                    <h3 lang="ko">{slide.title}</h3>
+                  </div>
+                </>
+              );
+              return (
+                <article
+                  key={slide.id}
+                  className={`highlight fit-${slide.fit}${i === 0 ? ' is-feature' : ''}`}
+                >
+                  {slide.href ? (
+                    <Link className="highlight-link" href={slide.href}>
+                      {inner}
+                    </Link>
+                  ) : (
+                    <div className="highlight-link">{inner}</div>
+                  )}
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      )}
       {(['activities', 'publications'] as const).map((category) => (
         <section className={`home-content-section ${category}`} key={category}>
           <div className="shell">

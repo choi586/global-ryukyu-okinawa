@@ -2826,3 +2826,197 @@ html[lang='ja'] .launch-intro h2 { word-break: normal; }
 }
 @media(max-width:600px) { .brand-wordmark .brand-english { font-size: 8px; } }
 @media(max-width:360px) { .brand-wordmark .brand-english { font-size: 7px; } }
+
+/* Institute homepage, editorial refresh: typographic hero and static highlights. */
+:root {
+  --khu-red: #990e17;
+  --khu-ivory: #f6f4ef;
+  --khu-ink: #1b1b1d;
+  --khu-soft: #5f5b57;
+}
+.institute-home .home-hero {
+  background: var(--khu-ivory);
+  border-bottom: 1px solid #e8e4dc;
+  padding: 88px 0 80px;
+}
+.institute-home .home-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  column-gap: 72px;
+  align-items: end;
+}
+.institute-home .home-hero-label {
+  grid-column: 1 / -1;
+  margin: 0 0 28px;
+  color: var(--khu-red);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.institute-home .home-hero h1 {
+  margin: 0;
+  color: var(--khu-ink);
+  font-size: clamp(40px, 5vw, 68px);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.045em;
+  word-break: keep-all;
+}
+.institute-home .home-hero-copy { padding-bottom: 6px; }
+.institute-home .home-hero-mission {
+  margin: 0 0 12px;
+  color: var(--khu-ink);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.institute-home .home-hero-copy p:not(.home-hero-mission) {
+  margin: 0;
+  color: var(--khu-soft);
+  font-size: 15.5px;
+  line-height: 1.85;
+  word-break: keep-all;
+}
+.institute-home .home-hero-link {
+  display: inline-flex;
+  margin-top: 26px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid currentColor;
+  color: var(--khu-red);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  gap: 6px;
+}
+.institute-home .home-hero-link:hover { color: #6d0a10; }
+
+/* Section headings */
+.institute-home .english-section-title {
+  display: block;
+  font-family: inherit;
+  margin: 0 0 8px;
+  color: var(--khu-red);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.institute-home .section-heading h2 {
+  color: var(--khu-ink);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+/* Highlights (managed in the administrator's 메인 캐러셀 관리) */
+.institute-home .home-highlights { padding: 72px 0 40px; }
+.highlight-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 28px 44px;
+  align-items: start;
+}
+.highlight.is-feature { grid-row: span 4; }
+.highlight-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.highlight-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--khu-ivory);
+  aspect-ratio: 16 / 10;
+}
+.highlight-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.highlight.fit-contain .highlight-media img { object-fit: contain; padding: 10px; }
+a.highlight-link:hover .highlight-media img { transform: scale(1.03); }
+.highlight-copy { padding-top: 20px; }
+.highlight-meta {
+  margin: 0 0 8px;
+  color: #8a857f;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.highlight h3 {
+  margin: 0;
+  color: var(--khu-ink);
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.035em;
+  word-break: keep-all;
+  transition: color 0.2s;
+}
+a.highlight-link:hover h3 { color: var(--khu-red); }
+a.highlight-link:focus-visible { outline: 2px solid var(--khu-red); outline-offset: 6px; }
+.highlight:not(.is-feature) .highlight-link {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #ece9e3;
+}
+.highlight:not(.is-feature) .highlight-media { aspect-ratio: 4 / 3; }
+.highlight:not(.is-feature) .highlight-copy { padding-top: 2px; }
+.highlight:not(.is-feature) h3 {
+  font-size: 17px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.highlight:not(.is-feature) .highlight-meta { font-size: 12.5px; margin-bottom: 6px; }
+.highlight-grid.count-1 { grid-template-columns: minmax(0, 1fr); }
+.highlight-grid.count-1 .highlight-media { aspect-ratio: 21 / 9; }
+.highlight-grid.count-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.highlight-grid.count-2 .highlight { grid-row: auto; }
+.highlight-grid.count-2 .highlight .highlight-link { display: block; padding-bottom: 0; border-bottom: 0; }
+.highlight-grid.count-2 .highlight .highlight-media { aspect-ratio: 16 / 10; }
+.highlight-grid.count-2 .highlight .highlight-copy { padding-top: 20px; }
+.highlight-grid.count-2 .highlight h3 { font-size: clamp(20px, 1.8vw, 24px); }
+
+/* Content sections */
+.institute-home .home-content-section { border-top: 0; padding: 64px 0 72px; }
+.institute-home .home-content-section.publications { background: var(--khu-ivory); }
+.institute-home .content-card-media { border-radius: 4px; overflow: hidden; }
+.institute-home .content-card h3 { font-size: 17px; font-weight: 600; line-height: 1.55; transition: color 0.2s; }
+.institute-home .content-card:hover h3 { color: var(--khu-red); }
+.institute-home .home-content-section.publications .content-card-media { background: #ebe7df; }
+.institute-home .news-section { border-top: 0; padding-top: 64px; padding-bottom: 72px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .highlight-media img { transition: none; }
+}
+@media (max-width: 900px) {
+  .institute-home .home-hero { padding: 56px 0 52px; }
+  .institute-home .home-hero-inner { grid-template-columns: minmax(0, 1fr); row-gap: 28px; }
+  .institute-home .home-hero-label { margin-bottom: 4px; }
+  .highlight-grid,
+  .highlight-grid.count-2 { grid-template-columns: minmax(0, 1fr); }
+  .highlight.is-feature { grid-row: auto; }
+}
+@media (max-width: 800px) {
+  .institute-home .home-hero { padding: 44px 0 40px; }
+  .institute-home .home-hero-label { font-size: 10.5px; letter-spacing: 0.1em; }
+  .institute-home .home-hero h1 { font-size: 36px; }
+  .institute-home .home-hero-mission { font-size: 18px; }
+  .institute-home .home-hero-copy p:not(.home-hero-mission) { font-size: 14.5px; }
+  .institute-home .home-highlights { padding: 44px 0 16px; }
+  .institute-home .section-heading h2 { font-size: 24px; }
+  .highlight h3 { font-size: 21px; }
+  .highlight:not(.is-feature) .highlight-link { grid-template-columns: 112px minmax(0, 1fr); gap: 14px; padding-bottom: 20px; }
+  .highlight:not(.is-feature) h3 { font-size: 15px; }
+  .institute-home .home-content-section { padding: 44px 0 48px; }
+  .institute-home .news-section { padding-top: 44px; padding-bottom: 48px; }
+}
