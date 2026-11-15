@@ -1,0 +1,55 @@
+# Builds the consortium site and publishes it to the Cloudflare Pages project
+# whenever its source changes on GitHub. The site is then reachable at
+# https://okinawa.khu.ac.kr/consortium/ through the institute gateway.
+#
+# Requires one repository secret: CLOUDFLARE_API_TOKEN
+# (a Cloudflare API token with Account / Cloudflare Pages / Edit).
+name: Deploy consortium site
+
+on:
+  push:
+    branches: [main, codex/consortium-standalone]
+    paths:
+      - 'consortium-site/**'
+      - '.github/workflows/deploy-consortium.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-consortium
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: consortium-site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: consortium-site/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: consortium-site/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm build
+      - name: Publish to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 406d28b27c2398f3ef1f36aed7ba0714
+        # The project's production branch is codex/consortium-standalone, so
+        # every publish from this workflow goes out under that name.
+        run: >
+          pnpm dlx wrangler@4.132.0 pages deploy dist
+          --project-name social-connectedness-consortium
+          --branch codex/consortium-standalone
+          --commit-hash "$GITHUB_SHA"
+          --commit-dirty=true
