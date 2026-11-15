@@ -9,6 +9,7 @@ import News from '@/views/news';
 import Detail, { generateMetadata as detailMetadata } from '@/views/detail';
 import { ContentBoard } from '@/components/content-board';
 import { localePath } from '@/i18n/config';
+import { pageDescriptions } from '@/data/seo';
 export const dynamic = 'force-dynamic';
 type Props = {
   params: Promise<{ locale: string; path?: string[] }>;
@@ -30,7 +31,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const metadata =
     path.length === 2 && ['news', 'activities', 'publications'].includes(path[0])
       ? await detailMetadata({ params: Promise.resolve({ slug: path[1] }), locale: 'ja' })
-      : { title: titles[path[0] || ''] };
+      : path[0]
+        ? {
+            title: titles[path[0]],
+            description:
+              pageDescriptions.ja[path[0] as keyof typeof pageDescriptions.ja] ??
+              pageDescriptions.ja.home,
+          }
+        : {
+            // The layout template would repeat the name; the home title stands alone.
+            title: { absolute: 'グローバル琉球・沖縄研究所 | 慶熙大学校' },
+            description: pageDescriptions.ja.home,
+          };
   const pathname = '/' + path.join('/');
   return {
     ...metadata,
@@ -39,10 +51,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: { ko: pathname, ja: localePath(pathname, 'ja') },
     },
     openGraph: {
-      title: typeof metadata.title === 'string' ? metadata.title : 'グローバル琉球・沖縄研究所',
-      description:
-        metadata.description ||
-        '慶熙大学校グローバル琉球・沖縄研究所のお知らせと研究に関する最新情報をお届けします。',
+      title:
+        typeof metadata.title === 'string'
+          ? metadata.title
+          : 'グローバル琉球・沖縄研究所 | 慶熙大学校',
+      description: metadata.description || pageDescriptions.ja.home,
       siteName: 'グローバル琉球・沖縄研究所',
       url: localePath(pathname, 'ja'),
       locale: 'ja_JP',

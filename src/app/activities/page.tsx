@@ -1,6 +1,8 @@
+import { pageDescriptions } from '@/data/seo';
 import { ContentBoard } from '@/components/content-board';
 export const dynamic = 'force-dynamic';
 export const metadata = {
+  description: pageDescriptions.ko.activities,
   alternates: { canonical: '/activities', languages: { ko: '/activities', ja: '/ja/activities' } },
   title: '학술활동',
 };

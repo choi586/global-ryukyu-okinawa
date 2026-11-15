@@ -13,6 +13,7 @@ import '@fontsource/noto-sans-kr/700.css';
 import '@fontsource/merriweather/latin-400.css';
 
 import './globals.css';
+import { pageDescriptions, siteVerification, structuredData } from '@/data/seo';
 
 const baseMetadata: Metadata = {
   metadataBase: new URL('https://okinawa.khu.ac.kr'),
@@ -22,13 +23,11 @@ const baseMetadata: Metadata = {
     template: '%s | 글로벌류큐·오키나와연구소',
   },
 
-  description:
-    '경희대학교 글로벌류큐·오키나와연구소 공식 홈페이지. 류큐·오키나와 및 동아시아 지역연구, 학술행사, 공동연구와 연구성과를 소개합니다.',
+  description: pageDescriptions.ko.home,
 
   openGraph: {
     title: '경희대학교 글로벌류큐·오키나와연구소 | 공식 홈페이지',
-    description:
-      '경희대학교 글로벌류큐·오키나와연구소 공식 홈페이지. 류큐·오키나와 및 동아시아 지역연구, 학술행사, 공동연구와 연구성과를 소개합니다.',
+    description: pageDescriptions.ko.home,
     url: 'https://okinawa.khu.ac.kr',
     siteName: '글로벌류큐·오키나와연구소',
     images: [
@@ -46,14 +45,20 @@ const baseMetadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: '경희대학교 글로벌류큐·오키나와연구소 | 공식 홈페이지',
-    description:
-      '경희대학교 글로벌류큐·오키나와연구소 공식 홈페이지. 류큐·오키나와 및 동아시아 지역연구, 학술행사, 공동연구와 연구성과를 소개합니다.',
+    description: pageDescriptions.ko.home,
     images: ['/images/og-image.png'],
   },
 
   robots: {
     index: true,
     follow: true,
+  },
+
+  verification: {
+    ...(siteVerification.google ? { google: siteVerification.google } : {}),
+    ...(siteVerification.naver
+      ? { other: { 'naver-site-verification': siteVerification.naver } }
+      : {}),
   },
 
   icons: {
@@ -69,8 +74,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = await requestLocale();
   if (locale === 'ko') return baseMetadata;
   const title = 'グローバル琉球・沖縄研究所 | 慶熙大学校';
-  const description =
-    '慶熙大学校グローバル琉球・沖縄研究所のお知らせと研究に関する最新情報をお届けします。';
+  const description = pageDescriptions.ja.home;
   return {
     ...baseMetadata,
     title: { default: title, template: '%s | グローバル琉球・沖縄研究所' },

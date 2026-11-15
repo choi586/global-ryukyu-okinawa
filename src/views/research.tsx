@@ -1,6 +1,8 @@
+import { pageDescriptions } from '@/data/seo';
 import { translate, type Locale } from '@/i18n/config';
 import Link from '@/components/localized-link';
 export const metadata = {
+  description: pageDescriptions.ko.research,
   alternates: { canonical: '/research', languages: { ko: '/research', ja: '/ja/research' } },
   title: '연구사업',
 };

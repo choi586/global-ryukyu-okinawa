@@ -1,9 +1,11 @@
+import { pageDescriptions } from '@/data/seo';
 import { translate, type Locale } from '@/i18n/config';
 import type { Metadata } from 'next';
 import Link from '@/components/localized-link';
 import { NewsBoard } from '@/components/news-board';
 
 export const metadata: Metadata = {
+  description: pageDescriptions.ko.news,
   alternates: { canonical: '/news', languages: { ko: '/news', ja: '/ja/news' } },
   title: '공지사항',
 };

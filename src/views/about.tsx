@@ -1,7 +1,9 @@
+import { pageDescriptions } from '@/data/seo';
 import { translate, type Locale } from '@/i18n/config';
 import Link from '@/components/localized-link';
 import { institute } from '@/data/institute';
 export const metadata = {
+  description: pageDescriptions.ko.about,
   alternates: { canonical: '/about', languages: { ko: '/about', ja: '/ja/about' } },
   title: '연구소 소개',
 };

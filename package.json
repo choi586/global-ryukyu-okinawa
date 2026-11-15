@@ -20,7 +20,8 @@
     "deploy:pages": "node scripts/deploy-pages.mjs",
     "test:pages": "node --test cloudflare-pages/proxy.test.mjs",
     "predev": "node scripts/prepare-pdf-assets.mjs",
-    "prebuild": "node scripts/prepare-pdf-assets.mjs"
+    "prebuild": "node scripts/prepare-pdf-assets.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "engines": {
     "node": ">=22.13.0"

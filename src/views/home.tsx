@@ -5,6 +5,7 @@ import { publicPage } from '@/lib/store';
 import { NoticeList } from '@/components/notice-list';
 import { institute } from '@/data/institute';
 import { ContentCards } from '@/components/content-cards';
+import { structuredData } from '@/data/seo';
 
 export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) {
   const t = (text: string) => translate(locale, text);
@@ -18,6 +19,13 @@ export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) 
   const notices = news.notices;
   return (
     <div className="institute-home">
+      <script
+        type="application/ld+json"
+        // Static, trusted data from src/data/seo.ts; '<' is escaped so it cannot close the tag.
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replace(/</g, '\\u003c'),
+        }}
+      />
       <section className="home-hero">
         <img
           className="home-hero-watermark"

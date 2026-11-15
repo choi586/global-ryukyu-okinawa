@@ -1,6 +1,8 @@
+import { pageDescriptions } from '@/data/seo';
 import { ContentBoard } from '@/components/content-board';
 export const dynamic = 'force-dynamic';
 export const metadata = {
+  description: pageDescriptions.ko.publications,
   alternates: {
     canonical: '/publications',
     languages: { ko: '/publications', ja: '/ja/publications' },

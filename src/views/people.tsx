@@ -1,7 +1,9 @@
+import { pageDescriptions } from '@/data/seo';
 import { translate, type Locale } from '@/i18n/config';
 import Link from '@/components/localized-link';
 import lead from '@/data/principal-investigator.json';
 export const metadata = {
+  description: pageDescriptions.ko.people,
   alternates: { canonical: '/people', languages: { ko: '/people', ja: '/ja/people' } },
   title: '연구진 소개',
 };

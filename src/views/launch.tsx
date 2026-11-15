@@ -1,7 +1,9 @@
+import { pageDescriptions } from '@/data/seo';
 import Link from '@/components/localized-link';
 import { GreetingsList } from '@/components/greetings';
 import type { Locale } from '@/i18n/config';
 export const metadata = {
+  description: pageDescriptions.ko.launch,
   alternates: { canonical: '/launch', languages: { ko: '/launch', ja: '/ja/launch' } },
   title: '컨소시엄 출범식 · 축하 메시지',
 };
