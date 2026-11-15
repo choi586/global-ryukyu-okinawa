@@ -3111,3 +3111,9 @@ a.highlight-link:focus-visible { outline: 2px solid var(--khu-red); outline-offs
   .hero-map-label-name { font-size: 24px; }
   .hero-map-label-coord { font-size: 13px; }
 }
+
+/* One-line English name in the header; smaller hero title. */
+.brand-wordmark .brand-english { white-space: nowrap; }
+.header-inner .brand { width: auto; flex-shrink: 0; }
+.institute-home .home-hero h1 { font-size: clamp(32px, 3.4vw, 46px); line-height: 1.25; }
+@media (max-width: 800px) { .institute-home .home-hero h1 { font-size: 29px; } }

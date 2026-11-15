@@ -51,9 +51,7 @@ export function Header() {
           <span className="brand-wordmark">
             <span className="brand-name">{t('글로벌류큐·오키나와연구소')}</span>
             <span className="brand-english" lang="en">
-              Global Institute for
-              <br />
-              Ryukyu and Okinawa Studies
+              Global Institute for Ryukyu and Okinawa Studies
             </span>
           </span>
         </Link>
