@@ -5,8 +5,6 @@ import { publicPage } from '@/lib/store';
 import { NoticeList } from '@/components/notice-list';
 import { institute } from '@/data/institute';
 import { ContentCards } from '@/components/content-cards';
-import { HeroRipple } from '@/components/hero-ripple';
-import { HeroMotionPlay } from '@/components/hero-motion-play';
 
 export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) {
   const t = (text: string) => translate(locale, text);
@@ -21,18 +19,23 @@ export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) 
   return (
     <div className="institute-home">
       <section className="home-hero">
+        <img
+          className="home-hero-watermark"
+          src="/images/institute-mark.png"
+          alt=""
+          aria-hidden="true"
+          width={836}
+          height={677}
+          decoding="async"
+        />
         <div className="shell home-hero-inner">
           <div className="home-hero-text">
             <p className="home-hero-label">
               Kyung Hee University · Global Institute for Ryukyu and Okinawa Studies
             </p>
-            <h1>
-              <span className="reveal-line">
-                <span>{t('글로벌류큐·')}</span>
-              </span>
-              <span className="reveal-line">
-                <span>{t('오키나와연구소')}</span>
-              </span>
+            <h1 className="home-hero-title">
+              <span>{t('글로벌류큐·')}</span>
+              <span>{t('오키나와연구소')}</span>
             </h1>
             <div className="home-hero-copy">
               <p className="home-hero-mission">{t(institute.mission)}</p>
@@ -43,9 +46,6 @@ export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) 
               </Link>
             </div>
           </div>
-          <HeroMotionPlay>
-            <HeroRipple />
-          </HeroMotionPlay>
         </div>
       </section>
       {slides.length > 0 && (

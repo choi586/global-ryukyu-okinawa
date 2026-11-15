@@ -3027,61 +3027,50 @@ a.highlight-link:focus-visible { outline: 2px solid var(--khu-red); outline-offs
 .institute-home .home-hero h1 { font-size: clamp(32px, 3.4vw, 46px); line-height: 1.25; }
 @media (max-width: 800px) { .institute-home .home-hero h1 { font-size: 29px; } }
 
-/* Homepage hero: calm sun-and-ripple motion and gentle text reveal. */
-.institute-home .home-hero { padding: 64px 0 60px; overflow: hidden; }
-.institute-home .home-hero-inner {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
-  column-gap: 56px;
-  align-items: center;
-}
+/* Homepage hero: the institute symbol appears faintly behind a soft text entrance. */
+.institute-home .home-hero { position: relative; isolation: isolate; overflow: hidden; padding: 72px 0 68px; }
+.institute-home .home-hero-inner { display: block; }
+.institute-home .home-hero-text { max-width: 620px; }
 .institute-home .home-hero-text .home-hero-label { margin-bottom: 24px; }
-.institute-home .home-hero-text .home-hero-copy { margin-top: 30px; max-width: 520px; }
-
-.institute-home .home-hero h1 .reveal-line { display: block; overflow: hidden; padding-bottom: 0.06em; }
-.institute-home .home-hero h1 .reveal-line > span {
-  display: inline-block;
-  animation: hero-line-rise 1.3s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+.institute-home .home-hero-text .home-hero-copy { margin-top: 30px; max-width: 540px; }
+.home-hero-title > span { display: block; }
+.home-hero-watermark {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  right: max(-40px, calc((100vw - 1240px) / 2 - 40px));
+  width: min(500px, 42vw);
+  height: auto;
+  opacity: 0.075;
+  transform: translateY(-50%);
+  pointer-events: none;
+  user-select: none;
+  animation: hero-watermark-in 3.2s ease-out 0.2s both;
 }
-.institute-home .home-hero h1 .reveal-line + .reveal-line > span { animation-delay: 0.18s; }
+.home-hero-title > span { animation: hero-soft-in 1.6s ease-out both; }
+.home-hero-title > span + span { animation-delay: 0.25s; }
 .institute-home .home-hero-label,
-.institute-home .home-hero-copy { animation: hero-soft-in 1.4s ease-out both; }
-.institute-home .home-hero-label { animation-delay: 0.05s; }
-.institute-home .home-hero-copy { animation-delay: 0.6s; }
-
-.hero-motion-play { width: 100%; display: flex; justify-content: center; }
-.hero-ripple { margin: 0; width: 100%; max-width: 440px; }
-.hero-ripple svg { display: block; width: 100%; height: auto; overflow: visible; }
-.hero-ripple-mark {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: hero-sun-rise 2.2s cubic-bezier(0.22, 0.7, 0.2, 1) 0.2s both;
+.institute-home .home-hero-copy { animation: hero-soft-in 1.6s ease-out both; }
+.institute-home .home-hero-copy { animation-delay: 0.7s; }
+@keyframes hero-soft-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes hero-watermark-in {
+  from { opacity: 0; transform: translateY(-50%) scale(1.03); }
+  to { opacity: 0.075; transform: translateY(-50%); }
 }
-.hero-ripple-rings circle {
-  fill: none;
-  stroke: #cdbfae;
-  stroke-width: 0.8;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: hero-ripple-out 2.8s cubic-bezier(0.2, 0.6, 0.2, 1) both;
-}
-.hero-ripple-rings circle:nth-child(3) { stroke: #dccfc0; }
-.hero-ripple-rings circle:nth-child(4) { stroke: #e6dccf; }
-
-@keyframes hero-line-rise { from { transform: translateY(105%); } to { transform: none; } }
-@keyframes hero-soft-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-@keyframes hero-sun-rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
-@keyframes hero-ripple-out { from { opacity: 0; transform: scale(0.7); } 40% { opacity: 1; } to { opacity: 1; transform: none; } }
-
-.hero-motion-play[data-waiting] .hero-ripple * { animation-play-state: paused; }
+@keyframes hero-watermark-in-mobile { from { opacity: 0; } to { opacity: 0.06; } }
 @media (prefers-reduced-motion: reduce) {
   .institute-home .home-hero *,
-  .institute-home .home-hero-label,
-  .institute-home .home-hero-copy { animation: none !important; }
-}
-@media (max-width: 900px) {
-  .institute-home .home-hero-inner { grid-template-columns: minmax(0, 1fr); row-gap: 20px; }
-  .hero-ripple { max-width: 300px; }
+  .home-hero-watermark { animation: none !important; }
 }
 @media (max-width: 800px) {
-  .institute-home .home-hero { padding: 40px 0 36px; }
+  .institute-home .home-hero { padding: 40px 0 44px; }
+  .home-hero-watermark {
+    top: auto;
+    bottom: -30px;
+    right: -70px;
+    width: 300px;
+    transform: none;
+    opacity: 0.06;
+    animation-name: hero-watermark-in-mobile;
+  }
 }
