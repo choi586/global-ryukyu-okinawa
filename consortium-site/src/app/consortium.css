@@ -1429,3 +1429,165 @@
   .cs-hero-drift, .cs-hero-photo, .cs-hero-line, .cs-hero-glow, .cs-hero-gaps, .cs-hero-dot, .cs-hero-keys span, .cs-hero-mask > span, .cs-scroll { animation: none; }
   .cs-hero-comet, .cs-hero-ring { display: none; }
 }
+
+/* ── Refresh: less document, more site ─────────────────────────── */
+.cs p { text-wrap: pretty; }
+.cs h1, .cs h2, .cs h3 { text-wrap: balance; }
+
+/* 소개 한 줄: 한 단어만 다음 줄로 떨어지지 않게 */
+.cs-intro-line { max-width: 720px; text-wrap: balance; word-break: keep-all; }
+
+/* 펼치기: ▶ 화살표 대신 둥근 버튼 */
+.cs-details { border-top: 0; margin-top: 44px; }
+.cs-details > summary,
+.cs-card-detail > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px 10px 20px;
+  border: 1px solid var(--cs-line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--cs-ink);
+  font-size: 0.92rem;
+  font-weight: 500;
+  list-style: none;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.cs-details > summary::-webkit-details-marker,
+.cs-card-detail > summary::-webkit-details-marker { display: none; }
+.cs-details > summary::after,
+.cs-card-detail > summary::after {
+  content: '+';
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--cs-navy);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  transition: transform 0.25s;
+}
+.cs-details[open] > summary::after,
+.cs-card-detail[open] > summary::after { transform: rotate(45deg); }
+.cs-details > summary:hover { border-color: var(--cs-navy); }
+.cs-details[open] > summary { margin-bottom: 28px; background: var(--cs-navy); border-color: var(--cs-navy); color: #fff; }
+.cs-details[open] > summary::after { background: #fff; color: var(--cs-navy); }
+.cs-details .cs-facts {
+  max-width: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 40px;
+  padding: 8px 32px 24px;
+  border-top: 0;
+  border-radius: 6px;
+  background: #fff;
+}
+.cs-details .cs-facts div:nth-child(2),
+.cs-details .cs-facts div:nth-child(3) { grid-column: 1 / -1; }
+
+/* 세 단어(섬·틈·곁): 큰 글자와 얇은 위 선 */
+.cs-keywords { border-top: 0; gap: 24px; }
+.cs-keywords li, .cs-keywords li + li {
+  padding: 28px 28px 32px;
+  border: 0;
+  border-top: 2px solid var(--cs-navy);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* 연구 3축: 번호, 위쪽 포인트 선, 설명 바로 보이기 */
+.cs-axis {
+  position: relative;
+  border-top: 3px solid var(--cs-navy);
+  box-shadow: 0 1px 0 rgba(10, 26, 42, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cs-axis:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -24px rgba(10, 26, 42, 0.35); }
+.cs-axis-body { position: relative; padding: 34px 30px 36px; }
+.cs-axis-no {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  color: #e4e7e6;
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.cs-axis-kind { position: relative; color: #2c6f7a; }
+.cs-axis h3 { position: relative; }
+.cs-axis-text { margin: 0; color: #45565f; font-size: 0.95rem; line-height: 1.85; }
+
+/* 프로그램: 긴 목록 → 카드 묶음 */
+.cs-program-groups {
+  display: block;
+  columns: 3 280px;
+  column-gap: 20px;
+}
+.cs-program-group {
+  display: block;
+  break-inside: avoid;
+  margin-bottom: 20px;
+  padding: 28px 28px 30px;
+  border-top: 0;
+  border-radius: 6px;
+  background: #fff;
+}
+.cs-program-group h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--cs-line);
+  font-size: 1.05rem;
+}
+.cs-program-group h3 span {
+  color: #2c6f7a;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+.cs-program-group li + li { margin-top: 14px; padding-top: 14px; }
+.cs-program-group strong { font-size: 1.02rem; }
+.cs-program-group li span { font-size: 0.88rem; line-height: 1.75; }
+.cs-program-groups > .cs-note { column-span: all; border-top: 0; padding-top: 4px; }
+
+/* 공동연구원: 표 → 작은 카드 */
+.cs-team-list ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  border-top: 0;
+}
+.cs-team-list li {
+  grid-template-columns: 1fr;
+  gap: 2px;
+  padding: 18px 20px;
+  border: 1px solid var(--cs-line);
+  border-radius: 6px;
+  background: #fff;
+}
+.cs-team-list strong { font-size: 1.02rem; }
+.cs-team-list span { font-size: 0.88rem; }
+.cs-team-list span + span { color: #2c6f7a; }
+
+@media (max-width: 1040px) {
+  .cs-program-groups { columns: 2 260px; }
+}
+@media (max-width: 720px) {
+  .cs-program-groups { columns: 1; }
+  .cs-team-list ul,
+  .cs-details .cs-facts { grid-template-columns: minmax(0, 1fr); }
+  .cs-details .cs-facts { padding: 4px 20px 16px; }
+  .cs-keywords li, .cs-keywords li + li { padding: 22px 20px 24px; }
+  .cs-axis-no { font-size: 2.8rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-axis, .cs-details > summary::after { transition: none; }
+}

@@ -355,10 +355,11 @@ export default function ConsortiumPage() {
             {axes.map((axis) => (
               <li key={axis.no} className="cs-axis cs-reveal">
                 <div className="cs-axis-body">
+                  <span className="cs-axis-no" aria-hidden="true">{axis.no}</span>
                   <p className="cs-axis-kind">{axis.kind}</p>
                   <h3>{axis.title}</h3>
                   <p className="cs-axis-places">{axis.places}</p>
-                  <details className="cs-card-detail"><summary>연구 내용</summary><p>{axis.text}</p></details>
+                  <p className="cs-axis-text">{axis.text}</p>
                 </div>
               </li>
             ))}
@@ -474,9 +475,12 @@ export default function ConsortiumPage() {
           />
           <div className="cs-program-layout">
             <div className="cs-program-groups">
-              {programs.map((group) => (
+              {programs.map((group, i) => (
                 <section key={group.group} className="cs-program-group cs-reveal">
-                  <h3>{group.group}</h3>
+                  <h3>
+                    <span aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                    {group.group}
+                  </h3>
                   <ul>
                     {group.items.map(([name, text]) => (
                       <li key={name}>
