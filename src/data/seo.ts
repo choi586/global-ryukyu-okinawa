@@ -6,7 +6,7 @@ export const siteUrl = 'https://okinawa.khu.ac.kr';
 // Google Search Console: <meta name="google-site-verification" content="...">
 // Naver Search Advisor:  <meta name="naver-site-verification" content="...">
 export const siteVerification = {
-  google: '',
+  google: 'iGMlijM_TBaCiqQ2STK3Ut0s2PrzpEyvC-oIOZjdm1E',
   naver: '',
 };
 
