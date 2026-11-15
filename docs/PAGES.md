@@ -33,3 +33,9 @@ References:
 - https://developers.cloudflare.com/pages/configuration/custom-domains/
 - https://developers.cloudflare.com/pages/functions/bindings/
 - https://developers.cloudflare.com/pages/functions/advanced-mode/
+
+## Consortium site under /consortium
+
+`/consortium` and `/consortium/*` are not sent to the `khu` Worker. The gateway fetches them from the separate static Pages project `social-connectedness-consortium` (source in `consortium-site/`, built with `basePath` `/consortium`), so the path is forwarded unchanged. Only GET and HEAD are accepted, only cache and content-negotiation request headers are forwarded (no cookies), and redirects to the consortium project's own hostname are rewritten to the requesting hostname. `/consortium` without a trailing slash redirects to `/consortium/`.
+
+Deploy order when this changes: first the consortium project (its `dist/` folder), then the gateway with `pnpm deploy:pages`. If the consortium project is recreated under another name, update `consortiumOrigin` in `cloudflare-pages/public/_worker.js`.
