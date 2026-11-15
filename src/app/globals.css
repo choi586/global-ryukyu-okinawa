@@ -3020,3 +3020,94 @@ a.highlight-link:focus-visible { outline: 2px solid var(--khu-red); outline-offs
   .institute-home .home-content-section { padding: 44px 0 48px; }
   .institute-home .news-section { padding-top: 44px; padding-bottom: 48px; }
 }
+
+/* Homepage hero with the self-drawing Ryukyu arc map. */
+.institute-home .home-hero { padding: 64px 0 56px; overflow: hidden; }
+.institute-home .home-hero-inner {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  column-gap: 56px;
+  align-items: center;
+}
+.institute-home .home-hero-text .home-hero-label { margin-bottom: 24px; }
+.institute-home .home-hero h1 { font-size: clamp(38px, 4.4vw, 60px); }
+.institute-home .home-hero-text .home-hero-copy { margin-top: 30px; max-width: 520px; }
+.hero-map { margin: 0; width: 100%; max-width: 560px; justify-self: end; }
+.hero-map svg { display: block; width: 100%; height: auto; overflow: visible; }
+.hero-map text { font-family: inherit; }
+
+.hero-map-grid line { stroke: #ddd6ca; stroke-width: 0.6; }
+.hero-map-grid text { fill: #b0a89b; font-size: 9px; letter-spacing: 0.04em; }
+.hero-map-grid > g { animation: hero-map-fade 0.8s ease-out both; }
+
+.hero-map-arc {
+  fill: none;
+  stroke: var(--khu-red);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: hero-map-draw 1.9s cubic-bezier(0.55, 0.05, 0.3, 1) 0.5s forwards;
+}
+.hero-map-links path {
+  fill: none;
+  stroke: #9d8f80;
+  stroke-width: 0.9;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: hero-map-draw 0.9s ease-out forwards;
+}
+
+.hero-map-place { animation: hero-map-pop 0.45s cubic-bezier(0.3, 1.6, 0.5, 1) both; transform-box: fill-box; transform-origin: center; }
+.hero-map-place circle { fill: var(--khu-red); }
+.hero-map-place.is-link circle { fill: #fff; stroke: #7d6f61; stroke-width: 1.2; }
+.hero-map-place text { fill: #6e665d; font-size: 11.5px; font-weight: 500; }
+.hero-map-place.is-link text { fill: #4d463f; font-weight: 600; }
+
+.hero-map-main { fill: var(--khu-red); animation: hero-map-pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) 1.65s both; transform-box: fill-box; transform-origin: center; }
+.hero-map-pulse {
+  fill: var(--khu-red);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hero-map-pulse 1.4s ease-out 2.05s both;
+}
+.hero-map-ring { fill: none; stroke: var(--khu-red); stroke-width: 0.8; opacity: 0.55; animation: hero-map-fade 0.6s ease-out 2.4s both; }
+.hero-map-label { animation: hero-map-rise 0.6s ease-out 2.3s both; }
+.hero-map-label line { stroke: var(--khu-red); stroke-width: 0.8; }
+.hero-map-label-name { fill: var(--khu-red); font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+.hero-map-label-coord { fill: #8a8178; font-size: 10px; letter-spacing: 0.08em; }
+
+@keyframes hero-map-draw { to { stroke-dashoffset: 0; } }
+@keyframes hero-map-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hero-map-pop { from { opacity: 0; transform: scale(0.2); } to { opacity: 1; transform: scale(1); } }
+@keyframes hero-map-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes hero-map-pulse {
+  0% { opacity: 0.45; transform: scale(0.6); }
+  100% { opacity: 0; transform: scale(3.2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-map *,
+  .hero-map-grid > g { animation: none !important; }
+  .hero-map-arc,
+  .hero-map-links path { stroke-dashoffset: 0; }
+  .hero-map-pulse { opacity: 0; }
+}
+@media (max-width: 900px) {
+  .institute-home .home-hero-inner { grid-template-columns: minmax(0, 1fr); row-gap: 8px; }
+  .hero-map { justify-self: center; max-width: 460px; margin-top: 12px; }
+}
+@media (max-width: 800px) {
+  .institute-home .home-hero { padding: 40px 0 28px; }
+  .hero-map-place text { font-size: 13px; }
+  .hero-map-label-name { font-size: 19px; }
+}
+.hero-map-play { width: 100%; display: flex; justify-content: flex-end; }
+.hero-map-play[data-waiting] .hero-map *,
+.hero-map-play[data-waiting] .hero-map-grid > g { animation-play-state: paused; }
+@media (max-width: 900px) { .hero-map-play { justify-content: center; } }
+@media (max-width: 800px) {
+  .hero-map-place text { font-size: 17px; }
+  .hero-map-grid text { font-size: 12px; }
+  .hero-map-label-name { font-size: 24px; }
+  .hero-map-label-coord { font-size: 13px; }
+}

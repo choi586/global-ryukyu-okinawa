@@ -5,6 +5,8 @@ import { publicPage } from '@/lib/store';
 import { NoticeList } from '@/components/notice-list';
 import { institute } from '@/data/institute';
 import { ContentCards } from '@/components/content-cards';
+import { HeroMap } from '@/components/hero-map';
+import { HeroMapPlay } from '@/components/hero-map-play';
 
 export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) {
   const t = (text: string) => translate(locale, text);
@@ -20,22 +22,27 @@ export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) 
     <div className="institute-home">
       <section className="home-hero">
         <div className="shell home-hero-inner">
-          <p className="home-hero-label">
-            Kyung Hee University · Global Institute for Ryukyu and Okinawa Studies
-          </p>
-          <h1>
-            {t('글로벌류큐·')}
-            <br />
-            {t('오키나와연구소')}
-          </h1>
-          <div className="home-hero-copy">
-            <p className="home-hero-mission">{t(institute.mission)}</p>
-            <p>{t(institute.introduction)}</p>
-            <Link href="/about" className="home-hero-link">
-              {locale === 'ja' ? '研究所紹介を見る' : '연구소 소개 보기'}
-              <span aria-hidden="true">→</span>
-            </Link>
+          <div className="home-hero-text">
+            <p className="home-hero-label">
+              Kyung Hee University · Global Institute for Ryukyu and Okinawa Studies
+            </p>
+            <h1>
+              {t('글로벌류큐·')}
+              <br />
+              {t('오키나와연구소')}
+            </h1>
+            <div className="home-hero-copy">
+              <p className="home-hero-mission">{t(institute.mission)}</p>
+              <p>{t(institute.introduction)}</p>
+              <Link href="/about" className="home-hero-link">
+                {locale === 'ja' ? '研究所紹介を見る' : '연구소 소개 보기'}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
           </div>
+          <HeroMapPlay>
+            <HeroMap locale={locale} />
+          </HeroMapPlay>
         </div>
       </section>
       {slides.length > 0 && (
