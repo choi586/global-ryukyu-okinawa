@@ -352,10 +352,6 @@ export default function ConsortiumPage() {
           <ul className="cs-axes">
             {axes.map((axis) => (
               <li key={axis.no} className="cs-axis cs-reveal">
-                <div className="cs-axis-media">
-                  <img src={img(axis.image)} width={1600} height={1004} alt="" loading="lazy" />
-                  <span>{axis.no}</span>
-                </div>
                 <div className="cs-axis-body">
                   <p className="cs-axis-kind">{axis.kind}</p>
                   <h3>{axis.title}</h3>
@@ -475,12 +471,6 @@ export default function ConsortiumPage() {
             title={<span id="cs-programs-title">연구를 곁으로 옮기는 일</span>}
           />
           <div className="cs-program-layout">
-            <figure className="cs-program-figure cs-reveal">
-              <img src={img('film.webp')} width={1600} height={1004} alt="" loading="lazy" />
-              <figcaption>
-                증언·기록영화 상영, 낭독극, 답사. 프로그램은 연차별로 차례로 문을 엽니다.
-              </figcaption>
-            </figure>
             <div className="cs-program-groups">
               {programs.map((group) => (
                 <section key={group.group} className="cs-program-group cs-reveal">

@@ -795,7 +795,7 @@
 }
 .cs-program-layout {
   display: grid;
-  grid-template-columns: 5fr 7fr;
+  grid-template-columns: 1fr;
   gap: clamp(32px, 6vw, 88px);
   align-items: start;
 }
