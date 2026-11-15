@@ -134,13 +134,12 @@ export function HeroCarousel({ initialSlides }: { initialSlides: Slide[] }) {
             </div>
             <div className="carousel-shade" />
             <div className="shell carousel-copy">
-              <p className="carousel-kicker">KYUNG HEE UNIVERSITY · GLOBAL RYUKYU &amp; OKINAWA</p>
               <h2 lang="ko">{slide.title}</h2>
               <p className="carousel-description" lang="ko">
                 {slide.description}
               </p>
               {slide.href && (
-                <Link className="button light" href={slide.href}>
+                <Link className="carousel-detail-link" href={slide.href}>
                   {t('자세히 보기 ')}
                   <span aria-hidden="true">↗</span>
                 </Link>

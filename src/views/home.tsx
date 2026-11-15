@@ -1,11 +1,9 @@
 import { translate, type Locale } from '@/i18n/config';
 import Link from '@/components/localized-link';
-import { LaunchBanner } from '@/components/launch-banner';
 import { HeroCarousel } from '@/components/hero-carousel';
 import { publicSlides } from '@/lib/carousel';
 import { publicPage } from '@/lib/store';
 import { NoticeList } from '@/components/notice-list';
-import { institute } from '@/data/institute';
 import { ContentCards } from '@/components/content-cards';
 
 export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) {
@@ -19,40 +17,8 @@ export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) 
   ]);
   const notices = news.notices;
   return (
-    <>
+    <div className="institute-home">
       <HeroCarousel initialSlides={slides} />
-      <LaunchBanner locale={locale} />
-      <section className="shell intro-section">
-        <div>
-          <p className="english-section-title">About</p>
-          <h2>{t('연구소 소개')}</h2>
-        </div>
-        <div className="intro-copy">
-          <blockquote>“{t(institute.mission)}”</blockquote>
-          <p>{t(institute.introduction)}</p>
-        </div>
-      </section>
-      <section className="research-section">
-        <div className="shell">
-          <div className="section-heading">
-            <div>
-              <p className="english-section-title">Vision</p>
-              <h2>{t('연구소 비전')}</h2>
-            </div>
-          </div>
-          <div className="vision-grid">
-            {institute.visions.map((vision) => (
-              <div className="vision-card" key={vision.number}>
-                <span className="research-number">{vision.number}</span>
-                <div>
-                  <h3>{t(vision.title)}</h3>
-                  <p>{t(vision.description)}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
       <section className="shell news-section">
         <div className="section-heading">
           <div>
@@ -86,6 +52,6 @@ export default async function Home({ locale = 'ko' }: { locale?: Locale } = {}) 
           </div>
         </section>
       ))}
-    </>
+    </div>
   );
 }

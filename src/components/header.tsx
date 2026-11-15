@@ -42,14 +42,23 @@ export function Header() {
           onClick={() => setOpen(false)}
         >
           <img
-            className="institute-logo"
-            src="/images/institute-logo-balanced.svg"
-            width={1730}
-            height={368}
-            alt={t(
-              '글로벌류큐·오키나와연구소 · Kyung Hee University · Global Institute for Ryukyu and Okinawa Studies',
-            )}
+            className="brand-symbol"
+            src="/images/institute-symbol.svg"
+            width={72}
+            height={59}
+            alt=""
           />
+          <span className="brand-wordmark">
+            <span className="brand-university">
+              {locale === 'ja' ? '慶熙大学校' : '경희대학교'}
+            </span>
+            <span className="brand-name">{t('글로벌류큐·오키나와연구소')}</span>
+            <span className="brand-english" lang="en">
+              Global Institute for
+              <br />
+              Ryukyu and Okinawa Studies
+            </span>
+          </span>
         </Link>
         <button
           ref={toggle}
@@ -89,6 +98,9 @@ export function Header() {
               </span>
             ),
           )}
+          <a className="site-switch" href="https://social-connectedness-consortium.pages.dev/">
+            {locale === 'ja' ? '事業団ホーム ↗' : '사업단 홈 ↗'}
+          </a>
         </nav>
       </div>
     </header>
