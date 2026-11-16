@@ -60,10 +60,6 @@ export const audiobooks: Audiobook[] = [
   {
     region: '오키나와(일본)',
     title: '사키야마 다미 《떠올려 줘, 나를》',
-    credit: '사키야마 다미 지음 · 손지연 옮김 · 기획·각본·연출·제작 손지연',
-    summary:
-      '소설 《떠올려 줘, 나를: 오키나와와 기지 거리의 일곱 목소리》를 소개합니다. 일곱 편의 이야기를 일러스트와 내레이션, 자막으로 들려줍니다.',
-    length: '3분',
     youtube: 'https://youtu.be/6Gz-Y5zZrrY',
   },
   {
