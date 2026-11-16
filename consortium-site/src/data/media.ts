@@ -56,6 +56,7 @@ export type ActivityRecord = {
 */
 export const audiobooks: Audiobook[] = [
   {
+    region: '오키나와(일본)',
     title: '소설 《백지 무루치》',
     youtube: 'https://youtu.be/wapjX__NzQI',
   },
