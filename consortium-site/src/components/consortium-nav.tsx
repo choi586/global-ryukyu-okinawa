@@ -2,12 +2,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { asset } from '@/lib/base-path';
 
+// Full paths, so the same menu works on the home page and on the sub-pages.
 const links = [
-  ['소개', '#about'],
-  ['연구', '#research'],
-  ['프로그램', '#programs'],
-  ['아카이브·성과', '#archive'],
-  ['연구진', '#people'],
+  ['소개', asset('/#about')],
+  ['연구', asset('/#research')],
+  ['프로그램', asset('/#programs')],
+  ['아카이브·성과', asset('/#archive')],
+  ['연구진', asset('/#people')],
+  ['오디오북', asset('/audiobook/')],
+  ['활동 기록', asset('/records/')],
 ];
 
 export function ConsortiumNav() {
@@ -63,7 +66,7 @@ export function ConsortiumNav() {
       <div className="cs-shell cs-nav-inner">
         <a
           className="cs-brand"
-          href="#top"
+          href={asset('/')}
           aria-label="글로벌류큐·오키나와연구소 사회적연결회복 사업 홈"
           onClick={() => setOpen(false)}
         >
