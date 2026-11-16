@@ -63,6 +63,7 @@ export default {
           '/news',
           '/activities',
           '/publications',
+          '/archive',
         ];
         return xml(
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +

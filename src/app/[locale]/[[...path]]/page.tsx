@@ -5,6 +5,7 @@ import About from '@/views/about';
 import People from '@/views/people';
 import Research from '@/views/research';
 import Launch from '@/views/launch';
+import Archive from '@/views/archive';
 import News from '@/views/news';
 import Detail, { generateMetadata as detailMetadata } from '@/views/detail';
 import { ContentBoard } from '@/components/content-board';
@@ -24,6 +25,7 @@ const titles: Record<string, string> = {
   news: 'お知らせ',
   activities: '学術活動',
   publications: '研究・出版',
+  archive: 'アーカイブ',
 };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, path = [] } = await params;
@@ -81,6 +83,7 @@ export default async function JapanesePage({ params, searchParams }: Props) {
     if (path[0] === 'people') return <People locale="ja" />;
     if (path[0] === 'launch') return <Launch locale="ja" />;
     if (path[0] === 'research') return <Research locale="ja" />;
+    if (path[0] === 'archive') return <Archive locale="ja" />;
     if (path[0] === 'news') return <News locale="ja" />;
     if (path[0] === 'activities' || path[0] === 'publications')
       return <ContentBoard locale="ja" category={path[0]} page={(await searchParams).page} />;
