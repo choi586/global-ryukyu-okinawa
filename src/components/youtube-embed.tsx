@@ -16,11 +16,13 @@ export function YoutubeEmbed({
   url,
   title,
   vertical = false,
+  thumb,
   playLabel,
 }: {
   url: string;
   title: string;
   vertical?: boolean;
+  thumb?: string;
   playLabel: string;
 }) {
   const [playing, setPlaying] = useState(false);
@@ -54,7 +56,7 @@ export function YoutubeEmbed({
     >
       <img
         // Shorts have a true 9:16 thumbnail; other videos try the sharp one first.
-        src={`https://i.ytimg.com/vi/${id}/${vertical ? 'oardefault' : 'maxresdefault'}.jpg`}
+        src={`https://i.ytimg.com/vi/${id}/${thumb ?? (vertical ? 'oardefault' : 'maxresdefault')}.jpg`}
         alt=""
         loading="lazy"
         onError={(event) => {

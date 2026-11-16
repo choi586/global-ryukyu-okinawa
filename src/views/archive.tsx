@@ -54,6 +54,7 @@ export default function Archive({ locale = 'ko' }: { locale?: Locale } = {}) {
                     url={video.youtube}
                     title={title}
                     vertical={video.vertical}
+                    thumb={video.thumb}
                     playLabel={ja ? '再生' : '재생'}
                   />
                   <p className="archive-video-meta">

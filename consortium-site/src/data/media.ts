@@ -40,6 +40,8 @@ export type ActivityRecord = {
   youtube: string;
   /** 세로 영상(쇼츠)이면 true */
   vertical?: boolean;
+  /** 썸네일로 쓸 유튜브 자동 장면: 쇼츠는 'oar1'·'oar2'·'oar3', 일반 영상은 '1'·'2'·'3' */
+  thumb?: string;
 };
 
 /*
@@ -81,6 +83,7 @@ export const activityRecords: ActivityRecord[] = [
     place: '제주',
     youtube: 'https://youtu.be/Nm7rplMjz54',
     vertical: true,
+    thumb: 'oar1',
   },
   {
     kind: '답사',

@@ -8,10 +8,12 @@ export function YoutubePlayer({
   url,
   title,
   vertical = false,
+  thumb,
 }: {
   url: string;
   title: string;
   vertical?: boolean;
+  thumb?: string;
 }) {
   const [playing, setPlaying] = useState(false);
   const id = youtubeId(url);
@@ -44,7 +46,7 @@ export function YoutubePlayer({
     >
       <img
         // Shorts have a true 9:16 thumbnail; other videos try the sharp one first.
-        src={`https://i.ytimg.com/vi/${id}/${vertical ? 'oardefault' : 'maxresdefault'}.jpg`}
+        src={`https://i.ytimg.com/vi/${id}/${thumb ?? (vertical ? 'oardefault' : 'maxresdefault')}.jpg`}
         alt=""
         loading="lazy"
         onError={(event) => {
