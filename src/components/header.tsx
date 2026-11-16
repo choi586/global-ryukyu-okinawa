@@ -93,7 +93,7 @@ export function Header() {
               </span>
             ),
           )}
-          <a className="site-switch" href="https://okinawa.khu.ac.kr/consortium/">
+          <a className="site-switch" href="/consortium/">
             {locale === 'ja' ? '事業団ホーム ↗' : '사업단 홈 ↗'}
           </a>
         </nav>
