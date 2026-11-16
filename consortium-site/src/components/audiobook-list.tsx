@@ -31,7 +31,7 @@ export function AudiobookList({ items }: { items: Audiobook[] }) {
       {shown.length ? (
         <ul className="cs-audio-list">
           {shown.map((item) => (
-            <li key={item.region + item.title} className="cs-audio">
+            <li key={item.title} className="cs-audio">
               <div className="cs-audio-player">
                 {item.youtube ? (
                   <YoutubePlayer url={item.youtube} title={item.title} />
@@ -43,8 +43,7 @@ export function AudiobookList({ items }: { items: Audiobook[] }) {
               </div>
               <div className="cs-audio-body">
                 <p className="cs-card-type">
-                  {item.region}
-                  {item.length ? ` · ${item.length}` : ''}
+                  {[item.region, item.length].filter(Boolean).join(' · ')}
                 </p>
                 <h3>{item.title}</h3>
                 {item.credit ? <p className="cs-audio-credit">{item.credit}</p> : null}

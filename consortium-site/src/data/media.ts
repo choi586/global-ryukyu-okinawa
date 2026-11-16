@@ -9,7 +9,8 @@ export const regions = ['한국', '대만', '오키나와(일본)'] as const;
 export type Region = (typeof regions)[number];
 
 export type Audiobook = {
-  region: Region;
+  /** 지역. 비워 두면 '전체'에서만 보입니다. */
+  region?: Region;
   /** 작품 제목 */
   title: string;
   /** 지은이, 옮긴이, 낭독자 등 한 줄 */
@@ -37,6 +38,8 @@ export type ActivityRecord = {
   summary?: string;
   /** 유튜브 주소 */
   youtube: string;
+  /** 세로 영상(쇼츠)이면 true */
+  vertical?: boolean;
 };
 
 /*
@@ -51,7 +54,12 @@ export type ActivityRecord = {
     youtube: 'https://youtu.be/XXXXXXXXXXX',
   },
 */
-export const audiobooks: Audiobook[] = [];
+export const audiobooks: Audiobook[] = [
+  {
+    title: '소설 《백지 무루치》',
+    youtube: 'https://youtu.be/wapjX__NzQI',
+  },
+];
 
 /*
   추가 예시:
@@ -65,4 +73,19 @@ export const audiobooks: Audiobook[] = [];
     youtube: 'https://youtu.be/XXXXXXXXXXX',
   },
 */
-export const activityRecords: ActivityRecord[] = [];
+export const activityRecords: ActivityRecord[] = [
+  {
+    kind: '답사',
+    title: '제주 × 오키나와 4박5일 2편',
+    place: '제주',
+    youtube: 'https://youtu.be/Nm7rplMjz54',
+    vertical: true,
+  },
+  {
+    kind: '답사',
+    title: '제주 × 오키나와 4박5일 1편',
+    place: '제주',
+    youtube: 'https://youtu.be/uqkbVAeJVQo',
+    vertical: true,
+  },
+];

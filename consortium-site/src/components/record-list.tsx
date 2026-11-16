@@ -39,7 +39,7 @@ export function RecordList({ items }: { items: ActivityRecord[] }) {
       <ul className="cs-video-grid">
         {shown.map((item) => (
           <li key={item.youtube} className="cs-video">
-            <YoutubePlayer url={item.youtube} title={item.title} />
+            <YoutubePlayer url={item.youtube} title={item.title} vertical={item.vertical} />
             <p className="cs-card-type">
               {[item.kind, item.place, item.date].filter(Boolean).join(' · ')}
             </p>

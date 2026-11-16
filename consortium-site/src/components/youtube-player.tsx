@@ -4,19 +4,28 @@ import { youtubeId } from '@/lib/youtube';
 
 // Shows only the thumbnail until the visitor presses play, so a page with many
 // videos stays light and nothing is requested from the player before then.
-export function YoutubePlayer({ url, title }: { url: string; title: string }) {
+export function YoutubePlayer({
+  url,
+  title,
+  vertical = false,
+}: {
+  url: string;
+  title: string;
+  vertical?: boolean;
+}) {
   const [playing, setPlaying] = useState(false);
   const id = youtubeId(url);
+  const frame = 'cs-media-frame' + (vertical ? ' is-vertical' : '');
   if (!id) {
     return (
-      <a className="cs-media-frame cs-media-missing" href={url} target="_blank" rel="noreferrer">
+      <a className={frame + ' cs-media-missing'} href={url} target="_blank" rel="noreferrer">
         영상 열기 ↗
       </a>
     );
   }
   if (playing) {
     return (
-      <div className="cs-media-frame">
+      <div className={frame}>
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}
           title={title}
@@ -29,7 +38,7 @@ export function YoutubePlayer({ url, title }: { url: string; title: string }) {
   return (
     <button
       type="button"
-      className="cs-media-frame cs-media-poster"
+      className={frame + ' cs-media-poster'}
       onClick={() => setPlaying(true)}
       aria-label={`${title} 재생`}
     >

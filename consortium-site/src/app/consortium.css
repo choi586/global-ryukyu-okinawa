@@ -1709,3 +1709,8 @@ html[lang='ja'] .cs h3 { letter-spacing: -0.02em; }
   .cs-video-grid, .cs-audio { grid-template-columns: 1fr; }
   .cs-audio { gap: 16px; }
 }
+/* Vertical videos (Shorts) keep their own shape. Thumbnails come letterboxed, so zoom past the bars. */
+.cs-media-frame.is-vertical { aspect-ratio: 9 / 16; }
+.cs-media-frame.is-vertical.cs-media-poster img { transform: scale(1.78); }
+.cs-media-frame.is-vertical.cs-media-poster:hover img { transform: scale(1.84); }
+.cs-video-grid { align-items: start; }
