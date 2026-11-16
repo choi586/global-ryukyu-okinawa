@@ -1709,8 +1709,14 @@ html[lang='ja'] .cs h3 { letter-spacing: -0.02em; }
   .cs-video-grid, .cs-audio { grid-template-columns: 1fr; }
   .cs-audio { gap: 16px; }
 }
-/* Vertical videos (Shorts) keep their own shape. Thumbnails come letterboxed, so zoom past the bars. */
+/* Vertical videos (Shorts) keep their own shape. */
 .cs-media-frame.is-vertical { aspect-ratio: 9 / 16; }
-.cs-media-frame.is-vertical.cs-media-poster img { transform: scale(1.78); }
-.cs-media-frame.is-vertical.cs-media-poster:hover img { transform: scale(1.84); }
+/* Only the 4:3 fallback thumbnail is letterboxed, so only that one is zoomed past its bars. */
+.cs-media-frame.is-vertical.cs-media-poster img[data-fallback] { transform: scale(1.78); }
 .cs-video-grid { align-items: start; }
+
+/* Wide, short windows: slide the photo up so Taiwan's tip stays in view at the
+   bottom edge instead of being cut off. Has no effect on ordinary laptop shapes. */
+@media (min-width: 1051px) {
+  .cs-hero-stage { top: min(0px, calc(91svh - 51.5vw)); }
+}

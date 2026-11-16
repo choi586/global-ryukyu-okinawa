@@ -42,7 +42,18 @@ export function YoutubePlayer({
       onClick={() => setPlaying(true)}
       aria-label={`${title} 재생`}
     >
-      <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" />
+      <img
+        // Shorts have a true 9:16 thumbnail; other videos try the sharp one first.
+        src={`https://i.ytimg.com/vi/${id}/${vertical ? 'oardefault' : 'maxresdefault'}.jpg`}
+        alt=""
+        loading="lazy"
+        onError={(event) => {
+          const image = event.currentTarget;
+          if (image.dataset.fallback) return;
+          image.dataset.fallback = '1';
+          image.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+        }}
+      />
       <span className="cs-media-play" aria-hidden="true" />
     </button>
   );
