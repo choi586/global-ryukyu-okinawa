@@ -17,6 +17,23 @@ export function YoutubePlayer({
 }) {
   const [playing, setPlaying] = useState(false);
   const id = youtubeId(url);
+  // Thumbnails to try, best first. Shorts normally have a true 9:16 one; when
+  // YouTube has none (for example after the owner sets a custom thumbnail), the
+  // 16:9 one holds the vertical picture in its centre, which the frame crops to.
+  const sources = [
+    ...(thumb ? [thumb] : []),
+    ...(vertical ? ['oardefault'] : []),
+    'maxresdefault',
+    'hqdefault',
+  ];
+  // Walk down the list until one of YouTube's sizes really exists.
+  const nextSource = (image: HTMLImageElement) => {
+    const next = Number(image.dataset.step ?? 0) + 1;
+    if (next >= sources.length) return;
+    image.dataset.step = String(next);
+    if (sources[next] === 'hqdefault') image.dataset.fallback = '1';
+    image.src = `https://i.ytimg.com/vi/${id}/${sources[next]}.jpg`;
+  };
   const frame = 'cs-media-frame' + (vertical ? ' is-vertical' : '');
   if (!id) {
     return (
@@ -45,15 +62,13 @@ export function YoutubePlayer({
       aria-label={`${title} 재생`}
     >
       <img
-        // Shorts have a true 9:16 thumbnail; other videos try the sharp one first.
-        src={`https://i.ytimg.com/vi/${id}/${thumb ?? (vertical ? 'oardefault' : 'maxresdefault')}.jpg`}
+        src={`https://i.ytimg.com/vi/${id}/${sources[0]}.jpg`}
         alt=""
         loading="lazy"
-        onError={(event) => {
-          const image = event.currentTarget;
-          if (image.dataset.fallback) return;
-          image.dataset.fallback = '1';
-          image.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+        onError={(event) => nextSource(event.currentTarget)}
+        // A missing size comes back as a 120px grey placeholder, not as an error.
+        onLoad={(event) => {
+          if (event.currentTarget.naturalWidth <= 120) nextSource(event.currentTarget);
         }}
       />
       <span className="cs-media-play" aria-hidden="true" />

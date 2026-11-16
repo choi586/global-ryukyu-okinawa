@@ -83,7 +83,6 @@ export const activityRecords: ActivityRecord[] = [
     place: '제주',
     youtube: 'https://youtu.be/Nm7rplMjz54',
     vertical: true,
-    thumb: 'oar1',
   },
   {
     kind: '답사',
