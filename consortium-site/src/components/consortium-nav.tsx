@@ -8,6 +8,10 @@ export function ConsortiumNav({ c }: { c: Content }) {
   const otherHref = c.locale === 'ko' ? `${basePath}/ja/` : `${basePath}/`;
   const instituteHref =
     c.locale === 'ko' ? 'https://okinawa.khu.ac.kr/' : 'https://okinawa.khu.ac.kr/ja';
+  // Menu entries are '#section' (on the home page) or '/page/' (a sub-page).
+  // Both become full paths so the same menu works wherever it is shown.
+  const homeHref = c.locale === 'ko' ? `${basePath}/` : `${basePath}/ja/`;
+  const resolve = (href: string) => (href.startsWith('#') ? homeHref + href : asset(href));
   const [open, setOpen] = useState(false);
   const [solid, setSolid] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
@@ -60,7 +64,7 @@ export function ConsortiumNav({ c }: { c: Content }) {
       <div className="cs-shell cs-nav-inner">
         <a
           className="cs-brand"
-          href="#top"
+          href={homeHref}
           aria-label={ui.brandAria}
           onClick={() => setOpen(false)}
         >
@@ -98,7 +102,7 @@ export function ConsortiumNav({ c }: { c: Content }) {
           aria-label={ui.navLabel}
         >
           {links.map(([label, href]) => (
-            <a key={href} href={href} onClick={() => setOpen(false)}>
+            <a key={href} href={resolve(href)} onClick={() => setOpen(false)}>
               {label}
             </a>
           ))}

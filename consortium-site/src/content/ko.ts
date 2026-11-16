@@ -30,6 +30,8 @@ export const ko: Content = {
     ['프로그램', '#programs'],
     ['아카이브·성과', '#archive'],
     ['연구진', '#people'],
+    ['오디오북', '/audiobook/'],
+    ['활동 기록', '/records/'],
   ],
   hero: { keysAria: '섬, 틈, 곁', keys: ['섬', '틈', '곁'], lines: ['고립을 읽다,', '곁을 잇다'] },
   about: {

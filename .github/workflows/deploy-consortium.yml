@@ -8,7 +8,7 @@ name: Deploy consortium site
 
 on:
   push:
-    branches: [main, codex/consortium-standalone]
+    branches: [main]
     paths:
       - 'consortium-site/**'
       - '.github/workflows/deploy-consortium.yml'

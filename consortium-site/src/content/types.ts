@@ -19,6 +19,7 @@ export type Content = {
     scrollAria: string;
     footerNavLabel: string;
   };
+  /** '#section' on the home page, or '/page/' for a sub-page. */
   nav: [label: string, href: string][];
   hero: { keysAria: string; keys: [string, string, string]; lines: [string, string] };
   about: {

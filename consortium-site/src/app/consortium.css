@@ -1672,3 +1672,40 @@ html[lang='ja'] .cs h3 { letter-spacing: -0.02em; }
     mask-image: linear-gradient(180deg, #000 68%, transparent 96%);
   }
 }
+
+/* Sub-pages: audiobook and activity record archives */
+.cs-nav-links { gap: clamp(14px, 1.7vw, 30px); }
+.cs-page-hero { padding: calc(var(--cs-nav-h) + clamp(56px, 9vw, 110px)) 0 clamp(48px, 7vw, 84px); color: #fff; background: linear-gradient(160deg, #071523 0%, #10283a 100%); }
+.cs-page-hero h1 { font-size: clamp(2rem, 4.4vw, 3.4rem); font-weight: 700; line-height: 1.3; letter-spacing: -0.045em; }
+.cs-page-lead { max-width: 34em; margin-top: 20px; color: rgba(255, 255, 255, 0.82); font-size: 1.05rem; }
+.cs-page-body { padding-block: clamp(48px, 7vw, 96px) clamp(84px, 11vw, 150px); background: var(--cs-ivory); }
+.cs-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: clamp(32px, 5vw, 56px); }
+.cs-tab { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 20px; color: var(--cs-ink); background: transparent; border: 1px solid var(--cs-line); border-radius: 999px; font-size: 0.95rem; }
+.cs-tab span { color: var(--cs-slate); font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+.cs-tab:hover { border-color: var(--cs-ink); }
+.cs-tab.is-active { color: #fff; background: var(--cs-navy); border-color: var(--cs-navy); }
+.cs-tab.is-active span { color: var(--cs-cyan); }
+.cs-empty { display: grid; gap: 8px; padding: clamp(56px, 9vw, 110px) 24px; border: 1px dashed var(--cs-line); border-radius: 4px; text-align: center; font-size: 1.15rem; font-weight: 500; }
+.cs-empty span { color: var(--cs-slate); font-size: 0.94rem; font-weight: 400; }
+.cs-media-frame { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; overflow: hidden; background: var(--cs-navy); border: 0; border-radius: 4px; }
+.cs-media-frame iframe, .cs-media-frame img { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
+.cs-media-poster img { transition: transform 0.6s ease, opacity 0.3s; opacity: 0.9; }
+.cs-media-poster:hover img { transform: scale(1.03); opacity: 1; }
+.cs-media-play { position: absolute; top: 50%; left: 50%; width: 64px; height: 64px; background: rgba(7, 21, 35, 0.72); border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 50%; transform: translate(-50%, -50%); }
+.cs-media-play::after { content: ''; position: absolute; top: 50%; left: 54%; border-style: solid; border-width: 10px 0 10px 16px; border-color: transparent transparent transparent #fff; transform: translate(-50%, -50%); }
+.cs-media-missing { display: grid; place-items: center; color: rgba(255, 255, 255, 0.8); font-size: 0.94rem; }
+.cs-video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 24px; }
+.cs-video .cs-card-type { margin: 16px 0 6px; }
+.cs-video h2 { font-size: 1.15rem; font-weight: 700; line-height: 1.45; }
+.cs-video > p:last-child { margin-top: 8px; color: #45565f; font-size: 0.93rem; }
+.cs-audio-list { border-top: 1px solid var(--cs-ink); }
+.cs-audio { display: grid; grid-template-columns: minmax(0, 320px) 1fr; gap: clamp(20px, 4vw, 48px); align-items: center; padding-block: 28px; border-bottom: 1px solid var(--cs-line); }
+.cs-audio-player audio { width: 100%; }
+.cs-audio h3 { font-size: 1.35rem; font-weight: 700; }
+.cs-audio-credit { margin-top: 4px; font-size: 0.92rem; font-weight: 500; }
+.cs-audio-body > p:last-child:not(.cs-audio-credit):not(.cs-card-type) { margin-top: 10px; color: #45565f; font-size: 0.95rem; }
+@media (max-width: 1050px) { .cs-video-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 720px) {
+  .cs-video-grid, .cs-audio { grid-template-columns: 1fr; }
+  .cs-audio { gap: 16px; }
+}
