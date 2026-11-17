@@ -1720,3 +1720,8 @@ html[lang='ja'] .cs h3 { letter-spacing: -0.02em; }
 @media (min-width: 1051px) {
   .cs-hero-stage { top: min(0px, calc(91svh - 51.5vw)); }
 }
+
+/* Conference list: entries without a video use the full width. */
+.cs-audio.is-text { grid-template-columns: 1fr; }
+.cs-conference-link { margin-top: 12px; font-size: 0.92rem; font-weight: 500; }
+.cs-conference-link a { border-bottom: 1px solid currentColor; }
