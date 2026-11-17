@@ -139,6 +139,11 @@ export const ko: Content = {
     title: ['섬마다 연결의 말이', '있었습니다'],
     lead: '서로 돕고, 이야기를 나누던 섬의 언어.',
     steps: ['듣기', '옮기기', '잇기'],
+    tryIt: {
+      label: '체험하기',
+      href: 'https://choi586.github.io/playroom-game-gallery/games/poom/',
+      aria: '이야기 품앗이 체험하기 (새 창)',
+    },
     words: [
       {
         place: '제주',

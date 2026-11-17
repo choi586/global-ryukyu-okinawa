@@ -1737,3 +1737,7 @@ html[lang='ja'] .cs h3 { letter-spacing: -0.02em; }
 
 /* Research team: full-time researchers listed under the co-researchers. */
 .cs-team-lists { display: grid; gap: clamp(36px, 5vw, 56px); min-width: 0; }
+
+/* Hands-on link in the island words band. */
+.cs-band-try { margin-top: 28px; }
+.cs-band-try .cs-button { gap: 8px; }

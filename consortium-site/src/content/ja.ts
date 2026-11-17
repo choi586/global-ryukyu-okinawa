@@ -145,6 +145,11 @@ export const ja: Content = {
     title: ['島ごとに、つながりの', '言葉がありました'],
     lead: '助け合い、物語を分かち合ってきた島の言葉。',
     steps: ['聞く', '訳す', 'つなぐ'],
+    tryIt: {
+      label: '体験する',
+      href: 'https://choi586.github.io/playroom-game-gallery/games/poom/',
+      aria: '物語の分かち合いを体験する（新しいウィンドウ）',
+    },
     words: [
       {
         place: '済州',

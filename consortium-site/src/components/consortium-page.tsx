@@ -263,6 +263,17 @@ export function ConsortiumPage({ c }: { c: Content }) {
                 <span key={step}>{step}</span>
               ))}
             </p>
+            <p className="cs-band-try">
+              <a
+                className="cs-button"
+                href={band.tryIt.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={band.tryIt.aria}
+              >
+                {band.tryIt.label} <span aria-hidden="true">↗</span>
+              </a>
+            </p>
           </div>
           <ul className="cs-words">
             {band.words.map((item) => (

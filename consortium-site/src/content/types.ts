@@ -56,6 +56,8 @@ export type Content = {
     title: [string, string];
     lead: string;
     steps: [string, string, string];
+    /** Button that opens the hands-on page in a new tab. */
+    tryIt: { label: string; href: string; aria: string };
     words: { place: string; word: string; reading: string; text: string }[];
   };
   programs: {
