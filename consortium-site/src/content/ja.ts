@@ -330,7 +330,12 @@ export const ja: Content = {
     ],
     staffLabel: '専任研究員',
     staff: [
-      { name: 'イ・ジェフン', place: 'グローバル琉球・沖縄研究所', field: '韓日交流史' },
+      {
+        name: 'イ・ジェフン',
+        place: 'グローバル琉球・沖縄研究所',
+        field: '韓日交流史',
+        confetti: true,
+      },
       { name: 'パク・ソンホ', place: 'グローバル琉球・沖縄研究所', field: '韓国近代文学' },
     ],
     bioToggle: '紹介',

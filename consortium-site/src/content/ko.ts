@@ -321,7 +321,8 @@ export const ko: Content = {
     staffLabel: '전임연구인력',
     // 소개 글을 넣으려면 bio: ['첫 문단', '둘째 문단'] 을 추가합니다. 넣으면 '소개' 토글이 생깁니다.
     staff: [
-      { name: '이재훈', place: '글로벌류큐·오키나와연구소', field: '한일교류사' },
+      // confetti: 이름을 누르면 색종이가 터집니다.
+      { name: '이재훈', place: '글로벌류큐·오키나와연구소', field: '한일교류사', confetti: true },
       { name: '박성호', place: '글로벌류큐·오키나와연구소', field: '한국근대문학' },
     ],
     bioToggle: '소개',

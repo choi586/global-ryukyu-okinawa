@@ -1,3 +1,4 @@
+import { ConfettiName } from '@/components/confetti-name';
 import { SiteFooter } from '@/components/site-footer';
 import { asset } from '@/lib/base-path';
 import type { Content } from '@/content/types';
@@ -439,7 +440,11 @@ export function ConsortiumPage({ c }: { c: Content }) {
                   <ul>
                     {members.map((person) => (
                       <li key={person.name}>
-                        <strong>{person.name}</strong>
+                        {person.confetti ? (
+                          <ConfettiName name={person.name} />
+                        ) : (
+                          <strong>{person.name}</strong>
+                        )}
                         <span>{person.place}</span>
                         {person.field ? <span>{person.field}</span> : null}
                         {person.bio?.length ? (
