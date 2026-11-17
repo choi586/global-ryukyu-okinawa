@@ -334,6 +334,12 @@ export const ja: Content = {
       { name: 'パク・ソンホ', place: 'グローバル琉球・沖縄研究所', field: '韓国近代文学' },
     ],
     bioToggle: '紹介',
+    studentsLabel: '学生研究員',
+    students: [
+      { name: 'イ・グォンリュル', place: '外国語大学 日本語学科' },
+      { name: 'チョン・ダウン', place: '文科大学 応用英語通翻訳学科' },
+      { name: 'キム・ヘウォン', place: '外国語大学 日本語学科' },
+    ],
   },
   footer: {
     name: '社会的つながり回復コンソーシアム事業団',

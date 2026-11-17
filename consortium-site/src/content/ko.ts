@@ -325,6 +325,12 @@ export const ko: Content = {
       { name: '박성호', place: '글로벌류큐·오키나와연구소', field: '한국근대문학' },
     ],
     bioToggle: '소개',
+    studentsLabel: '학생연구원',
+    students: [
+      { name: '이권률', place: '외국어대학 일본어학과' },
+      { name: '정다운', place: '문과대학 응용영어통번역학과' },
+      { name: '김해원', place: '외국어대학 일본어학과' },
+    ],
   },
   footer: {
     name: '사회적연결회복 컨소시엄 사업단',

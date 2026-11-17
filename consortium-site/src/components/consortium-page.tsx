@@ -428,26 +428,33 @@ export function ConsortiumPage({ c }: { c: Content }) {
                   ))}
                 </ul>
               </div>
-              <div className="cs-team-list cs-team-staff">
-                <p className="cs-card-type">{people.staffLabel}</p>
-                <ul>
-                  {people.staff.map((person) => (
-                    <li key={person.name}>
-                      <strong>{person.name}</strong>
-                      <span>{person.place}</span>
-                      {person.field ? <span>{person.field}</span> : null}
-                      {person.bio?.length ? (
-                        <details className="cs-team-bio">
-                          <summary>{people.bioToggle}</summary>
-                          {person.bio.map((paragraph) => (
-                            <p key={paragraph}>{paragraph}</p>
-                          ))}
-                        </details>
-                      ) : null}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {(
+                [
+                  [people.staffLabel, people.staff],
+                  [people.studentsLabel, people.students],
+                ] as const
+              ).map(([label, members]) => (
+                <div key={label} className="cs-team-list cs-team-staff">
+                  <p className="cs-card-type">{label}</p>
+                  <ul>
+                    {members.map((person) => (
+                      <li key={person.name}>
+                        <strong>{person.name}</strong>
+                        <span>{person.place}</span>
+                        {person.field ? <span>{person.field}</span> : null}
+                        {person.bio?.length ? (
+                          <details className="cs-team-bio">
+                            <summary>{people.bioToggle}</summary>
+                            {person.bio.map((paragraph) => (
+                              <p key={paragraph}>{paragraph}</p>
+                            ))}
+                          </details>
+                        ) : null}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           </div>
         </div>
