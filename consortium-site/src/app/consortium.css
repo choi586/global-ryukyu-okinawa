@@ -1741,3 +1741,17 @@ html[lang='ja'] .cs h3 { letter-spacing: -0.02em; }
 /* Hands-on link in the island words band. */
 .cs-band-try { margin-top: 28px; }
 .cs-band-try .cs-button { gap: 8px; }
+
+/* Introduction toggle on a team card. */
+.cs-team-bio { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--cs-line); }
+.cs-team-bio summary { position: relative; padding-right: 24px; list-style: none; cursor: pointer; color: var(--cs-slate); font-size: 0.88rem; font-weight: 500; }
+.cs-team-bio summary::-webkit-details-marker { display: none; }
+.cs-team-bio summary::after { content: ''; position: absolute; top: 50%; right: 4px; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-70%) rotate(45deg); transition: transform 0.2s; }
+.cs-team-bio[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+.cs-team-bio summary:focus-visible { outline: 2px solid var(--cs-slate); outline-offset: 4px; }
+.cs-team-bio p { margin-top: 12px; color: #33434d; font-size: 0.92rem; line-height: 1.8; }
+
+/* Team cards keep their own height when a neighbour opens its introduction. */
+.cs-team-list ul { align-items: start; }
+/* "Upcoming" marker on a conference entry. */
+.cs-badge { display: inline-block; margin-right: 10px; padding: 2px 10px; color: #fff; background: var(--cs-navy); border-radius: 999px; font-size: 0.74rem; letter-spacing: 0.04em; }

@@ -41,6 +41,7 @@ export function ConferenceList({ items }: { items: Conference[] }) {
               ) : null}
               <div className="cs-audio-body">
                 <p className="cs-card-type">
+                  {item.upcoming ? <span className="cs-badge">예정</span> : null}
                   {[item.kind, item.date, item.place].filter(Boolean).join(' · ')}
                 </p>
                 <h3>{item.title}</h3>

@@ -91,7 +91,9 @@ export type Content = {
     teamLabel: string;
     researchers: [name: string, place: string, field: string][];
     staffLabel: string;
-    staff: [name: string, place: string][];
+    /** `bio` (one string per paragraph) adds a toggle that opens the introduction. */
+    staff: { name: string; place: string; field?: string; bio?: string[] }[];
+    bioToggle: string;
   };
   footer: {
     name: string;

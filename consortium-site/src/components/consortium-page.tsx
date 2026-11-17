@@ -431,10 +431,19 @@ export function ConsortiumPage({ c }: { c: Content }) {
               <div className="cs-team-list cs-team-staff">
                 <p className="cs-card-type">{people.staffLabel}</p>
                 <ul>
-                  {people.staff.map(([name, place]) => (
-                    <li key={name}>
-                      <strong>{name}</strong>
-                      <span>{place}</span>
+                  {people.staff.map((person) => (
+                    <li key={person.name}>
+                      <strong>{person.name}</strong>
+                      <span>{person.place}</span>
+                      {person.field ? <span>{person.field}</span> : null}
+                      {person.bio?.length ? (
+                        <details className="cs-team-bio">
+                          <summary>{people.bioToggle}</summary>
+                          {person.bio.map((paragraph) => (
+                            <p key={paragraph}>{paragraph}</p>
+                          ))}
+                        </details>
+                      ) : null}
                     </li>
                   ))}
                 </ul>

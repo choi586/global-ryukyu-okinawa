@@ -2,7 +2,7 @@
 // 반영됩니다. 가장 최근 것을 맨 위에 적습니다.
 
 // 페이지의 구분 버튼입니다. 이름을 바꾸거나 순서를 바꾸려면 여기만 고칩니다.
-export const conferenceKinds = ['국제학술대회', '심포지엄', '콜로키움', '워크숍'] as const;
+export const conferenceKinds = ['국제학술대회', '심포지엄', '포럼', '콜로키움', '워크숍'] as const;
 export type ConferenceKind = (typeof conferenceKinds)[number];
 
 export type Conference = {
@@ -11,6 +11,8 @@ export type Conference = {
   title: string;
   /** 날짜 (예: '2026. 10. 31.') */
   date?: string;
+  /** 아직 열리지 않은 행사면 true ('예정' 표시가 붙습니다) */
+  upcoming?: boolean;
   /** 장소 */
   place?: string;
   /** 짧은 소개 */
@@ -34,4 +36,14 @@ export type Conference = {
     link: 'https://okinawa.khu.ac.kr/activities/...',
   },
 */
-export const conferences: Conference[] = [];
+export const conferences: Conference[] = [
+  {
+    kind: '포럼',
+    title: '현지 학술답사·포럼: 남겨진 공간, 지워진 서사 / 배제된 자들의 목소리',
+    date: '2027. 2. 14.–15.',
+    upcoming: true,
+    place: '군산 · 서울',
+    summary:
+      '와세다대학교 고미부치 노리쓰구 교수와 함께합니다. 14일은 군산 적산가옥 일대 현지 학술답사와 라운드테이블, 15일은 서울에서 포럼과 현장조사를 진행합니다.',
+  },
+];
