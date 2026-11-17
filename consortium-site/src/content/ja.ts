@@ -336,9 +336,21 @@ export const ja: Content = {
     bioToggle: '紹介',
     studentsLabel: '学生研究員',
     students: [
-      { name: 'イ・グォンリュル', place: '外国語大学 日本語学科' },
-      { name: 'チョン・ダウン', place: '文科大学 応用英語通翻訳学科' },
-      { name: 'キム・ヘウォン', place: '外国語大学 日本語学科' },
+      {
+        name: 'イ・グォンリュル',
+        place: 'グローバル琉球・沖縄研究所',
+        field: '外国語大学 日本語学科',
+      },
+      {
+        name: 'チョン・ダウン',
+        place: 'グローバル琉球・沖縄研究所',
+        field: '文科大学 応用英語通翻訳学科',
+      },
+      {
+        name: 'キム・ヘウォン',
+        place: 'グローバル琉球・沖縄研究所',
+        field: '外国語大学 日本語学科',
+      },
     ],
   },
   footer: {
