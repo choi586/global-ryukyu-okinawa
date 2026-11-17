@@ -296,12 +296,28 @@ export function ConsortiumPage({ c }: { c: Content }) {
                     {group.group}
                   </h3>
                   <ul>
-                    {group.items.map(([name, text]) => (
-                      <li key={name}>
-                        <strong>{name}</strong>
-                        <span>{text}</span>
-                      </li>
-                    ))}
+                    {group.items.map(([name, text, detail]) =>
+                      detail ? (
+                        <li key={name} className="cs-program-open">
+                          <details>
+                            <summary>
+                              <strong>{name}</strong>
+                              <span>{text}</span>
+                            </summary>
+                            <div className="cs-program-detail">
+                              {detail.map((paragraph) => (
+                                <p key={paragraph}>{paragraph}</p>
+                              ))}
+                            </div>
+                          </details>
+                        </li>
+                      ) : (
+                        <li key={name}>
+                          <strong>{name}</strong>
+                          <span>{text}</span>
+                        </li>
+                      ),
+                    )}
                   </ul>
                 </section>
               ))}

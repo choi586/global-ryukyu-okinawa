@@ -62,7 +62,8 @@ export type Content = {
     no: string;
     label: string;
     title: string;
-    groups: { group: string; items: [name: string, text: string][] }[];
+    /** A third entry makes the item open on click: each string is one paragraph. */
+    groups: { group: string; items: [name: string, text: string, detail?: string[]][] }[];
     note: string;
   };
   archive: {
