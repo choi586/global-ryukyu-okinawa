@@ -88,6 +88,8 @@ export type Content = {
     leadLines: [string, string];
     teamLabel: string;
     researchers: [name: string, place: string, field: string][];
+    staffLabel: string;
+    staff: [name: string, place: string][];
   };
   footer: {
     name: string;

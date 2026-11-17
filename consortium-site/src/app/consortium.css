@@ -1734,3 +1734,6 @@ html[lang='ja'] .cs h3 { letter-spacing: -0.02em; }
 .cs-program-open summary:hover strong { text-decoration: underline; text-underline-offset: 5px; }
 .cs-program-open summary:focus-visible { outline: 2px solid var(--cs-slate); outline-offset: 6px; }
 .cs-program-detail { display: grid; gap: 12px; margin-top: 16px; padding: 20px 22px; background: var(--cs-warm); border-radius: 4px; color: #33434d; font-size: 0.95rem; line-height: 1.85; }
+
+/* Research team: full-time researchers listed under the co-researchers. */
+.cs-team-lists { display: grid; gap: clamp(36px, 5vw, 56px); min-width: 0; }

@@ -404,17 +404,30 @@ export function ConsortiumPage({ c }: { c: Content }) {
                 {people.leadLines[1]}
               </p>
             </div>
-            <div className="cs-team-list">
-              <p className="cs-card-type">{people.teamLabel}</p>
-              <ul>
-                {people.researchers.map(([name, place, field]) => (
-                  <li key={name}>
-                    <strong>{name}</strong>
-                    <span>{place}</span>
-                    <span>{field}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="cs-team-lists">
+              <div className="cs-team-list">
+                <p className="cs-card-type">{people.teamLabel}</p>
+                <ul>
+                  {people.researchers.map(([name, place, field]) => (
+                    <li key={name}>
+                      <strong>{name}</strong>
+                      <span>{place}</span>
+                      <span>{field}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="cs-team-list cs-team-staff">
+                <p className="cs-card-type">{people.staffLabel}</p>
+                <ul>
+                  {people.staff.map(([name, place]) => (
+                    <li key={name}>
+                      <strong>{name}</strong>
+                      <span>{place}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
