@@ -1,12 +1,17 @@
 'use client';
+import { useEffect, useRef } from 'react';
 
 const colors = ['#a5dbe0', '#d6eef2', '#f4c95d', '#ef8a6f', '#8fb8ff', '#ffffff', '#55707f'];
 
 // A name that throws a short burst of confetti from where it was pressed.
 // Pieces are plain elements animated once and then removed.
 export function ConfettiName({ name }: { name: string }) {
+  const button = useRef<HTMLButtonElement>(null);
+
   const burst = (x: number, y: number) => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // With "reduce motion" on, the pieces appear around the spot and fade
+    // instead of flying, so the press still gets an answer.
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const layer = document.createElement('div');
     layer.setAttribute('aria-hidden', 'true');
     layer.style.cssText = 'position:fixed;inset:0;z-index:200;pointer-events:none;overflow:hidden';
@@ -32,6 +37,16 @@ export function ConfettiName({ name }: { name: string }) {
       const spin = (Math.random() - 0.5) * 1080;
       const duration = 1300 + Math.random() * 900;
       longest = Math.max(longest, duration);
+      if (calm) {
+        const sx = (Math.random() - 0.5) * 260;
+        const sy = (Math.random() - 0.5) * 180;
+        piece.style.transform = `translate(calc(-50% + ${sx}px), calc(-50% + ${sy}px)) rotate(${spin}deg)`;
+        piece.animate([{ opacity: 0 }, { opacity: 1, offset: 0.2 }, { opacity: 0 }], {
+          duration,
+          fill: 'forwards',
+        });
+        continue;
+      }
       piece.animate(
         [
           { transform: 'translate(-50%, -50%) rotate(0deg)', opacity: 1 },
@@ -51,8 +66,27 @@ export function ConfettiName({ name }: { name: string }) {
     window.setTimeout(() => layer.remove(), longest + 100);
   };
 
+  // The whole card answers a press, not only the name.
+  useEffect(() => {
+    const card = button.current?.closest('li');
+    if (!card) return;
+    const onClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      // The name handles itself; leave the introduction toggle alone.
+      if (target.closest('.cs-confetti-name, details')) return;
+      burst(event.clientX, event.clientY);
+    };
+    card.classList.add('cs-confetti-card');
+    card.addEventListener('click', onClick);
+    return () => {
+      card.classList.remove('cs-confetti-card');
+      card.removeEventListener('click', onClick);
+    };
+  }, []);
+
   return (
     <button
+      ref={button}
       type="button"
       className="cs-confetti-name"
       onClick={(event) => {
