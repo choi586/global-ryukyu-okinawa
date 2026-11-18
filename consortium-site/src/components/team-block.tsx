@@ -10,7 +10,8 @@ export function TeamBlock({ c, teaser = false }: { c: Content; teaser?: boolean 
   return (
     <div className="cs-team cs-reveal">
       <div className="cs-team-lead">
-        {greeting ? (
+        {/* On the people page the portrait already sits beside the greeting. */}
+        {teaser && greeting ? (
           <img
             className="cs-team-photo"
             src={asset('/images/consortium/people/son-jiyeon.jpg')}
