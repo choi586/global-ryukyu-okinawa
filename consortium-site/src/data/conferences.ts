@@ -17,12 +17,10 @@ export type Conference = {
   place?: string;
   /** 짧은 소개 */
   summary?: string;
-  /** 현장 사진. public/images/consortium/events/ 에 넣은 파일 이름 */
+  /** 현장 사진. public/images/consortium/events/ 에 넣은 파일 이름. link 가 있으면 사진을 눌러도 그 글로 갑니다. */
   image?: string;
   /** 사진 설명 (화면 낭독기용) */
   imageAlt?: string;
-  /** 포스터. 같은 폴더에 넣은 파일 이름 */
-  poster?: string;
   /** 기록 영상의 유튜브 주소 */
   youtube?: string;
   /** 자세한 글이나 자료집 주소 */
@@ -61,7 +59,6 @@ export const conferences: Conference[] = [
       '오키나와·대만·제주의 한센병, 전쟁, 국가폭력을 둘러싼 고립의 기억을 살펴본 컨소시엄 학술행사입니다. 제주대학교 인문대학 현석재에서 대면과 Zoom으로 함께 진행했습니다.',
     image: 'workshop-2026-jeju.webp',
     imageAlt: '제주-오키나와 국제워크숍 참가자들이 현수막을 들고 찍은 단체사진',
-    poster: 'workshop-2026-jeju-poster.webp',
     link: 'https://okinawa.khu.ac.kr/activities/jeju-okinawa-international-workshop-2026',
   },
 ];

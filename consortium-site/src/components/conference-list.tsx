@@ -40,18 +40,28 @@ export function ConferenceList({ items }: { items: Conference[] }) {
                   <YoutubePlayer url={item.youtube} title={item.title} />
                 </div>
               ) : item.image ? (
-                <a
-                  className="cs-conference-photo"
-                  href={asset(`/images/consortium/events/${item.image}`)}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img
-                    src={asset(`/images/consortium/events/${item.image}`)}
-                    alt={item.imageAlt ?? ''}
-                    loading="lazy"
-                  />
-                </a>
+                // The photo leads to the full write-up when there is one.
+                item.link ? (
+                  <a
+                    className="cs-conference-photo"
+                    href={item.link}
+                    aria-label={`${item.title} 자세히 보기`}
+                  >
+                    <img
+                      src={asset(`/images/consortium/events/${item.image}`)}
+                      alt={item.imageAlt ?? ''}
+                      loading="lazy"
+                    />
+                  </a>
+                ) : (
+                  <span className="cs-conference-photo">
+                    <img
+                      src={asset(`/images/consortium/events/${item.image}`)}
+                      alt={item.imageAlt ?? ''}
+                      loading="lazy"
+                    />
+                  </span>
+                )
               ) : null}
               <div className="cs-audio-body">
                 <p className="cs-card-type">
@@ -60,18 +70,9 @@ export function ConferenceList({ items }: { items: Conference[] }) {
                 </p>
                 <h3>{item.title}</h3>
                 {item.summary ? <p>{item.summary}</p> : null}
-                {item.poster || item.link ? (
+                {item.link ? (
                   <p className="cs-conference-link">
-                    {item.poster ? (
-                      <a
-                        href={asset(`/images/consortium/events/${item.poster}`)}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        포스터 보기 ↗
-                      </a>
-                    ) : null}
-                    {item.link ? <a href={item.link}>자세히 보기 →</a> : null}
+                    <a href={item.link}>자세히 보기 →</a>
                   </p>
                 ) : null}
               </div>
