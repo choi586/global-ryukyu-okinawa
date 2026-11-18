@@ -50,6 +50,7 @@ export function ConferenceList({ items }: { items: Conference[] }) {
                     <img
                       src={asset(`/images/consortium/events/${item.image}`)}
                       alt={item.imageAlt ?? ''}
+                      style={item.imageFocus ? { objectPosition: item.imageFocus } : undefined}
                       loading="lazy"
                     />
                   </a>
@@ -58,6 +59,7 @@ export function ConferenceList({ items }: { items: Conference[] }) {
                     <img
                       src={asset(`/images/consortium/events/${item.image}`)}
                       alt={item.imageAlt ?? ''}
+                      style={item.imageFocus ? { objectPosition: item.imageFocus } : undefined}
                       loading="lazy"
                     />
                   </span>

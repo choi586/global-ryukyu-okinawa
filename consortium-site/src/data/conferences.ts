@@ -19,6 +19,8 @@ export type Conference = {
   summary?: string;
   /** 현장 사진. public/images/consortium/events/ 에 넣은 파일 이름. link 가 있으면 사진을 눌러도 그 글로 갑니다. */
   image?: string;
+  /** 틀(16:9)에 맞춰 잘릴 때 보여 줄 위치. 세로 포스터는 제목이 있는 높이를 적습니다 (예: 'center 37%') */
+  imageFocus?: string;
   /** 사진 설명 (화면 낭독기용) */
   imageAlt?: string;
   /** 기록 영상의 유튜브 주소 */
@@ -58,6 +60,7 @@ export const conferences: Conference[] = [
     summary:
       '서브컬처 텍스트에 나타난 고립의 서사와 실천을 살폈습니다. 오시미 슈조의 『피의 흔적』과 후지모토 타츠야의 『파이어펀치』를 중심으로 이상혁 교수(조선대학교)가 발표했습니다.',
     image: 'colloquium-02.webp',
+    imageFocus: 'center 37%',
     imageAlt: '동아시아 고립 서사 콜로키움 02 포스터',
     link: 'https://okinawa.khu.ac.kr/activities/east-asian-isolation-narratives-colloquium-02',
   },
@@ -80,6 +83,7 @@ export const conferences: Conference[] = [
     summary:
       '식민과 냉전이 낳은 다층적 고립을 넘어서. 최말순 교수(대만 국립정치대학)가 「전쟁·식민·국가: 대만을 중심으로 본 동아시아의 역사 경험과 문학적 재현」을 발제했습니다.',
     image: 'colloquium-01.webp',
+    imageFocus: 'center 9%',
     imageAlt: '동아시아 고립 서사 콜로키움 01 포스터',
     link: 'https://okinawa.khu.ac.kr/activities/east-asian-isolation-narratives-colloquium-01',
   },

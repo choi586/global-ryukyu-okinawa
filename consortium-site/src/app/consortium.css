@@ -1766,6 +1766,8 @@ html[lang='ja'] .cs h3 { letter-spacing: -0.02em; }
 
 /* Conference entry with a photo. */
 .cs-conference-photo { display: block; overflow: hidden; border-radius: 4px; background: var(--cs-navy); }
-.cs-conference-photo img { display: block; width: 100%; height: auto; transition: transform 0.6s ease; }
+/* Every entry gets the same 16:9 frame, whatever shape its picture is. */
+.cs-conference-photo { position: relative; aspect-ratio: 16 / 9; }
+.cs-conference-photo img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
 a.cs-conference-photo:hover img { transform: scale(1.03); }
 .cs-conference-link { display: flex; flex-wrap: wrap; gap: 8px 22px; }
