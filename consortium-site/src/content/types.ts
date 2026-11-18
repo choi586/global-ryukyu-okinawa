@@ -88,6 +88,17 @@ export type Content = {
     leadRole: string;
     leadName: string;
     leadLines: [string, string];
+    /** Director's greeting. Shown as a teaser beside the lead and in full on the people page. */
+    greeting?: {
+      label: string;
+      title: string;
+      teaser: string;
+      readMore: string;
+      photoAlt: string;
+      paragraphs: string[];
+      closing: string;
+      signature: string;
+    };
     teamLabel: string;
     researchers: [name: string, place: string, field: string][];
     staffLabel: string;

@@ -1,4 +1,4 @@
-import { ConfettiName } from '@/components/confetti-name';
+import { TeamBlock } from '@/components/team-block';
 import { SiteFooter } from '@/components/site-footer';
 import { asset } from '@/lib/base-path';
 import type { Content } from '@/content/types';
@@ -406,62 +406,7 @@ export function ConsortiumPage({ c }: { c: Content }) {
               </li>
             ))}
           </ul>
-          <div className="cs-team cs-reveal">
-            <div className="cs-team-lead">
-              <p className="cs-card-type">{people.leadRole}</p>
-              <h3>{people.leadName}</h3>
-              <p>
-                {people.leadLines[0]}
-                <br />
-                {people.leadLines[1]}
-              </p>
-            </div>
-            <div className="cs-team-lists">
-              <div className="cs-team-list">
-                <p className="cs-card-type">{people.teamLabel}</p>
-                <ul>
-                  {people.researchers.map(([name, place, field]) => (
-                    <li key={name}>
-                      <strong>{name}</strong>
-                      <span>{place}</span>
-                      <span>{field}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {(
-                [
-                  [people.staffLabel, people.staff],
-                  [people.studentsLabel, people.students],
-                ] as const
-              ).map(([label, members]) => (
-                <div key={label} className="cs-team-list cs-team-staff">
-                  <p className="cs-card-type">{label}</p>
-                  <ul>
-                    {members.map((person) => (
-                      <li key={person.name}>
-                        {person.confetti ? (
-                          <ConfettiName name={person.name} />
-                        ) : (
-                          <strong>{person.name}</strong>
-                        )}
-                        <span>{person.place}</span>
-                        {person.field ? <span>{person.field}</span> : null}
-                        {person.bio?.length ? (
-                          <details className="cs-team-bio">
-                            <summary>{people.bioToggle}</summary>
-                            {person.bio.map((paragraph) => (
-                              <p key={paragraph}>{paragraph}</p>
-                            ))}
-                          </details>
-                        ) : null}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
+          <TeamBlock c={c} teaser />
         </div>
       </section>
 
