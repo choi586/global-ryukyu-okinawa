@@ -51,6 +51,17 @@ export const conferences: Conference[] = [
       '와세다대학교 고미부치 노리쓰구 교수와 함께합니다. 14일은 군산 적산가옥 일대 현지 학술답사와 라운드테이블, 15일은 서울에서 포럼과 현장조사를 진행합니다.',
   },
   {
+    kind: '콜로키움',
+    title: '동아시아 고립 서사 콜로키움 02: 폐쇄적 관계망의 해체와 주체적 연결의 회복',
+    date: '2026. 11. 13.',
+    place: '경희대학교 국제캠퍼스',
+    summary:
+      '서브컬처 텍스트에 나타난 고립의 서사와 실천을 살폈습니다. 오시미 슈조의 『피의 흔적』과 후지모토 타츠야의 『파이어펀치』를 중심으로 이상혁 교수(조선대학교)가 발표했습니다.',
+    image: 'colloquium-02.webp',
+    imageAlt: '동아시아 고립 서사 콜로키움 02 포스터',
+    link: 'https://okinawa.khu.ac.kr/activities/east-asian-isolation-narratives-colloquium-02',
+  },
+  {
     kind: '워크숍',
     title: '제주-오키나와 국제워크숍: 섬의 타자들, 고립의 기억',
     date: '2026. 10. 30.',
@@ -60,5 +71,16 @@ export const conferences: Conference[] = [
     image: 'workshop-2026-jeju.webp',
     imageAlt: '제주-오키나와 국제워크숍 참가자들이 현수막을 들고 찍은 단체사진',
     link: 'https://okinawa.khu.ac.kr/activities/jeju-okinawa-international-workshop-2026',
+  },
+  {
+    kind: '콜로키움',
+    title: '동아시아 고립 서사 콜로키움 01: 역사의 주변부에서 들려오는 목소리',
+    date: '2026. 10. 12.',
+    place: '온라인(Zoom)',
+    summary:
+      '식민과 냉전이 낳은 다층적 고립을 넘어서. 최말순 교수(대만 국립정치대학)가 「전쟁·식민·국가: 대만을 중심으로 본 동아시아의 역사 경험과 문학적 재현」을 발제했습니다.',
+    image: 'colloquium-01.webp',
+    imageAlt: '동아시아 고립 서사 콜로키움 01 포스터',
+    link: 'https://okinawa.khu.ac.kr/activities/east-asian-isolation-narratives-colloquium-01',
   },
 ];
