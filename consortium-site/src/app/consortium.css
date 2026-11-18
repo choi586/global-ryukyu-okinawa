@@ -1796,3 +1796,6 @@ a.cs-conference-photo:hover img { transform: scale(1.03); }
   .cs-greeting-photo img { width: 120px; }
   .cs-greeting-photo figcaption { margin-top: 0; }
 }
+
+/* Short lines inside an opened program item sit closer together. */
+.cs-program-detail { gap: 6px; }
