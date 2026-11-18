@@ -1763,3 +1763,9 @@ html[lang='ja'] .cs h3 { letter-spacing: -0.02em; }
 .cs-confetti-name:focus-visible { outline: 2px solid var(--cs-slate); outline-offset: 4px; }
 
 .cs-confetti-card { cursor: pointer; }
+
+/* Conference entry with a photo. */
+.cs-conference-photo { display: block; overflow: hidden; border-radius: 4px; background: var(--cs-navy); }
+.cs-conference-photo img { display: block; width: 100%; height: auto; transition: transform 0.6s ease; }
+.cs-conference-photo:hover img { transform: scale(1.03); }
+.cs-conference-link { display: flex; flex-wrap: wrap; gap: 8px 22px; }

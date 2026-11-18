@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { asset } from '@/lib/base-path';
 import { conferenceKinds, type Conference, type ConferenceKind } from '@/data/conferences';
 import { YoutubePlayer } from './youtube-player';
 
@@ -32,12 +33,25 @@ export function ConferenceList({ items }: { items: Conference[] }) {
           {shown.map((item) => (
             <li
               key={item.kind + item.title}
-              className={'cs-audio' + (item.youtube ? '' : ' is-text')}
+              className={'cs-audio' + (item.youtube || item.image ? '' : ' is-text')}
             >
               {item.youtube ? (
                 <div className="cs-audio-player">
                   <YoutubePlayer url={item.youtube} title={item.title} />
                 </div>
+              ) : item.image ? (
+                <a
+                  className="cs-conference-photo"
+                  href={asset(`/images/consortium/events/${item.image}`)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src={asset(`/images/consortium/events/${item.image}`)}
+                    alt={item.imageAlt ?? ''}
+                    loading="lazy"
+                  />
+                </a>
               ) : null}
               <div className="cs-audio-body">
                 <p className="cs-card-type">
@@ -46,9 +60,18 @@ export function ConferenceList({ items }: { items: Conference[] }) {
                 </p>
                 <h3>{item.title}</h3>
                 {item.summary ? <p>{item.summary}</p> : null}
-                {item.link ? (
+                {item.poster || item.link ? (
                   <p className="cs-conference-link">
-                    <a href={item.link}>자세히 보기 →</a>
+                    {item.poster ? (
+                      <a
+                        href={asset(`/images/consortium/events/${item.poster}`)}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        포스터 보기 ↗
+                      </a>
+                    ) : null}
+                    {item.link ? <a href={item.link}>자세히 보기 →</a> : null}
                   </p>
                 ) : null}
               </div>
