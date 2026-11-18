@@ -29,7 +29,7 @@ export const ko: Content = {
     ['연구', '#research'],
     ['프로그램', '#programs'],
     ['아카이브·성과', '#archive'],
-    ['연구진', '#people'],
+    ['연구진', '/people/'],
     ['학술대회', '/conference/'],
     ['오디오북', '/audiobook/'],
     ['활동 기록', '/records/'],
