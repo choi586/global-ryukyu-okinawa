@@ -9,18 +9,24 @@ const ogImage = asset('/images/consortium/og-logo.jpg');
 
 // Page metadata per language; the two versions point at each other.
 export function siteMetadata(c: Content): Metadata {
+  const jaPublished = process.env.NEXT_PUBLIC_CONSORTIUM_JA === '1';
   const path = c.locale === 'ko' ? `${basePath}/` : `${basePath}/ja/`;
   const { title, description, siteName, ogLocale } = c.meta;
   return {
     ...(siteUrl
       ? {
           metadataBase: new URL(siteUrl),
-          alternates: { canonical: path, languages: { ko: `${basePath}/`, ja: `${basePath}/ja/` } },
+          alternates: {
+            canonical: path,
+            // Only point at the Japanese page once it is published: until then
+            // it does not exist, and search engines would record a 404.
+            ...(jaPublished ? { languages: { ko: `${basePath}/`, ja: `${basePath}/ja/` } } : {}),
+          },
         }
       : {}),
     // Korean is public; Japanese stays out of search until its translation is reviewed.
     robots:
-      c.locale === 'ko' || process.env.NEXT_PUBLIC_CONSORTIUM_JA === '1'
+      c.locale === 'ko' || jaPublished
         ? { index: true, follow: true }
         : { index: false, follow: false },
     title: { absolute: title },
@@ -34,9 +40,7 @@ export function siteMetadata(c: Content): Metadata {
       locale: ogLocale,
       ...(siteUrl
         ? {
-            images: [
-              { url: ogImage, width: 1200, height: 630, alt: title },
-            ],
+            images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
           }
         : {}),
     },

@@ -72,7 +72,9 @@ export default {
               .map((path) => `<url><loc>${origin}${path}</loc></url>`)
               .join('') +
             // The consortium site is a separate static project under /consortium/.
-            `<url><loc>${origin}/consortium/</loc></url>` +
+            ['', 'people/', 'conference/', 'audiobook/', 'records/']
+              .map((page) => `<url><loc>${origin}/consortium/${page}</loc></url>`)
+              .join('') +
             '</urlset>',
         );
       }
