@@ -20,6 +20,7 @@ export type Notice = {
   title: string;
   body: string;
   bodyFormat?: 'structured';
+  imagesPosition?: 'before-body';
   status: 'draft' | 'published';
   pinned: boolean;
   publishedAt: string;

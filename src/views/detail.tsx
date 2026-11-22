@@ -33,6 +33,21 @@ export default async function Detail({ params, locale = 'ko' }: Props) {
   if (!notice) notFound();
   const category = notice.category || 'news';
   const label = category === 'news' ? t('공지사항') : t(categories[category]);
+  const images = notice.attachments
+        .filter((f) => f.type.startsWith('image/'))
+        .map((f) => (
+          <figure key={f.id} className="notice-image">
+            <img
+              src={`/api/files/${notice.id}/${f.id}`}
+              alt={f.alt}
+              width={f.width}
+              height={f.height}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>{f.alt}</figcaption>
+          </figure>
+        ));
   return (
     <article className="shell detail-section">
       <p className="breadcrumb">
@@ -57,24 +72,11 @@ export default async function Detail({ params, locale = 'ko' }: Props) {
           </p>
         )}
       </header>
+      {notice.imagesPosition === 'before-body' && images}
       <div className={`article-body${notice.bodyFormat === 'structured' ? ' article-structured' : ''}`} lang="ko">
         {notice.bodyFormat === 'structured' ? <StructuredArticle text={notice.body} /> : <ArticleText text={notice.body} />}
       </div>
-      {notice.attachments
-        .filter((f) => f.type.startsWith('image/'))
-        .map((f) => (
-          <figure key={f.id} className="notice-image">
-            <img
-              src={`/api/files/${notice.id}/${f.id}`}
-              alt={f.alt}
-              width={f.width}
-              height={f.height}
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>{f.alt}</figcaption>
-          </figure>
-        ))}
+      {notice.imagesPosition !== 'before-body' && images}
       {notice.attachments.length > 0 && (
         <section className="attachments">
           <h2>
