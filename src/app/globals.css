@@ -3110,3 +3110,24 @@ a.highlight-link:focus-visible { outline: 2px solid var(--khu-red); outline-offs
 .video-missing { display: grid; place-items: center; padding: 16px; color: #fff; text-align: center; }
 @media (max-width: 1000px) { .archive-videos { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .archive-videos { grid-template-columns: 1fr; } }
+
+/* Opt-in typography for detailed notices with tables and section headings. */
+.article-structured { white-space: normal; max-width: 900px; margin-inline: auto; font-size: 16px; line-height: 1.85; color: #303638; }
+.article-structured > p { margin: 0 0 22px; white-space: pre-line; }
+.article-structured > p:first-child { font-size: 14px; color: #687174; letter-spacing: .025em; }
+.article-structured h2 { margin: 44px 0 18px; padding-bottom: 12px; border-bottom: 2px solid #e4e9e8; font-size: 22px; line-height: 1.4; font-weight: 700; color: #18343c; }
+.article-structured strong { font-weight: 700; color: #18343c; }
+.article-structured ul { margin: 0 0 24px; padding-left: 22px; }
+.article-structured li { padding-left: 3px; margin: 9px 0; }
+.article-table-wrap { margin: 0 0 24px; }
+.article-structured table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 15px; line-height: 1.75; }
+.article-structured th, .article-structured td { padding: 15px 18px; border: 1px solid #dfe6e5; vertical-align: top; text-align: left; overflow-wrap: anywhere; }
+.article-structured tbody th { width: 24%; background: #f3f7f6; color: #18343c; font-weight: 700; }
+.article-structured thead th { background: #18343c; color: white; font-weight: 700; }
+@media (max-width: 600px) {
+  .article-structured { font-size: 15px; line-height: 1.85; }
+  .article-structured h2 { font-size: 20px; margin-top: 34px; }
+  .article-structured table { font-size: 13px; line-height: 1.7; }
+  .article-structured th, .article-structured td { padding: 12px 9px; }
+  .article-structured tbody th { width: 27%; }
+}

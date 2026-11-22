@@ -1,4 +1,5 @@
 import { ArticleText } from '@/components/article-text';
+import { StructuredArticle } from '@/components/structured-article';
 import { localePath, translate, type Locale } from '@/i18n/config';
 import { cache } from 'react';
 import type { Metadata } from 'next';
@@ -56,8 +57,8 @@ export default async function Detail({ params, locale = 'ko' }: Props) {
           </p>
         )}
       </header>
-      <div className="article-body" lang="ko">
-        <ArticleText text={notice.body} />
+      <div className={`article-body${notice.bodyFormat === 'structured' ? ' article-structured' : ''}`} lang="ko">
+        {notice.bodyFormat === 'structured' ? <StructuredArticle text={notice.body} /> : <ArticleText text={notice.body} />}
       </div>
       {notice.attachments
         .filter((f) => f.type.startsWith('image/'))

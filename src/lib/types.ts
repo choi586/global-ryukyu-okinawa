@@ -19,6 +19,7 @@ export type Notice = {
   slug: string;
   title: string;
   body: string;
+  bodyFormat?: 'structured';
   status: 'draft' | 'published';
   pinned: boolean;
   publishedAt: string;
